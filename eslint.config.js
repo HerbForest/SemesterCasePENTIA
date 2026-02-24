@@ -24,4 +24,13 @@ export default defineConfig([
   ...pluginVue.configs['flat/essential'],
 
   ...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+ // Custom rules
+  {
+    rules: {
+      'no-console': 'warn', // Warns when console.log is used
+      'vue/no-unused-vars': 'error', // Errors for unused variables in Vue
+      'quotes': ['error', 'single'], // Enforce single quotes
+      // Add other rules as needed
+    },
+  },
 ])
