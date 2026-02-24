@@ -1,3 +1,14 @@
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Environment variables (KRITISK - indeholder API-nøgler!)
+.env
+.env.local
+.env.*.local
+
 # Logs
 logs
 *.log
