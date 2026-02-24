@@ -34,3 +34,15 @@ export default defineConfig([
     },
   },
 ])
+
+//indent: Enforce consistent indentation (e.g., spaces vs. tabs).
+//quotes: Enforce the use of single or double quotes for strings.
+//semi: Require or disallow semicolons at the end of statements.
+//max-len: Enforce a maximum line length.
+//camelcase: Enforce camelCase naming convention.
+//no-undef: Disallow the use of undeclared variables.
+//vue/no-unused-vars: Disallow unused variables in Vue components.
+//no-magic-numbers: Disallow magic numbers, encouraging named constants instead.
+//no-multi-spaces: Disallow multiple spaces.
+//no-duplicate-imports: Disallow duplicate imports in a module.
+
