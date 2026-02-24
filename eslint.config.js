@@ -27,11 +27,11 @@ export default defineConfig([
   // Custom rules
   {
     rules: {
-      "no-console": "warn", // Warns when console.log is used
-      "vue/no-unused-vars": "error", // Errors for unused variables in Vue
-      quotes: ["error", "single"], // Enforce single quotes
+      'no-console': 'warn', // Warns when console.log is used
+      'vue/no-unused-vars': 'error', // Errors for unused variables in Vue
+      quotes: ['error', 'single'], // Enforce single quotes
       // Add other rules as needed
-      indent: ["warn", "tabs"], //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
+      indent: ['warn', 'tabs'], //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
     },
   },
 ]);
