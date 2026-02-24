@@ -31,7 +31,7 @@ export default defineConfig([
       'vue/no-unused-vars': 'error', // Errors for unused variables in Vue
       quotes: ['error', 'single'], // Enforce single quotes
       // Add other rules as needed
-      indent: ['warn', 'tabs'], //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
+      indent: ['warn', 'tab'], //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
     },
   },
 ]);
