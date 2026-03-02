@@ -1,39 +1,41 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import globals from "globals";
-import js from "@eslint/js";
-import pluginVue from "eslint-plugin-vue";
-import pluginOxlint from "eslint-plugin-oxlint";
+import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
+import js from '@eslint/js';
+import pluginVue from 'eslint-plugin-vue';
+import pluginOxlint from 'eslint-plugin-oxlint';
 
 export default defineConfig([
-  {
-    name: "app/files-to-lint",
-    files: ["**/*.{vue,js,mjs,jsx}"],
-  },
+	
+	{
+		name: 'app/files-to-lint',
+		files: ['src/**/*'],
+	},
+  
 
-  globalIgnores(["**/dist/**", "**/dist-ssr/**", "**/coverage/**"]),
+	globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
 
-  {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-      },
-    },
-  },
+	{
+		languageOptions: {
+			globals: {
+				...globals.browser,
+			},
+		},
+	},
 
-  js.configs.recommended,
-  ...pluginVue.configs["flat/essential"],
+	js.configs.recommended,
+	...pluginVue.configs['flat/essential'],
 
-  ...pluginOxlint.buildFromOxlintConfigFile(".oxlintrc.json"),
-  // Custom rules
-  {
-    rules: {
-      'no-console': 'warn', // Warns when console.log is used
-      'vue/no-unused-vars': 'error', // Errors for unused variables in Vue
-      quotes: ['error', 'single'], // Enforce single quotes
-      // Add other rules as needed
-      indent: ['warn', 'tab'], //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
-    },
-  },
+	...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
+	// Custom rules
+	{
+		rules: {
+			'no-console': 'warn', // Warns when console.log is used
+			'vue/no-unused-vars': 'error', // Errors for unused variables in Vue
+			quotes: ['error', 'single'], // Enforce single quotes
+			// Add other rules as needed
+			indent: ['warn', 'tab'], //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
+		},
+	},
 ]);
 
 //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
