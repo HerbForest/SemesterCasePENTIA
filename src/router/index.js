@@ -9,8 +9,8 @@ const router = createRouter({
 			component: () => import("@/views/BBViews/BBHomePageView.vue"),
 		},
 		{
-			path: "/Bl",
-			name: "BlHomePage",
+			path: "/BL",
+			name: "BLHomePage",
 			component: () => import("@/views/BLViews/BLHomePageView.vue"),
 		},
 	],
