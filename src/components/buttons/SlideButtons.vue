@@ -32,7 +32,7 @@ defineEmits(['update:modelValue'])
 	border-radius: 999px;
 	border: none;
 	cursor: pointer;
-	background-color: $color-accent;
+	background-color: $muted-color;
 	position: relative;
 	transition: background-color 0.25s ease;
 
