@@ -11,7 +11,7 @@ const router = createRouter({
 		{
 			path: "/BL",
 			name: "BLHomePage",
-			component: () => import("@/views/BLViews/BLHomePageView.vue"),
+			component: () => import("@/views/BlViews/BLHomePageView.vue"),
 		},
 	],
 });
