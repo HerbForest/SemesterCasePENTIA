@@ -5,9 +5,9 @@ import { ref } from "vue";
 	<button class="primary">primary</button>
 	<button class="secondary">secondary</button>
 </template>
-<style>
+<style scoped>
 .primary {
-	background-color: #2c687d;
+	background-color: v.$color-primary;
 	color: #fff;
 	border: none;
 	border-radius: 5px;
