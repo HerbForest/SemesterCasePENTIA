@@ -3,17 +3,26 @@
 $primary-color: #2c687d;
 $primary-foreground-color: #ffffff;
 $background-color: #f6f8f9;
+//primær tekst farve $foreground-color: #263740;
 $foreground-color: #263740;
+$secondary-color: #e8edef;
 //semantic colors
 $card-color: #ffffff;
 $muted-color: #eaeef0;
 $muted-foreground-color: #819098;
 $accent-color: #d9ecf2;
+$text-accent-color: #213f4a;
 $border-color: #d8e2e6;
+$border-input-color: #daeaed;
 $success-color: #29a36a;
 $warning-color: #f59f0a;
 $destructive-color: #dc2828;
 //TEXT
+$font-family:
+	"Inter",
+	system-ui,
+	-apple-system,
+	sans-serif;
 //size
 $font-size-4xl: 2.25rem;
 $font-size-3xl: 1.875rem;
@@ -28,3 +37,16 @@ $font-weight-bold: 700;
 $font-weight-semibold: 600;
 $font-weight-normal: 400;
 //lav mixins her
+//button size
+@mixin btn-size($size: default) {
+	@if $size == default {
+		height: 2.5rem;
+		padding: 0.5rem;
+	} @else if $size== small {
+		height: 2.25rem;
+		padding: 0 0.75rem;
+	} @else if $size == large {
+		height: 2.75rem;
+		padding: 0 2rem;
+	}
+}
