@@ -43,7 +43,7 @@ import { ref } from "vue";
 }
 .outline {
 	@include btn-size($size: default);
-	border-color: $border-input-color;
+	border: 1px solid $border-input-color;
 	background-color: $background-color;
 	color: $foreground-color;
 }
