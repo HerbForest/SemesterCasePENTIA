@@ -1,1 +1,5 @@
-@use "@/variables.scss" as v;
+@use "@/assets/scss/variables" as *;
+
+* {
+	border-radius: 6px;
+}
