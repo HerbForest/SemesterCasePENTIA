@@ -18,6 +18,11 @@ defineProps({
 <template>
 	<div class="card">
 		<div class="card__icon">{{ icon }}</div>
+
+		<!-- <div class="card__icon">
+			<slot name="icon" />
+		</div> -->
+
 		<h3 v-if="title" class="card__title">{{ title }}</h3>
 		<span v-if="arrow" class="card__arrow">›</span>
 	</div>

@@ -16,13 +16,18 @@ const bbTitle = "Jonas"
 <h2 class="bbWelcome">Velkommen! {{ bbTitle }}</h2>
 </div>
 
-<ButtonCard title="Byggeplan", arrow=">">
+<ButtonCard title="Byggeplan" :arrow="true">
+
+	<!-- Brug dette når icon bibliotek installeres -->
+	<!-- <template #icon>
+            <CalendarIcon />
+        </template> -->
 </ButtonCard>
-<ButtonCard title="Kontrakter", arrow=">">
+<ButtonCard title="Kontrakter" :arrow="true">
 </ButtonCard>
-<ButtonCard title="Beskeder", arrow=">">
+<ButtonCard title="Beskeder" :arrow="true">
 </ButtonCard>
-<ButtonCard title="Kontakt din byggeleder", arrow=">">
+<ButtonCard title="Kontakt din byggeleder" :arrow="true">
 </ButtonCard>
 
 
