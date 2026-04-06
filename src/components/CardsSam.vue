@@ -18,8 +18,11 @@ defineProps({
 @use '@/assets/scss/variables' as *;
 
 .card {
-	background: $background-color;
+	background: $card-color;
 	border-radius: 16px;
+	border-width: 1px;
+	border-style: solid;
+	border-color: $border-color;
 	padding: 20px;
 	margin-bottom: 12px;
 
