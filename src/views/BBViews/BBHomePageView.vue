@@ -3,7 +3,7 @@ import RoundButtons from '@/components/buttons/RoundButtons.vue'
 import { ref } from 'vue'
 import SlideButtons from '@/components/buttons/SlideButtons.vue';
 import Card from '@/components/TextCard.vue'
-
+import ButtonCard from '@/components/ButtonCard.vue';
 const isToggled = ref(false)
 
 // skal rettes til data fra database!!
@@ -16,13 +16,16 @@ const bbTitle = "Jonas"
 <h2 class="bbWelcome">Velkommen! {{ bbTitle }}</h2>
 </div>
 
-<card>
-		<div class="card__inner">
-			<div class="card__icon">📅</div>
-			<span>Byggeplan</span>
-			<span class="card__arrow">›</span>
-		</div>
-	</card>
+<ButtonCard title="Byggeplan", arrow=">">
+</ButtonCard>
+<ButtonCard title="Kontrakter", arrow=">">
+</ButtonCard>
+<ButtonCard title="Beskeder", arrow=">">
+</ButtonCard>
+<ButtonCard title="Kontakt din byggeleder", arrow=">">
+</ButtonCard>
+
+
 
 		<!-- Blå knap -->
 	<RoundButtons variant="dark" icon="+" />
