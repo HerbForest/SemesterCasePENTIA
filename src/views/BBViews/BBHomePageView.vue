@@ -2,7 +2,7 @@
 import RoundButtons from '@/components/buttons/RoundButtons.vue'
 import { ref } from 'vue'
 import SlideButtons from '@/components/buttons/SlideButtons.vue';
-import Card from '@/components/CardsSam.vue'
+import Card from '@/components/TextCard.vue'
 
 const isToggled = ref(false)
 
