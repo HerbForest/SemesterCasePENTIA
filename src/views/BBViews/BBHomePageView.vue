@@ -1,9 +1,11 @@
 <script setup>
-import RoundButtons from '@/components/buttons/RoundButtons.vue'
 import { ref } from 'vue'
+
+import RoundButtons from '@/components/buttons/RoundButtons.vue'
 import SlideButtons from '@/components/buttons/SlideButtons.vue';
 import Card from '@/components/TextCard.vue'
 import ButtonCard from '@/components/ButtonCard.vue';
+
 const isToggled = ref(false)
 
 // skal rettes til data fra database!!
@@ -11,6 +13,7 @@ const bbTitle = "Jonas"
 </script>
 
 <template>
+	<div class="layout-bb">
 <div class="bbHero">
 <h1 class="">Mit Byggeri</h1>
 <h2 class="bbWelcome">Velkommen! {{ bbTitle }}</h2>
@@ -43,6 +46,6 @@ const bbTitle = "Jonas"
 	<Card title="Om Thomas">
 		<p>Thomas har over 15 års erfaring...</p>
 	</Card>
-
+</div>
 </template>
 git merge main
