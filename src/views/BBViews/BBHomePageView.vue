@@ -13,11 +13,12 @@ const bbTitle = "Jonas"
 </script>
 
 <template>
-	<div class="layout-bb">
-<div class="bbHero">
-<h1 class="">Mit Byggeri</h1>
-<h2 class="bbWelcome">Velkommen! {{ bbTitle }}</h2>
-</div>
+<div class="layout-bb">
+
+	<div class="bbHero">
+		<h1 class="">Mit Byggeri</h1>
+		<h2 class="bbWelcome">Velkommen! {{ bbTitle }}</h2>
+	</div>
 
 <ButtonCard title="Byggeplan" :arrow="true">
 
@@ -48,4 +49,11 @@ const bbTitle = "Jonas"
 	</Card>
 </div>
 </template>
-git merge main
+
+<style scoped>
+@use '../assets/scss/variables' as v;
+
+h1{
+	color: v.$card-color;
+}
+</style>
