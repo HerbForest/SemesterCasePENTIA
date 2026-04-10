@@ -1,5 +1,6 @@
 <script setup>
-import SqaureButtons from "@/components/buttons/SqaureButtons.vue";
+import SqaureButtons from '@/components/buttons/SqaureButtons.vue';
+
 </script>
 <template>
 	<div>

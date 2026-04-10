@@ -16,6 +16,7 @@ const router = createRouter({
 					path: 'homepage',
 					name: 'BLHomePage',
 					component: () => import('@/views/BLViews/BLHomePageView.vue'),
+					meta:{pageName:'byggeleder portal'}
 				}
 			]
 		}
