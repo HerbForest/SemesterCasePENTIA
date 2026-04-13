@@ -14,6 +14,7 @@
     "deploy": "npm run build && firebase deploy"
   },
   "dependencies": {
+    "@lucide/vue": "^1.8.0",
     "firebase": "^12.11.0",
     "pinia": "^3.0.4",
     "scss": "^0.2.4",
