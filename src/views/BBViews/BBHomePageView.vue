@@ -5,6 +5,7 @@ import RoundButtons from '@/components/buttons/RoundButtons.vue'
 import SlideButtons from '@/components/buttons/SlideButtons.vue';
 import Card from '@/components/TextCard.vue'
 import ButtonCard from '@/components/ButtonCard.vue';
+import Header from '@/components/BuilderHeader.vue'
 
 const isToggled = ref(false)
 
@@ -19,6 +20,9 @@ const bbTitle = "Jonas"
 		<h1 class="">Mit Byggeri</h1>
 		<h2 class="bbWelcome">Velkommen! {{ bbTitle }}</h2>
 	</div>
+
+<Header/>
+
 
 <ButtonCard title="Byggeplan" :arrow="true">
 
