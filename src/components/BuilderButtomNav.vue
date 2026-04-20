@@ -35,7 +35,7 @@ const navItems = [
 </template>
 
 <style lang="scss">
-@use "@/assets/scss/variables" as *;
+//@use "@/assets/scss/variables" as *;
 
 .bottom-nav {
 	position: fixed;

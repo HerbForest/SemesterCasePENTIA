@@ -21,7 +21,7 @@ const PageName = computed(() => route.meta.pageName);
 </template>
 
 <style lang="scss">
-@use "@/assets/scss/variables" as *;
+//@use "@/assets/scss/variables" as *;
 * {
 	margin: 0;
 }
