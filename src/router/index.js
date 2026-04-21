@@ -9,6 +9,11 @@ const router = createRouter({
 			component: () => import("@/views/BBViews/BBHomePageView.vue"),
 		},
 		{
+			path: "/more",
+			name: "more",
+			component: () => import("@/views/BBViews/BuyerMorePageView.vue"),
+		},
+		{
 			path: "/BL",
 			component: () => import("@/layout/BLLayout.vue"),
 			children: [
