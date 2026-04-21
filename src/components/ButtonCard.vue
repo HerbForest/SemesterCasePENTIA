@@ -1,12 +1,16 @@
 <script setup>
 defineProps({
-	title: {
+	buttonTitle: {
+		type: String,
+		default: '',
+	},
+	buttonText: {
 		type: String,
 		default: '',
 	},
 	icon: {
 		type: String,
-		default: '📅',
+		default: '',
 	},
 	arrow: {
 		type: Boolean,
@@ -22,8 +26,10 @@ defineProps({
 		<!-- <div class="card__icon">
 			<slot name="icon" />
 		</div> -->
-
-		<h3 v-if="title" class="card__title">{{ title }}</h3>
+		<div class="card__content">
+		<h3 v-if="buttonTitle" class="card__title">{{ buttonTitle }}</h3>
+		<p v-if="buttonText" class="card__text">{{ buttonText }}</p>
+		</div>
 		<span v-if="arrow" class="card__arrow">›</span>
 	</div>
 </template>
@@ -47,21 +53,34 @@ defineProps({
 		justify-content: center;
 		width: 44px;
 		height: 44px;
-		background: #e8f2f4;
+		background: $accent-color;
 		border-radius: 10px;
 		font-size: 1.3rem;
 		flex-shrink: 0;
 	}
 
+	&__content {
+		flex: 1;  // ← her skal den sidde
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
 	&__title {
-		color: $primary-color;
-		font-size: 1.1rem;
+		color: $foreground-color;
+		font-size: $font-size-lg;
+		font-weight: $font-weight-semibold;
 		margin: 0;
-		flex: 1;
+	}
+
+	&__text {
+		color: $muted-foreground-color;
+		font-size: $font-size-sm;
+		margin: 0;
 	}
 
 	&__arrow {
-		color: $primary-color;
+		color: $muted-foreground-color;
 		font-size: 1.5rem;
 		flex-shrink: 0;
 	}
