@@ -9,8 +9,13 @@ const router = createRouter({
 			component: () => import("@/views/BBViews/BBHomePageView.vue"),
 		},
 		{
-			path: "/more",
-			name: "more",
+			path: "/mere",
+			name: "mere",
+			component: () => import("@/views/BBViews/BuyerMorePageView.vue"),
+		},
+			{
+			path: "/mere",
+			name: "mere",
 			component: () => import("@/views/BBViews/BuyerMorePageView.vue"),
 		},
 		{

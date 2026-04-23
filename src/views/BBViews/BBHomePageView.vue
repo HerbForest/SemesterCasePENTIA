@@ -55,7 +55,6 @@ const bbTitle = "Jonas"
 </template>
 
 <style scoped>
-@use '../assets/scss/variables' as v;
 
 h1{
 	color: v.$card-color;

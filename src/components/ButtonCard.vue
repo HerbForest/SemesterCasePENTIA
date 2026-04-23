@@ -35,8 +35,6 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables' as *;
-
 .card {
 	display: flex;
 	align-items: center;

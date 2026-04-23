@@ -73,7 +73,6 @@ const buildingProgress = '63%';
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables' as *;
 
 .hero-card {
 	position: relative;

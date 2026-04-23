@@ -15,7 +15,6 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables' as *;
 
 .card {
 	background: $card-color;

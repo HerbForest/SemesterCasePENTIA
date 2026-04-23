@@ -24,7 +24,7 @@ defineEmits(['update:modelValue'])
 
 	
 <style scoped lang="scss">
-@use '@/assets/scss/_variables' as *;
+
 
 .toggle {
 	width: 56px;
