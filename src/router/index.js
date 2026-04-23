@@ -14,9 +14,9 @@ const router = createRouter({
 			component: () => import("@/views/BBViews/BuyerMorePageView.vue"),
 		},
 			{
-			path: "/mere",
-			name: "mere",
-			component: () => import("@/views/BBViews/BuyerMorePageView.vue"),
+			path: "/byggeplan",
+			name: "byggeplan",
+			component: () => import("@/views/BBViews/BuyerBuildPlanView.vue"),
 		},
 		{
 			path: "/BL",
