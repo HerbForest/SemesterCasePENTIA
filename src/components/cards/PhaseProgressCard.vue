@@ -9,7 +9,8 @@ const phaseProps = defineProps({
 		type: String,
 		default: 'upcoming', // 'completed' | 'active' | 'upcoming'
 	},
-	date: { type: String, default: '' },
+	completedDate: { type: String, default: '' },  
+  estimatedDate: { type: String, default: '' },
 	progress: { type: Number, default: null },
 	images: { type: Array, default: () => [] },
 	timeLeft: { type: Number, default: null },
@@ -25,6 +26,33 @@ const toggle = () => {
 </script>
 
 <template>
+	<div :class="['phase-card', `phase-card--${satus}`]"
+	@click="toggle"
+	>
+	<!-- main content -->
+	 <div class="phase-card__main-content">
+		<div class="phase-card__badge">
+			<span v-if="status === 'completed'">✓</span>
+			<span v-else>{{ number }}</span>
+		</div>
+		<div class="phase-card__info">
+			<h3 class="phase-card__title">
+				{{ title }}
+			</h3>
+			<p class="phase-card__description">
+				{{ description }}
+			</p>
+			<p class="phase-card__date">
+				<span v-if="status === 'completed'">
+					Færdig: {{ completedDate }}
+				</span>
+				<span v-else-if="status === 'upcoming'">
+					Estimeret dato: {{ estimatedDate }}
+				</span>
+			</p>
+		</div>
+	 </div>
+	</div>
 
 </template>
 
