@@ -9,13 +9,10 @@
     "preview": "vite preview",
     "lint": "run-s lint:*",
     "lint:oxlint": "oxlint .",
-    "lint:eslint": "eslint .",
-    "docs": "jsdoc -c jsdoc.json",
-    "deploy": "npm run build && firebase deploy"
+    "lint:eslint": "eslint ."
+    
   },
   "dependencies": {
-    "@lucide/vue": "^1.8.0",
-    "firebase": "^12.11.0",
     "pinia": "^3.0.4",
     "scss": "^0.2.4",
     "vue": "^3.5.28",
@@ -24,12 +21,10 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@vitejs/plugin-vue": "^6.0.4",
-    "docdash": "^2.0.2",
     "eslint": "^9.39.2",
     "eslint-plugin-oxlint": "~1.46.0",
     "eslint-plugin-vue": "~10.8.0",
     "globals": "^17.3.0",
-    "jsdoc": "^4.0.5",
     "npm-run-all2": "^8.0.4",
     "oxlint": "~1.47.0",
     "sass": "^1.98.0",

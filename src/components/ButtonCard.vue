@@ -2,40 +2,44 @@
 defineProps({
 	buttonTitle: {
 		type: String,
-		default: '',
+		default: "",
 	},
 	buttonText: {
 		type: String,
-		default: '',
+		default: "",
 	},
 	icon: {
 		type: String,
-		default: '',
+		default: "",
+	},
+	buttonTags: {
+		type: String,
+		default: "",
 	},
 	arrow: {
 		type: Boolean,
 		default: false,
 	},
-})
+});
 </script>
 
 <template>
 	<div class="card">
 		<div class="card__icon">{{ icon }}</div>
 
-		<!-- <div class="card__icon">
-			<slot name="icon" />
-		</div> -->
+		<div class="card__progess">
+			<slot name="progress" />
+		</div>
 		<div class="card__content">
-		<h3 v-if="buttonTitle" class="card__title">{{ buttonTitle }}</h3>
-		<p v-if="buttonText" class="card__text">{{ buttonText }}</p>
+			<h3 v-if="buttonTitle" class="card__title">{{ buttonTitle }}</h3>
+			<p v-if="buttonText" class="card__text">{{ buttonText }}</p>
 		</div>
 		<span v-if="arrow" class="card__arrow">›</span>
 	</div>
 </template>
 
 <style scoped lang="scss">
-@use '@/assets/scss/variables' as *;
+/* @use '@/assets/scss/variables' as *; */
 
 .card {
 	display: flex;
@@ -60,7 +64,7 @@ defineProps({
 	}
 
 	&__content {
-		flex: 1;  // ← her skal den sidde
+		flex: 1; // ← her skal den sidde
 		display: flex;
 		flex-direction: column;
 		gap: 2px;
