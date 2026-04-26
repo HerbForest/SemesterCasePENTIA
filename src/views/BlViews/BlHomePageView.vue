@@ -14,7 +14,7 @@ import ProgressCircle from '@/components/ProgressCircle.vue';
 			<ButtonCard buttonTitle="Byggeplan" :arrow="true" />
 		</div>
 		<div>
-			<ProgressCircle/>
+			<ProgressCircle />
 		</div>
 	</div>
 </template>

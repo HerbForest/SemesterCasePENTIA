@@ -1,7 +1,5 @@
 <script setup>
-
-import 'vue3-circle-progress/dist/circle-progress.css';
-import CircleProgress from 'vue3-circle-progress';
+import { CircleProgressBar } from 'circle-progress.vue';
 
 
 </script>
@@ -9,6 +7,8 @@ import CircleProgress from 'vue3-circle-progress';
 <template>
 
 	// Basic Usage
-	<circle-progress :percent="40" fill-color='#2c687d' unit='%' :show-percent=true />
+	<CircleProgressBar :value="40" :max="100" percentage colorUnfilled='#2c687d' />
+
 
 </template>
+<style lang="scss"></style>
