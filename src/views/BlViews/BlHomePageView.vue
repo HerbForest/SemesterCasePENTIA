@@ -3,6 +3,7 @@ import SqaureButtons from '@/components/buttons/SqaureButtons.vue';
 import ButtonCard from '@/components/ButtonCard.vue';
 import backgroundImg from '@/assets/hero-construction.jpg';
 import ProgressCircle from '@/components/ProgressCircle.vue';
+import { Calendar } from '@lucide/vue'
 
 </script>
 <template>
@@ -11,7 +12,12 @@ import ProgressCircle from '@/components/ProgressCircle.vue';
 			<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
 		</div>
 		<div class="bagground">
-			<ButtonCard  buttonTitle="Byggeplan" :arrow="true" >
+			<ButtonCard  buttonTitle="Mågevej 112"
+			buttonText="Lars og Mette Hansen"
+			buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')"
+		 :icon="Calendar"
+		 >
 				<template #progress>
 					<ProgressCircle />
 				</template>

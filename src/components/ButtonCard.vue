@@ -9,13 +9,21 @@ defineProps({
 		default: "",
 	},
 	icon: {
-		type: String,
-		default: "",
+		type: Object,
+		default: null,
+	},
+	showIcon: {
+		type: Boolean,
+		default: false,
 	},
 	buttonTags: {
 		type: String,
 		default: "",
 	},
+		buttonDate: {
+			type: Date,
+			default: null,
+		},
 	arrow: {
 		type: Boolean,
 		default: false,
@@ -28,11 +36,18 @@ defineProps({
 		<div class="card__progess">
 			<slot name="progress" />
 		</div>
-		<div v-if="icon" class="card__icon">{{ icon }}</div>
+		<div v-if="icon" class="card__icon">
+			<component :is="icon" />
+		</div>
 
 		<div class="card__content">
 			<h3 v-if="buttonTitle" class="card__title">{{ buttonTitle }}</h3>
 			<p v-if="buttonText" class="card__text">{{ buttonText }}</p>
+			<span v-if="buttonTags" class="card__tags">{{ buttonTags }}</span>
+
+		<p v-if="buttonDate" class="card__date">
+			 Indflytning: {{ buttonDate.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' }) }}
+	 </p>
 		</div>
 		<span v-if="arrow" class="card__arrow">›</span>
 	</div>
@@ -81,6 +96,18 @@ defineProps({
 		color: $muted-foreground-color;
 		font-size: $font-size-sm;
 		margin: 0;
+	}
+	&__date{
+		color: $muted-foreground-color;
+		font-size: $font-size-sm;
+		margin: 0;
+	}
+	&__tags {
+		background-color:$accent-color;
+		 display: inline-block; /* hvis parent er flexbox */
+  width: fit-content;
+
+
 	}
 
 	&__arrow {
