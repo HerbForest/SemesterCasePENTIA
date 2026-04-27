@@ -103,9 +103,14 @@ defineProps({
 		margin: 0;
 	}
 	&__tags {
-		background-color:$accent-color;
+		background-color:$muted-color;
 		 display: inline-block; /* hvis parent er flexbox */
   width: fit-content;
+  	padding:5px 10px;
+   color:$primary-color;
+   border-radius: 999px;
+   font-weight: $font-weight-semibold;
+
 
 
 	}

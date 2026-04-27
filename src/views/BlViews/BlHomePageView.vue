@@ -12,6 +12,7 @@ import { Calendar } from '@lucide/vue'
 			<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
 		</div>
 		<div class="bagground">
+
 			<ButtonCard  buttonTitle="Mågevej 112"
 			buttonText="Lars og Mette Hansen"
 			buttonTags="invendig finish"
@@ -22,6 +23,37 @@ import { Calendar } from '@lucide/vue'
 					<ProgressCircle />
 				</template>
 			</ButtonCard>
+			<ButtonCard  buttonTitle="Mågevej 112"
+			buttonText="Lars og Mette Hansen"
+			buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')"
+		 :icon="Calendar"
+		 >
+				<template #progress>
+					<ProgressCircle />
+				</template>
+			</ButtonCard>
+			<ButtonCard  buttonTitle="Mågevej 112"
+			buttonText="Lars og Mette Hansen"
+			buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')"
+		 :icon="Calendar"
+		 >
+				<template #progress>
+					<ProgressCircle />
+				</template>
+			</ButtonCard>
+			<ButtonCard  buttonTitle="Mågevej 112"
+			buttonText="Lars og Mette Hansen"
+			buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')"
+		 :icon="Calendar"
+		 >
+				<template #progress>
+					<ProgressCircle />
+				</template>
+			</ButtonCard>
+
 		</div>
 
 </template>

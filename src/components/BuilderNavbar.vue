@@ -4,7 +4,7 @@ import { useRoute } from "vue-router";
 import profilePicture from "@/assets/profile-picture.jpg";
 
 const route = useRoute();
-
+//kan bruges til composables
 const PageName = computed(() => route.meta.pageName);
 </script>
 
