@@ -8,7 +8,7 @@ const router = createRouter({
 			name: "BBHomePage",
 			component: () => import("@/views/BBViews/BBHomePageView.vue"),
 		},
-			{
+		{
 			path: "/byggeplan",
 			name: "byggeplan",
 			component: () => import("@/views/BBViews/BuyerBuildPlanView.vue"),
@@ -19,7 +19,7 @@ const router = createRouter({
 			name: "mere",
 			component: () => import("@/views/BBViews/BuyerMorePageView.vue"),
 		},
-			{
+		{
 			path: "/kontakt",
 			name: "kontakt",
 			component: () => import("@/views/BBViews/BuyerBuilderContactView.vue"),
@@ -41,6 +41,12 @@ const router = createRouter({
 					name: "BLHomePage",
 					component: () => import("@/views/BLViews/BLHomePageView.vue"),
 					meta: { pageName: "byggeleder portal" },
+				},
+				{
+					path: "bygger",
+					name: "BuildLeaderBuildPage",
+					component: () => import("@/views/BLViews/BuildLeadersBuildPageView.vue"),
+					meta: { pageName: "Lars og Mette" },
 				},
 				{
 					path: "byggeplan",

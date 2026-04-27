@@ -4,6 +4,7 @@ import ButtonCard from '@/components/ButtonCard.vue';
 import backgroundImg from '@/assets/hero-construction.jpg';
 import ProgressCircle from '@/components/ProgressCircle.vue';
 import { Calendar } from '@lucide/vue'
+// dynamisk side ændring til to card :to="{ name: 'BuildLeaderBuildPage', params: { id: build.id } }"
 
 </script>
 <template>
@@ -28,6 +29,7 @@ import { Calendar } from '@lucide/vue'
 			buttonTags="invendig finish"
 			:buttonDate="new Date('2025-08-15')"
 		 :icon="Calendar"
+	  :to="{ name: 'BuildLeaderBuildPage' }"
 		 >
 				<template #progress>
 					<ProgressCircle />

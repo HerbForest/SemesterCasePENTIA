@@ -28,10 +28,15 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
+	to: {
+		type: [String,Object],
+		default: null
+	}
 });
 </script>
 
 <template>
+<component :is="to ? RouterLink : 'div'" :to="to || undefined" class="card">
 	<div class="card">
 		<div class="card__progess">
 			<slot name="progress" />
@@ -51,6 +56,7 @@ defineProps({
 		</div>
 		<span v-if="arrow" class="card__arrow">›</span>
 	</div>
+</component>
 </template>
 
 <style scoped lang="scss">
