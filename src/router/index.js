@@ -8,16 +8,30 @@ const router = createRouter({
 			name: "BBHomePage",
 			component: () => import("@/views/BBViews/BBHomePageView.vue"),
 		},
+			{
+			path: "/byggeplan",
+			name: "byggeplan",
+			component: () => import("@/views/BBViews/BuyerBuildPlanView.vue"),
+		},
+
 		{
 			path: "/mere",
 			name: "mere",
 			component: () => import("@/views/BBViews/BuyerMorePageView.vue"),
 		},
 			{
-			path: "/byggeplan",
-			name: "byggeplan",
-			component: () => import("@/views/BBViews/BuyerBuildPlanView.vue"),
+			path: "/kontakt",
+			name: "kontakt",
+			component: () => import("@/views/BBViews/BuyerBuilderContactView.vue"),
 		},
+
+
+
+
+
+
+
+
 		{
 			path: "/BL",
 			component: () => import("@/layout/BLLayout.vue"),
