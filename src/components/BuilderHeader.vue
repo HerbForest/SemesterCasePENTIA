@@ -1,79 +1,60 @@
 <script setup>
-import { ref, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
 // Midlertidige lokale billeder - udskift med dine egne
-const images = [
-	'/images/house1.jpg',
-	'/images/house2.jpg',
-	'/images/house3.jpg',
-]
+const images = ["/images/house1.jpg", "/images/house2.jpg", "/images/house3.jpg"];
 
-const currentIndex = ref(0)
+const currentIndex = ref(0);
 
 const interval = setInterval(() => {
-	currentIndex.value = (currentIndex.value + 1) % images.length
-}, 3000)
+	currentIndex.value = (currentIndex.value + 1) % images.length;
+}, 3000);
 
-onUnmounted(() => clearInterval(interval))
+onUnmounted(() => clearInterval(interval));
 
 const goToProject = () => {
-	router.push('/byggeri')
-}
+	router.push("/byggeri");
+};
 
-const builderAdress = 'Skrænthen 7, Vejle';
-const buildingProgress = '63%';
+const builderAdress = "Skrænthen 7, Vejle";
+const buildingProgress = "63%";
 </script>
 
 <template>
 	<div class="hero-card">
-
 		<!-- Slideshow -->
 		<div class="hero-card__slideshow">
-			<img
-				v-for="(image, index) in images"
-				:key="index"
-				:src="image"
-				:class="['hero-card__image', { 'hero-card__image--active': index === currentIndex }]"
-				alt="Byggeri billede"
-			/>
+			<img v-for="(image, index) in images" :key="index" :src="image"
+				:class="['hero-card__image', { 'hero-card__image--active': index === currentIndex }]" alt="Byggeri billede" />
 			<!-- Dots -->
 			<div class="hero-card__dots">
-				<span
-					v-for="(image, index) in images"
-					:key="index"
+				<span v-for="(image, index) in images" :key="index"
 					:class="['hero-card__dot', { 'hero-card__dot--active': index === currentIndex }]"
-					@click="currentIndex = index"
-				/>
+					@click="currentIndex = index" />
 			</div>
 		</div>
 
 		<!-- Info boks -->
 		<button class="hero-card__info" @click="goToProject">
 			<div class="hero-card__identity">
-				<div class="hero-card__icon-box">
-					🏠
-				</div>
+				<div class="hero-card__icon-box">🏠</div>
 				<div class="hero-card__text">
 					<h2 class="hero-card__title">Mit Byggeri</h2>
 					<span class="hero-card__address">
 						<span class="hero-card__address-icon">📍</span>
-						{{builderAdress}}
+						{{ builderAdress }}
 					</span>
 				</div>
 			</div>
-			<div class="hero-card__progress-pill">
-				📅 Din byggeplan {{buildingProgress}}
-			</div>
+			<div class="hero-card__progress-pill">📅 Din byggeplan {{ buildingProgress }}</div>
 		</button>
-
 	</div>
 </template>
 
 <style scoped lang="scss">
-
 .hero-card {
 	position: relative;
 	border-radius: 16px;
