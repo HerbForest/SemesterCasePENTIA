@@ -11,7 +11,7 @@ import ButtonCard from '@/components/ButtonCard.vue';
             <CalendarIcon />
         </template> -->
 </ButtonCard>
-<ButtonCard buttonTitle="Byggeleder" buttonText="Din byggeleder {{Byggeleder}}" :arrow="true">
+<ButtonCard buttonTitle="Byggeleder" buttonText="Din byggeleder" to="/kontakt" :arrow="true">
 </ButtonCard>
 <ButtonCard buttonTitle="Kontrakter" buttonText="Dine oplysninger" :arrow="true">
 </ButtonCard>
