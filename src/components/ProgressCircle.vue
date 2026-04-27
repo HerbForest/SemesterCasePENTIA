@@ -6,8 +6,7 @@ import { CircleProgressBar } from 'circle-progress.vue';
 
 <template>
 
-	// Basic Usage
-	<CircleProgressBar :value="40" :max="100" percentage colorUnfilled='#2c687d' />
+	<CircleProgressBar :value="40" :max="100" percentage colorUnfilled='#2c687d' strokeWidth = 8 />
 
 
 </template>

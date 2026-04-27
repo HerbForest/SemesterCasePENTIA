@@ -6,17 +6,18 @@ import ProgressCircle from '@/components/ProgressCircle.vue';
 
 </script>
 <template>
-	<div>
+
 		<div class="hero">
 			<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
 		</div>
 		<div class="bagground">
-			<ButtonCard buttonTitle="Byggeplan" :arrow="true" />
+			<ButtonCard  buttonTitle="Byggeplan" :arrow="true" >
+				<template #progress>
+					<ProgressCircle />
+				</template>
+			</ButtonCard>
 		</div>
-		<div>
-			<ProgressCircle />
-		</div>
-	</div>
+
 </template>
 <style lang="scss" scoped>
 .hero {

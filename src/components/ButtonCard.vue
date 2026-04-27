@@ -25,11 +25,11 @@ defineProps({
 
 <template>
 	<div class="card">
-		<div class="card__icon">{{ icon }}</div>
-
 		<div class="card__progess">
 			<slot name="progress" />
 		</div>
+		<div v-if="icon" class="card__icon">{{ icon }}</div>
+
 		<div class="card__content">
 			<h3 v-if="buttonTitle" class="card__title">{{ buttonTitle }}</h3>
 			<p v-if="buttonText" class="card__text">{{ buttonText }}</p>
