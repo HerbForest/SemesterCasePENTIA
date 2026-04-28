@@ -1,28 +1,28 @@
-import { defineStore, storeToRefs } from 'pinia'
-import { ref } from 'vue'
-import { db } from '@/config/firebase'
-import { doc, getDoc } from 'firebase/firestore'
+import { defineStore, storeToRefs } from 'pinia';
+import { ref } from 'vue';
+import { db } from '@/config/firebase';
+import { doc, getDoc } from 'firebase/firestore';
 
 export const useBuilderStore = defineStore('builder', () => {
-    const builder = ref(null)
-    const loading = ref(false)
+	const builder = ref(null);
+	const loading = ref(false);
 
-    const fetchBuilder = async (builderId) => {
-        loading.value = true
-        try {
-            const snap = await getDoc(doc(db, 'builders', builderId))
-            if (snap.exists()) {
-                builder.value = { id: snap.id, ...snap.data() }
-            }
-        } catch (error) {
-            console.error('Fejl ved hentning af byggeleder:', error)
-        } finally {
-            loading.value = false
-        }
-    }
+	const fetchBuilder = async (builderId) => {
+		loading.value = true;
+		try {
+			const snap = await getDoc(doc(db, 'builders', builderId));
+			if (snap.exists()) {
+				builder.value = { id: snap.id, ...snap.data() };
+			}
+		} catch (error) {
+			console.error('Fejl ved hentning af byggeleder:', error);
+		} finally {
+			loading.value = false;
+		}
+	};
 
-    return { builder, loading, fetchBuilder }
-})
+	return { builder, loading, fetchBuilder };
+});
 
 
 
