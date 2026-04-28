@@ -1,8 +1,8 @@
 
 <script setup>
-import PogressCircle.vue from '@/components/PogressCircle.vue'
+import ProgressCircle from '@/components/ProgressCircle.vue'
 </script>
 
 <template>
-  <PogressCircle />
+  <ProgressCircle />
 </template>
