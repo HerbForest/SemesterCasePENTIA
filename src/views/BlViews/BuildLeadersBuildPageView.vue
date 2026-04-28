@@ -25,6 +25,8 @@ import ButtonCard from '@/components/ButtonCard.vue'
 
 :deep(.card){
 	border:none;
-
+	flex-direction: column;
+	text-align: center;
+	font-size: ;
 }
 </style>
