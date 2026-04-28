@@ -37,7 +37,7 @@ defineProps({
 
 <template>
 <component :is="to ? RouterLink : 'div'" :to="to || undefined" class="card">
-	<div class="card">
+
 		<div class="card__progess">
 			<slot name="progress" />
 		</div>
@@ -55,7 +55,6 @@ defineProps({
 	 </p>
 		</div>
 		<span v-if="arrow" class="card__arrow">›</span>
-	</div>
 </component>
 </template>
 
