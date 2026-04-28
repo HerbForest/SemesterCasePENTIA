@@ -2,19 +2,19 @@ import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';
 import pluginVue from 'eslint-plugin-vue';
-import pluginOxlint from 'eslint-plugin-oxlint';
 
 export default defineConfig([
-	
-	{
-		name: 'app/files-to-lint',
-		files: ['src/**/*'],
-	},
-  
 
-	globalIgnores(['**/dist/**', '**/dist-ssr/**', '**/coverage/**']),
+	globalIgnores([
+		'dist/**',
+		'dist-ssr/**',
+		'coverage/**',
+		'themes/**',
+		 'vite.config.js',
+	]),
 
 	{
+		files: ['src/**/*.{js,vue}'],
 		languageOptions: {
 			globals: {
 				...globals.browser,
@@ -25,20 +25,16 @@ export default defineConfig([
 	js.configs.recommended,
 	...pluginVue.configs['flat/essential'],
 
-	...pluginOxlint.buildFromOxlintConfigFile('.oxlintrc.json'),
-	// Custom rules
 	{
 		rules: {
-			'no-console': 'warn', // Warns when console.log is used
-			'vue/no-unused-vars': 'error', // Errors for unused variables in Vue
-			quotes: ['error', 'single'], // Enforce single quotes
-			// Add other rules as needed
-			indent: ['warn', 'tab'], //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
-			semi: ['error', 'always'], 
+			'no-console': 'warn',
+			'vue/no-unused-vars': 'error',
+			quotes: ['error', 'single'],
+			indent: ['warn', 'tab'],
+			semi: ['error', 'always'],
 		},
 	},
 ]);
-
 //indent: Enforce consistent indentation (e.g., spaces vs. tabs).
 //quotes: Enforce the use of single or double quotes for strings.
 //semi: Require or disallow semicolons at the end of statements.
