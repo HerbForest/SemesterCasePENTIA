@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted  } from 'vue'
 
 import RoundButtons from '@/components/buttons/RoundButtons.vue'
 import SlideButtons from '@/components/buttons/SlideButtons.vue';
@@ -8,6 +8,23 @@ import ButtonCard from '@/components/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue'
 
 const isToggled = ref(false)
+
+
+import { db } from '@/config/firebase'
+import { doc, getDoc } from 'firebase/firestore'
+
+const message = ref('')
+
+onMounted(async () => {
+    const docRef = doc(db, 'test', 'test1')
+    const docSnap = await getDoc(docRef)
+    
+    if (docSnap.exists()) {
+        message.value = docSnap.data().message
+    } else {
+        message.value = 'Ingen data fundet'
+    }
+})
 
 // skal rettes til data fra database!!
 const bbTitle = "Jonas"
@@ -22,7 +39,10 @@ const bbTitle = "Jonas"
 	</div>
 
 <Header/>
-
+ 
+<div>
+    <p>{{ message }}</p>
+</div>
 
 <ButtonCard buttonTitle="Byggeplan" :arrow="true">
 
