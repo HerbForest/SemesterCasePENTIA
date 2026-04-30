@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 </script>
 
 <template>
@@ -14,7 +13,7 @@ import { ref } from "vue";
 </template>
 
 <style lang="scss" scoped>
-//@use "@/assets/scss/variables" as *;
+
 .button-group {
 	font-family: $font-family;
 	font-size: $font-size-sm;

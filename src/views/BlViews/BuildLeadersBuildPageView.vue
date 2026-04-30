@@ -1,7 +1,7 @@
 
 <script setup>
-import ProgressCircle from '@/components/ProgressCircle.vue'
-import ButtonCard from '@/components/ButtonCard.vue'
+import ProgressCircle from '@/components/ProgressCircle.vue';
+import ButtonCard from '@/components/ButtonCard.vue';
 </script>
 
 <template>
