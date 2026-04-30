@@ -1,4 +1,6 @@
 <script setup>
+import { RouterLink } from 'vue-router'
+
 defineProps({
 	buttonTitle: {
 		type: String,
@@ -70,6 +72,7 @@ defineProps({
 	border: 1px solid $border-color;
 	padding: 16px 20px;
 	margin-bottom: 12px;
+	text-decoration: none;
 
 	&__icon {
 		display: flex;
