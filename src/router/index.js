@@ -49,6 +49,12 @@ const router = createRouter({
 					meta: { pageName: 'Lars og Mette' },
 				},
 				{
+					path: 'fotoupload',
+					name: 'FotoUpload',
+					component: () => import('@/views/BLViews/FotoUploadView.vue'),
+					meta: { pageName: '' },
+				},
+				{
 					path: 'byggeplan',
 					name: 'BuilderByggeplan',
 					component: () => import('@/views/BLViews/BuilderBuildPlanView.vue'),
