@@ -1,7 +1,17 @@
 <script setup>
 import ProgressCircle from "@/components/ProgressCircle.vue";
 import ButtonCard from "@/components/ButtonCard.vue";
-import { Camera, Upload, MessageSquare, FileText, Map, ChartColumn } from "@lucide/vue";
+import {
+	Camera,
+	Upload,
+	MessageSquare,
+	FileText,
+	Map,
+	ChartColumn,
+	CookingPot,
+	Sofa,
+	BedDouble,
+} from "@lucide/vue";
 
 const cards = [
 	{ text: "fotos", icon: Camera },
@@ -10,6 +20,11 @@ const cards = [
 	{ text: "Dokumenter", icon: FileText },
 	{ text: "Plantegninger", icon: Map },
 	{ text: "Gantt Diagram", icon: ChartColumn },
+];
+const photoFolders = [
+	{ name: "køkken", icon: CookingPot, count: 12 },
+	{ name: "stue", icon: Sofa, count: 8 },
+	{ name: "soveværelse", icon: BedDouble, count: 5 },
 ];
 </script>
 
@@ -28,6 +43,17 @@ const cards = [
 	<hr />
 	<div class="dashboard-grid">
 		<ButtonCard v-for="card in cards" :key="card.text" :buttonText="card.text" :icon="card.icon">
+		</ButtonCard>
+	</div>
+	<div class="card__photo-folders">
+		<ButtonCard
+			class="card__photo-folder"
+			v-for="folder in photoFolders"
+			:key="folder.name"
+			:buttonText="folder.name"
+			:icon="folder.icon"
+		>
+			<span class="card__photo-folder-count">{{ folder.count }} billeder</span>
 		</ButtonCard>
 	</div>
 </template>
@@ -61,5 +87,15 @@ const cards = [
 	padding: 5px;
 	background-color: $background-color;
 	border-color: $border-color;
+}
+.card__photo-folders {
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+	&__folder {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
 }
 </style>
