@@ -1,63 +1,62 @@
 <script setup>
-import SqaureButtons from '@/components/buttons/SqaureButtons.vue';
-import ButtonCard from '@/components/ButtonCard.vue';
-import backgroundImg from '@/assets/hero-construction.jpg';
-import ProgressCircle from '@/components/ProgressCircle.vue';
-import { Calendar } from '@lucide/vue'
+import SqaureButtons from "@/components/buttons/SqaureButtons.vue";
+import ButtonCard from "@/components/ButtonCard.vue";
+import backgroundImg from "@/assets/hero-construction.jpg";
+import ProgressCircle from "@/components/ProgressCircle.vue";
+import { Calendar } from "@lucide/vue";
 // dynamisk side ændring til to card :to="{ name: 'BuildLeaderBuildPage', params: { id: build.id } }"
-
 </script>
 <template>
-
-		<div class="hero">
-			<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
-		</div>
-		<div class="bagground">
-
-			<ButtonCard  buttonTitle="Mågevej 112"
+	<div class="hero">
+		<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
+	</div>
+	<div class="bagground">
+		<ButtonCard
+			buttonTitle="Mågevej 112"
 			buttonText="Lars og Mette Hansen"
 			buttonTags="invendig finish"
 			:buttonDate="new Date('2025-08-15')"
-		 :icon="Calendar"
-		 >
-				<template #progress>
-					<ProgressCircle />
-				</template>
-			</ButtonCard>
-			<ButtonCard  buttonTitle="Mågevej 112"
+			:icon="Calendar"
+		>
+			<template #progress>
+				<ProgressCircle />
+			</template>
+		</ButtonCard>
+		<ButtonCard
+			buttonTitle="Mågevej 112"
 			buttonText="Lars og Mette Hansen"
 			buttonTags="invendig finish"
 			:buttonDate="new Date('2025-08-15')"
-		 :icon="Calendar"
-	  :to="{ name: 'BuildLeaderBuildPage' }"
-		 >
-				<template #progress>
-					<ProgressCircle />
-				</template>
-			</ButtonCard>
-			<ButtonCard  buttonTitle="Mågevej 112"
+			:icon="Calendar"
+			:to="{ name: 'BuildLeadersBuildPage' }"
+		>
+			<template #progress>
+				<ProgressCircle />
+			</template>
+		</ButtonCard>
+		<ButtonCard
+			buttonTitle="Mågevej 112"
 			buttonText="Lars og Mette Hansen"
 			buttonTags="invendig finish"
 			:buttonDate="new Date('2025-08-15')"
-		 :icon="Calendar"
-		 >
-				<template #progress>
-					<ProgressCircle />
-				</template>
-			</ButtonCard>
-			<ButtonCard  buttonTitle="Mågevej 112"
+			:icon="Calendar"
+		>
+			<template #progress>
+				<ProgressCircle />
+			</template>
+		</ButtonCard>
+		<ButtonCard
+			buttonTitle="Mågevej 112"
 			buttonText="Lars og Mette Hansen"
 			buttonTags="invendig finish"
 			:buttonDate="new Date('2025-08-15')"
-		 :icon="Calendar"
-		 >
-				<template #progress>
-					<ProgressCircle />
-				</template>
-			</ButtonCard>
-
-		</div>
-
+			:icon="Calendar"
+		>
+			<template #progress>
+				<ProgressCircle />
+			</template>
+		</ButtonCard>
+	</div>
 </template>
 <style lang="scss" scoped>
 .hero {
