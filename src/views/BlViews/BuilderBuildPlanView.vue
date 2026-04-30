@@ -1,3 +1,6 @@
-<script setup></script>
+<script setup>
+</script>
 
-<template></template>
+<template>
+	<div>hej</div>
+</template>

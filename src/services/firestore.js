@@ -84,6 +84,6 @@ export const seedUsers = async () => {
 		}
 		//console.log('✅ Alle data oprettet!');
 	} catch (error) {
-		//console.error('Fejl:', error);
+		console.error('Fejl:', error);
 	}
 };

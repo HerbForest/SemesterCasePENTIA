@@ -27,7 +27,7 @@ export default defineConfig([
 
 	{
 		rules: {
-			'no-console': 'warn',
+			// 'no-console': 'warn',
 			'vue/no-unused-vars': 'error',
 			quotes: ['error', 'single'],
 			indent: ['warn', 'tab'],
