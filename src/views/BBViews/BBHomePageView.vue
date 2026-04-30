@@ -34,16 +34,16 @@ const bbTitle = 'Jonas';
 
 <Header/>
 
-<ButtonCard buttonTitle="Byggeplan" :arrow="true">
+<ButtonCard buttonTitle="Byggeplan" :arrow="true" to="/byggeplan">
 
 	<!-- Brug dette når icon bibliotek installeres -->
 	<!-- <template #icon>
             <CalendarIcon />
         </template> -->
 </ButtonCard>
-<ButtonCard buttonTitle="Kontrakter" :arrow="true">
+<ButtonCard buttonTitle="Kontrakter" :arrow="true" to="/dokumenter">
 </ButtonCard>
-<ButtonCard buttonTitle="Beskeder" :arrow="true">
+<ButtonCard buttonTitle="Beskeder" :arrow="true" to="/kontakt">
 </ButtonCard>
 <ButtonCard buttonTitle="Kontakt din byggeleder" :arrow="true" to="/kontakt"> 
 </ButtonCard>

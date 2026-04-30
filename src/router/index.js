@@ -24,7 +24,21 @@ const router = createRouter({
 			name: 'kontakt',
 			component: () => import('@/views/BBViews/BuyerBuilderContactView.vue'),
 		},
-
+		{
+			path: '/dokumenter',
+			name: 'dokumenter',
+			component: () => import('@/views/BBViews/BuyerDocumentView.vue'),
+		},
+		{
+			path: '/byggeplan',
+			name: 'byggeplan',
+			component: () => import('@/views/BBViews/BuyerBuildPlanView.vue'),
+		},
+		{
+			path: '/profil',
+			name: 'profil',
+			component: () => import('@/views/BBViews/BuyerProfileView.vue'),
+		},
 
 
 
