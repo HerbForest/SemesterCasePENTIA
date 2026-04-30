@@ -15,7 +15,7 @@ jobs:
           node-version: 20
 
       - run: npm ci
-
+      - run: npm run lint
       - run: npm run docs
 
       - uses: peaceiris/actions-gh-pages@v3

@@ -4,9 +4,9 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
-})
+});
 
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue']);
 </script>
 
 <template>	

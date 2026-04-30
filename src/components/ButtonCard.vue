@@ -1,12 +1,14 @@
 <script setup>
+import { RouterLink } from 'vue-router'
+
 defineProps({
 	buttonTitle: {
 		type: String,
-		default: "",
+		default: '',
 	},
 	buttonText: {
 		type: String,
-		default: "",
+		default: '',
 	},
 	icon: {
 		type: Object,
@@ -18,12 +20,12 @@ defineProps({
 	},
 	buttonTags: {
 		type: String,
-		default: "",
+		default: '',
 	},
-		buttonDate: {
-			type: Date,
-			default: null,
-		},
+	buttonDate: {
+		type: Date,
+		default: null,
+	},
 	arrow: {
 		type: Boolean,
 		default: false,
@@ -70,6 +72,7 @@ defineProps({
 	border: 1px solid $border-color;
 	padding: 16px 20px;
 	margin-bottom: 12px;
+	text-decoration: none;
 
 	&__icon {
 		display: flex;

@@ -1,14 +1,14 @@
 <script setup>
 import ButtonCard from '@/components/ButtonCard.vue';
-import Card from '@/components/TextCard.vue'
+import Card from '@/components/TextCard.vue';
 
 const byggeleder = {
-    builderName: 'Thomas',
-    phone: '+45 12 34 56 78',
-		builderTitle: 'Byggeleder',
-		mail: 'thomas@mileton.dk',
-		aboutBuilder: 'Thomas har over 15 års erfaring...'
-}
+	builderName: 'Thomas',
+	phone: '+45 12 34 56 78',
+	builderTitle: 'Byggeleder',
+	mail: 'thomas@mileton.dk',
+	aboutBuilder: 'Thomas har over 15 års erfaring...'
+};
 
 </script>
 

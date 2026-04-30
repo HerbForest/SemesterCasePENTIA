@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "run-s lint:*",
-    "lint:eslint": "eslint ."
+    "lint:eslint": "eslint .",
+    "docs": "jsdoc -c jsdoc.json"
   },
   "dependencies": {
     "@lucide/vue": "^1.11.0",
@@ -22,9 +23,11 @@
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@vitejs/plugin-vue": "^6.0.4",
+    "docdash": "^2.0.2",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "~10.8.0",
     "globals": "^17.3.0",
+    "jsdoc": "^4.0.5",
     "npm-run-all2": "^8.0.4",
     "sass": "^1.98.0",
     "sass-embedded": "^1.98.0",

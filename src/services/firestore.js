@@ -61,7 +61,7 @@ export const seedUsers = async () => {
 		for (const builder of buildersData) {
 			const ref = await addDoc(collection(db, 'builders'), builder);
 			builderRefs.push(ref);
-			console.log(`Byggeleder oprettet: ${builder.firstName} ${builder.lastName}`);
+			//console.log(`Byggeleder oprettet: ${builder.firstName} ${builder.lastName}`);
 		}
 
 		for (let i = 0; i < usersData.length; i++) {
@@ -73,16 +73,16 @@ export const seedUsers = async () => {
 				...projectsData[i],
 				builderId: builderRef.id
 			});
-			console.log(`Projekt oprettet: ${projectsData[i].name}`);
+			//console.log(`Projekt oprettet: ${projectsData[i].name}`);
 
 			// Opret bruger med projectId
 			await addDoc(collection(db, 'users'), {
 				...usersData[i],
 				projectId: projectRef.id
 			});
-			console.log(`Bruger oprettet: ${usersData[i].firstName} ${usersData[i].lastName}`);
+			//console.log(`Bruger oprettet: ${usersData[i].firstName} ${usersData[i].lastName}`);
 		}
-		console.log('✅ Alle data oprettet!');
+		//console.log('✅ Alle data oprettet!');
 	} catch (error) {
 		console.error('Fejl:', error);
 	}

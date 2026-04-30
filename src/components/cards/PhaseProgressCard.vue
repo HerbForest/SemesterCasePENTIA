@@ -10,17 +10,17 @@ const phaseProps = defineProps({
 		default: 'upcoming', // 'completed' | 'active' | 'upcoming'
 	},
 	completedDate: { type: String, default: '' },  
-  estimatedDate: { type: String, default: '' },
+	estimatedDate: { type: String, default: '' },
 	progress: { type: Number, default: null },
 	images: { type: Array, default: () => [] },
 	timeLeft: { type: Number, default: null },
-})
+});
 
 const isExpanded = ref(phaseProps.status === 'active');
 
 const toggle = () => {
 	if (phaseProps.status === 'completed' || phaseProps === 'active') {
-			isExpanded.value = !isExpanded.value
+		isExpanded.value = !isExpanded.value;
 	};
 };
 </script>

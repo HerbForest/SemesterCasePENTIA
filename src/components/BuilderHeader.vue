@@ -1,11 +1,11 @@
 <script setup>
-import { ref, onUnmounted } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 // Midlertidige lokale billeder - udskift med dine egne
-const images = ["/images/house1.jpg", "/images/house2.jpg", "/images/house3.jpg"];
+const images = ['/images/house1.jpg', '/images/house2.jpg', '/images/house3.jpg'];
 
 const currentIndex = ref(0);
 
@@ -16,11 +16,11 @@ const interval = setInterval(() => {
 onUnmounted(() => clearInterval(interval));
 
 const goToProject = () => {
-	router.push("/byggeri");
+	router.push('/byggeri');
 };
 
-const builderAdress = "Skrænthen 7, Vejle";
-const buildingProgress = "63%";
+const builderAdress = 'Skrænthen 7, Vejle';
+const buildingProgress = '63%';
 </script>
 
 <template>
