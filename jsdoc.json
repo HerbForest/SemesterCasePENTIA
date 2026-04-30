@@ -9,7 +9,7 @@
     "destination": "./docs",
     "recurse": true,
     "tutorials": "/.tutorials",
-    "template": "node_modules/docdash"
+    "template": "/themes/docdash"
   },
   "docdash": {
     "tutorialsLabel": "Documents"
