@@ -1,13 +1,24 @@
 <script setup>
 import { onMounted  } from 'vue';
 
+import { useBuyerStore } from '@/stores/buyerStore'
+import { useProjectStore } from '@/stores/projectStore'
+import { useBuilderStore } from '@/stores/builderStore'
 import ButtonCard from '@/components/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue';
 
+const buyerStore = useBuyerStore()
+const projectStore = useProjectStore()
+const builderStore = useBuilderStore()
+
+onMounted(async () => {
+    // Midlertidigt hardcodet ID indtil login er sat op
+    await buyerStore.fetchBuyer('1DqXNJfqTOaS85GKWsDl')
+    await projectStore.fetchProject(buyerStore.buyer.projectId)
+    await builderStore.fetchBuilder(projectStore.project.builderId)
+})
 
 
-import { db } from '@/config/firebase';
-import { doc, getDoc } from 'firebase/firestore';
 
 // skal rettes til data fra database!!
 const bbTitle = 'Jonas';
@@ -18,14 +29,10 @@ const bbTitle = 'Jonas';
 
 	<div class="bbHero">
 		<h1 class="">Mit Byggeri</h1>
-		<h2 class="bbWelcome">Velkommen! {{ bbTitle }}</h2>
+		<h2 class="bbWelcome">Velkommen! {{ buyerStore.buyer?.firstName }}</h2>
 	</div>
 
 <Header/>
- 
-<div>
-    <p>{{ message }}</p>
-</div>
 
 <ButtonCard buttonTitle="Byggeplan" :arrow="true">
 
@@ -38,7 +45,7 @@ const bbTitle = 'Jonas';
 </ButtonCard>
 <ButtonCard buttonTitle="Beskeder" :arrow="true">
 </ButtonCard>
-<ButtonCard buttonTitle="Kontakt din byggeleder" :arrow="true">
+<ButtonCard buttonTitle="Kontakt din byggeleder" :arrow="true" to="/kontakt"> 
 </ButtonCard>
 </div>
 </template>
