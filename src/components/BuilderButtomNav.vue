@@ -1,13 +1,13 @@
 <script setup>
-import { useRoute } from "vue-router";
-import { House, Calendar, MessageSquare, Ellipsis } from "@lucide/vue";
+import { useRoute } from 'vue-router';
+import { House, Calendar, MessageSquare, Ellipsis } from '@lucide/vue';
 
 const route = useRoute();
 const navItems = [
-	{ name: "BLHomePage", icon: House, label: "Mit Byggeri" },
-	{ name: "BuilderByggeplan", icon: Calendar, label: "Byggeplan" },
-	{ name: "BuilderBeskeder", icon: MessageSquare, label: "Beskeder" },
-	{ name: "BuilderMenu", icon: Ellipsis, label: "Menu" },
+	{ name: 'BLHomePage', icon: House, label: 'Mit Byggeri' },
+	{ name: 'BuilderByggeplan', icon: Calendar, label: 'Byggeplan' },
+	{ name: 'BuilderBeskeder', icon: MessageSquare, label: 'Beskeder' },
+	{ name: 'BuilderMenu', icon: Ellipsis, label: 'Menu' },
 ];
 </script>
 <template>
