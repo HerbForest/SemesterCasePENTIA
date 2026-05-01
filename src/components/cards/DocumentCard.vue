@@ -1,37 +1,37 @@
 <script setup>
 defineProps({
-    name: {
-        type: String,
-        default: '',
-    },
-    size: {
-        type: String,
-        default: '',
-    },
-    date: {
-        type: String,
-        default: '',
-    },
-    uploadedBy: {
-        type: String,
-        default: '',
-    },
-    downloadUrl: {
-        type: String,
-        default: '',
-    },
-})
+	name: {
+		type: String,
+		default: '',
+	},
+	size: {
+		type: String,
+		default: '',
+	},
+	date: {
+		type: String,
+		default: '',
+	},
+	uploadedBy: {
+		type: String,
+		default: '',
+	},
+	downloadUrl: {
+		type: String,
+		default: '',
+	},
+});
 
 const openDocument = (url) => {
-    window.open(url, '_blank')
-}
+	window.open(url, '_blank');
+};
 
 const downloadDocument = (url, name) => {
-    const link = document.createElement('a')
-    link.href = url
-    link.download = name
-    link.click()
-}
+	const link = document.createElement('a');
+	link.href = url;
+	link.download = name;
+	link.click();
+};
 </script>
 
 <template>
