@@ -18,10 +18,6 @@ onMounted(async () => {
 	await builderStore.fetchBuilder(projectStore.project.builderId);
 });
 
-
-
-// skal rettes til data fra database!!
-const bbTitle = 'Jonas';
 </script>
 
 <template>
