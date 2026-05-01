@@ -1,15 +1,15 @@
 <script setup>
-import { onMounted } from 'vue'
-import DocumentCard from '@/components/cards/DocumentCard.vue'
-import { useDocumentStore } from '@/stores/documentStore'
-import { useProjectStore } from '@/stores/projectStore'
+import { onMounted } from 'vue';
+import DocumentCard from '@/components/cards/DocumentCard.vue';
+import { useDocumentStore } from '@/stores/documentStore';
+import { useProjectStore } from '@/stores/projectStore';
 
-const documentStore = useDocumentStore()
-const projectStore = useProjectStore()
+const documentStore = useDocumentStore();
+const projectStore = useProjectStore();
 
 onMounted(async () => {
-    await documentStore.fetchDocuments(projectStore.project.id)
-})
+	await documentStore.fetchDocuments(projectStore.project.id);
+});
 </script>
 <template>
 	   <div class="layout-bb">
