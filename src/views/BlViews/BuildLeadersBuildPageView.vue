@@ -1,6 +1,6 @@
 <script setup>
-import ProgressCircle from "@/components/ProgressCircle.vue";
-import ButtonCard from "@/components/ButtonCard.vue";
+import ProgressCircle from '@/components/ProgressCircle.vue';
+import ButtonCard from '@/components/ButtonCard.vue';
 import {
 	Camera,
 	Upload,
@@ -11,45 +11,49 @@ import {
 	CookingPot,
 	Sofa,
 	BedDouble,
-} from "@lucide/vue";
+} from '@lucide/vue';
+import GanttDiagram from '@/components/GanttDiagram.vue';
 
 const cards = [
-	{ text: "fotos", icon: Camera },
-	{ text: "Upload", icon: Upload },
-	{ text: "Chat", icon: MessageSquare },
-	{ text: "Dokumenter", icon: FileText },
-	{ text: "Plantegninger", icon: Map },
-	{ text: "Gantt Diagram", icon: ChartColumn },
+	{ text: 'fotos', icon: Camera },
+	{ text: 'Upload', icon: Upload },
+	{ text: 'Chat', icon: MessageSquare },
+	{ text: 'Dokumenter', icon: FileText },
+	{ text: 'Plantegninger', icon: Map },
+	{ text: 'Gantt Diagram', icon: ChartColumn },
 ];
 const photoFolders = [
-	{ name: "køkken", icon: CookingPot, count: 12 },
-	{ name: "stue", icon: Sofa, count: 8 },
-	{ name: "soveværelse", icon: BedDouble, count: 5 },
+	{ name: 'køkken', icon: CookingPot, count: 12 },
+	{ name: 'stue', icon: Sofa, count: 8 },
+	{ name: 'soveværelse', icon: BedDouble, count: 5 },
 ];
 </script>
 
 <template>
-	<div class="build-CardWrapper">
-		<ButtonCard buttonTitle="Mågevej 112" buttonTags="Invendig finish" :buttonDate="new Date('2025-08-15')">
+	<div class='build-CardWrapper'>
+		<ButtonCard buttonTitle='Mågevej 112' buttonTags='Invendig finish' :buttonDate='new Date(" 2025-08-15")'>
 			<template #progress>
-				<ProgressCircle size="250" />
+				<ProgressCircle size='250' />
 			</template>
 		</ButtonCard>
 	</div>
 	<hr />
-	<div class="dashboard-grid">
-		<ButtonCard v-for="card in cards" :key="card.text" :buttonText="card.text" :icon="card.icon">
+	<div class='dashboard-grid'>
+		<ButtonCard v-for='card in cards' :key='card.text' :buttonText='card.text' :icon='card.icon'>
 		</ButtonCard>
 	</div>
-	<div class="card__photo-folders">
-		<ButtonCard class="card__photo-folder" v-for="folder in photoFolders" :key="folder.name" :buttonText="folder.name"
-			:icon="folder.icon">
-			<span class="card__photo-folder-count">{{ folder.count }} billeder</span>
+	<div>
+		<GanttDiagram />
+	</div>
+	<div class='card__photo-folders'>
+		<ButtonCard class='card__photo-folder' v-for='folder in photoFolders' :key='folder.name' :buttonText='folder.name'
+			:icon='folder.icon'>
+			<span class='card__photo-folder-count'>{{ folder.count }} billeder</span>
 		</ButtonCard>
 	</div>
 </template>
 
-<style scoped lang="scss">
+<style scoped lang='scss'>
 .build-CardWrapper {
 	isplay: flex;
 	justify-content: center;
