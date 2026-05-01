@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
 import DocumentCard from '@/components/cards/DocumentCard.vue';
+import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { useDocumentStore } from '@/stores/documentStore';
 import { useProjectStore } from '@/stores/projectStore';
 
@@ -12,6 +13,8 @@ onMounted(async () => {
 });
 </script>
 <template>
+<ReturnButton/>
+
 	   <div class="layout-bb">
         <DocumentCard
             v-for="doc in documentStore.documents"
