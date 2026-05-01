@@ -30,11 +30,7 @@ const photoFolders = [
 
 <template>
 	<div class="build-CardWrapper">
-		<ButtonCard
-			buttonTitle="Mågevej 112"
-			buttonTags="Invendig finish"
-			:buttonDate="new Date('2025-08-15')"
-		>
+		<ButtonCard buttonTitle="Mågevej 112" buttonTags="Invendig finish" :buttonDate="new Date('2025-08-15')">
 			<template #progress>
 				<ProgressCircle size="250" />
 			</template>
@@ -46,13 +42,8 @@ const photoFolders = [
 		</ButtonCard>
 	</div>
 	<div class="card__photo-folders">
-		<ButtonCard
-			class="card__photo-folder"
-			v-for="folder in photoFolders"
-			:key="folder.name"
-			:buttonText="folder.name"
-			:icon="folder.icon"
-		>
+		<ButtonCard class="card__photo-folder" v-for="folder in photoFolders" :key="folder.name" :buttonText="folder.name"
+			:icon="folder.icon">
 			<span class="card__photo-folder-count">{{ folder.count }} billeder</span>
 		</ButtonCard>
 	</div>
@@ -71,10 +62,12 @@ const photoFolders = [
 	text-align: center;
 	margin: 0;
 }
+
 :deep(.circle-progress__percentage) {
 	font-size: 44px;
 	font-weight: bold;
 }
+
 :deep(.card__icon) {
 	border-radius: 9999px;
 }
@@ -88,10 +81,12 @@ const photoFolders = [
 	background-color: $background-color;
 	border-color: $border-color;
 }
+
 .card__photo-folders {
 	display: flex;
 	flex-direction: column;
 	align-items: left;
+
 	&__folder {
 		display: flex;
 		flex-direction: row;
