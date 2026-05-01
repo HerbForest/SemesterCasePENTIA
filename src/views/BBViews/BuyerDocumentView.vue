@@ -1,5 +1,6 @@
-<script>
+<script setup>
+import DocumentCard from '@/components/cards/DocumentCard.vue';
 </script>
 <template>
-	<div>hej</div>
+	<DocumentCard />
 </template>
