@@ -62,6 +62,7 @@ const downloadDocument = (url, name) => {
     border: 1px solid $border-color;
     padding: 14px 16px;
     margin-bottom: 8px;
+    width: 100%;
     cursor: pointer;
 
     &__icon {
