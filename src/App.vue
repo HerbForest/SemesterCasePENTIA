@@ -4,7 +4,7 @@ import { RouterView } from 'vue-router';
 
 <template>
 	<nav>
-		<RouterLink to="/BBHomePageView">BB Home Page</RouterLink>
+		<RouterLink to="/buyer/home">BB Home Page</RouterLink>
 		<RouterLink to="/BL/homepage">BL Home Page</RouterLink>
 	</nav>
 	<RouterView />
