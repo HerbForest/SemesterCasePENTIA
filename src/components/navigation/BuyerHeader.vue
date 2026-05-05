@@ -16,7 +16,7 @@ const initials = computed(() => {
             <span class="buyer-header__logo-title">MILTON</span>
             <span class="buyer-header__logo-sub">HUSE</span>
         </div>
-        <RouterLink to="/profil" class="buyer-header__avatar">
+        <RouterLink to="/buyer/profil" class="buyer-header__avatar">
     			{{ initials }}
 				</RouterLink>		
     </header>
