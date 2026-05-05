@@ -3,44 +3,47 @@ import { createRouter, createWebHistory } from 'vue-router';
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
-		{
-			path: '/BBHomePageView',
-			name: 'BBHomePage',
-			component: () => import('@/views/BBViews/BBHomePageView.vue'),
-		},
-		{
-			path: '/byggeplan',
-			name: 'byggeplan',
-			component: () => import('@/views/BBViews/BuyerBuildPlanView.vue'),
-		},
-
-		{
-			path: '/mere',
-			name: 'mere',
-			component: () => import('@/views/BBViews/BuyerMorePageView.vue'),
-		},
-		{
-			path: '/kontakt',
-			name: 'kontakt',
-			component: () => import('@/views/BBViews/BuyerBuilderContactView.vue'),
-		},
-		{
-			path: '/dokumenter',
-			name: 'dokumenter',
-			component: () => import('@/views/BBViews/BuyerDocumentView.vue'),
-		},
-		{
-			path: '/byggeplan',
-			name: 'byggeplan',
-			component: () => import('@/views/BBViews/BuyerBuildPlanView.vue'),
-		},
-		{
-			path: '/profil',
-			name: 'profil',
-			component: () => import('@/views/BBViews/BuyerProfileView.vue'),
-		},
-
-
+					{
+						path: '/buyer',
+										component: () => import('@/layout/BuyerLayout.vue'),
+										children: [
+												{
+														path: 'home',
+														name: 'BBHomePage',
+														component: () => import('@/views/BBViews/BBHomePageView.vue'),
+												},
+												{
+														path: 'byggeplan',
+														name: 'byggeplan',
+														component: () => import('@/views/BBViews/BuyerBuildPlanView.vue'),
+												},
+												{
+														path: 'mere',
+														name: 'mere',
+														component: () => import('@/views/BBViews/BuyerMorePageView.vue'),
+												},
+												{
+														path: 'kontakt',
+														name: 'kontakt',
+														component: () => import('@/views/BBViews/BuyerBuilderContactView.vue'),
+												},
+												{
+														path: 'dokumenter',
+														name: 'dokumenter',
+														component: () => import('@/views/BBViews/BuyerDocumentView.vue'),
+												},
+												{
+														path: 'profil',
+														name: 'profil',
+														component: () => import('@/views/BBViews/BuyerProfileView.vue'),
+												},
+												{
+														path: 'beskeder',
+														name: 'beskeder',
+														component: () => import('@/views/BBViews/BuyerMessageView.vue'),
+												},
+										],
+								},
 
 
 
