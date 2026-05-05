@@ -14,7 +14,7 @@ const byggeleder = {
 
 <template >
 <div class="layout-bb">
-<RouterLink to="/mere" class="back-button">← Tilbage</RouterLink>
+<RouterLink to="/buyer/mere" class="back-button">← Tilbage</RouterLink>
 
     <div class="contact">
         <div class="contact__profile">
@@ -47,7 +47,7 @@ const byggeleder = {
             </Card>
         </div>
 
-        <RouterLink to="/beskeder" class="contact__message-btn">
+        <RouterLink to="/buyer/beskeder" class="contact__message-btn">
             💬 Send besked til {{ byggeleder.builderName }}
         </RouterLink>
     </div>

@@ -7,6 +7,8 @@ import { useBuilderStore } from '@/stores/builderStore';
 import ButtonCard from '@/components/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue';
 
+import BuyerFooter from '@/components/navigation/BuyerFooter.vue';
+
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
@@ -30,20 +32,21 @@ onMounted(async () => {
 
 <Header/>
 
-<ButtonCard buttonTitle="Byggeplan" :arrow="true" to="/byggeplan">
+<ButtonCard buttonTitle="Byggeplan" :arrow="true" to="/buyer/byggeplan">
 
 	<!-- Brug dette når icon bibliotek installeres -->
 	<!-- <template #icon>
             <CalendarIcon />
         </template> -->
 </ButtonCard>
-<ButtonCard buttonTitle="Kontrakter" :arrow="true" to="/dokumenter">
+<ButtonCard buttonTitle="Kontrakter" :arrow="true" to="/buyer/dokumenter">
 </ButtonCard>
-<ButtonCard buttonTitle="Beskeder" :arrow="true" to="/kontakt">
+<ButtonCard buttonTitle="Beskeder" :arrow="true" to="/buyer/kontakt">
 </ButtonCard>
-<ButtonCard buttonTitle="Kontakt din byggeleder" :arrow="true" to="/kontakt"> 
+<ButtonCard buttonTitle="Kontakt din byggeleder" :arrow="true" to="/buyer/kontakt"> 
 </ButtonCard>
 </div>
+<BuyerFooter/>
 </template>
 
 <style scoped>
