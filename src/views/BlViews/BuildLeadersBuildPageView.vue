@@ -13,6 +13,19 @@ import {
 	BedDouble,
 } from '@lucide/vue';
 import GanttDiagram from '@/components/GanttDiagram.vue';
+import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
+import { useProjectStore } from '@/stores/projectStore'
+
+const store = useProjectStore()
+
+const route = useRoute();
+
+onMounted(async () => {
+	await store.fetchProject(route.params.id);
+	await store.fetchTasks(route.params.id);
+	console.log('tasks:', store.tasks);
+})
 
 const cards = [
 	{ text: 'fotos', icon: Camera },
@@ -43,7 +56,7 @@ const photoFolders = [
 		</ButtonCard>
 	</div>
 	<div>
-		<GanttDiagram />
+		<GanttDiagram :project-id="route.params.id" />
 	</div>
 	<div class='card__photo-folders'>
 		<ButtonCard class='card__photo-folder' v-for='folder in photoFolders' :key='folder.name' :buttonText='folder.name'
