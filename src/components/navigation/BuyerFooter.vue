@@ -19,10 +19,10 @@ const navItems = [
             class="buyer-footer__item"
         >
             <div class="buyer-footer__icon-wrapper">
-                <House v-if="item.label === 'Mit Byggeri'" class="buyer-footer__icon" />
-                <Calendar v-else-if="item.label === 'Byggeplan'" class="buyer-footer__icon" />
-                <MessageCircle v-else-if="item.label === 'Beskeder'" class="buyer-footer__icon" />
-                <Ellipsis v-else-if="item.label === 'Mere'" class="buyer-footer__icon" />
+                <House v-if="item.label === 'Mit Byggeri'" class="buyer-footer__icon" :size="20"/>
+                <Calendar v-else-if="item.label === 'Byggeplan'" class="buyer-footer__icon" :size="20"/>
+                <MessageCircle v-else-if="item.label === 'Beskeder'" class="buyer-footer__icon" :size="20"/>
+                <Ellipsis v-else-if="item.label === 'Mere'" class="buyer-footer__icon" :size="20"/>
                 <span v-if="item.badge" class="buyer-footer__badge">{{ item.badge }}</span>
             </div>
             <span class="buyer-footer__label">{{ item.label }}</span>
