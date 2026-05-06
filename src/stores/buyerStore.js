@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 export const useBuyerStore = defineStore('buyer', () => {
 	const buyer = ref(null);
@@ -21,5 +21,14 @@ export const useBuyerStore = defineStore('buyer', () => {
 		}
 	};
 
-	return { buyer, loading, fetchBuyer };
+	const updateBuyer = async (updatedData) => {
+        try {
+            await updateDoc(doc(db, 'users', buyer.value.id), updatedData)
+            buyer.value = { ...buyer.value, ...updatedData }
+        } catch (error) {
+            console.error('Fejl ved opdatering:', error)
+        }
+    }
+
+    return { buyer, loading, fetchBuyer, updateBuyer };
 });
