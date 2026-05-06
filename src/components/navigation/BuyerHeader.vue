@@ -30,6 +30,11 @@ const initials = computed(() => {
     padding: 16px 20px;
     background: $card-color;
     border-bottom: 1px solid $border-color;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
 
     &__logo {
         display: flex;
