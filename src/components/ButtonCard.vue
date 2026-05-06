@@ -44,7 +44,7 @@ defineProps({
 			<slot name="progress" />
 		</div>
 		<div v-if="icon" class="card__icon">
-			<component :is="icon" />
+			<component :is="icon" :size="19"/>
 		</div>
 
 		<div class="card__content">
@@ -61,8 +61,6 @@ defineProps({
 </template>
 
 <style scoped lang="scss">
-/* @use '@/assets/scss/variables' as *; */
-
 .card {
 	display: flex;
 	align-items: center;
@@ -97,7 +95,7 @@ defineProps({
 	&__title {
 		color: $foreground-color;
 		font-size: $font-size-lg;
-		font-weight: $font-weight-semibold;
+		font-weight: $font-weight-semi;
 		margin: 0;
 	}
 
