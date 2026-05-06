@@ -25,7 +25,7 @@ export const useProjectStore = defineStore('project', () => {
 	const fetchTasks = async (projectId) => {
 		loading.value = true;
 		try {
-			const snap = await getDocs(collection(db, 'projects', projectId, 'taskId'));
+			const snap = await getDocs(collection(db, 'projects', projectId, 'tasks'));
 			tasks.value = snap.docs.map(d => ({ firestoreId: d.id, ...d.data() }));
 		} catch (error) {
 			console.log('fejl ved hentning af task', error);
