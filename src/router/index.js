@@ -60,7 +60,7 @@ const router = createRouter({
 					meta: { pageName: 'byggeleder portal' },
 				},
 				{
-					path: 'bygger',
+					path: 'bygger/:id',
 					name: 'BuildLeaderBuildPage',
 					component: () => import('@/views/BLViews/BuildLeadersBuildPageView.vue'),
 					meta: { pageName: 'Lars og Mette' },
