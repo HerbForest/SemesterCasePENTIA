@@ -4,6 +4,7 @@ import { onMounted  } from 'vue';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
+
 import ButtonCard from '@/components/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue';
 

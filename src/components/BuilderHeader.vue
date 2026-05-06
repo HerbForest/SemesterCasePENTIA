@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
+import {  House, MapPin } from '@lucide/vue';
 
 const router = useRouter();
 
@@ -40,11 +41,11 @@ const buildingProgress = '63%';
 		<!-- Info boks -->
 		<button class="hero-card__info" @click="goToProject">
 			<div class="hero-card__identity">
-				<div class="hero-card__icon-box">🏠</div>
+				<div class="hero-card__icon-box"><House /></div>
 				<div class="hero-card__text">
 					<h2 class="hero-card__title">Mit Byggeri</h2>
 					<span class="hero-card__address">
-						<span class="hero-card__address-icon">📍</span>
+						<span class="hero-card__address-icon"><MapPin /></span>
 						{{ builderAdress }}
 					</span>
 				</div>
