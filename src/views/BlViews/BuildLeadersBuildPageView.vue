@@ -15,7 +15,7 @@ import {
 import GanttDiagram from '@/components/GanttDiagram.vue';
 import { useRoute } from 'vue-router'
 import { onMounted } from 'vue'
-import { useProjectStore } from '@/stores/projectStore'
+import { useProjectStore } from '@/stores/projectStore';
 
 const store = useProjectStore()
 
@@ -25,7 +25,8 @@ onMounted(async () => {
 	await store.fetchProject(route.params.id);
 	await store.fetchTasks(route.params.id);
 	console.log('tasks:', store.tasks);
-})
+
+});
 
 const cards = [
 	{ text: 'fotos', icon: Camera },

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { GanttChart } from 'jordium-gantt-vue3'
 import { useProjectStore } from '@/stores/projectStore'
 import { storeToRefs } from 'pinia'
@@ -12,9 +12,15 @@ defineProps({
 	}
 })
 
-const store = useProjectStore()
-const { tasks } = storeToRefs(store)
+const store = useProjectStore();
 
+const sortedTasks = computed(() => {
+	const parentTasks = store.tasks.filter(task => task.isParent);
+	return parentTasks.flatMap(parentTask => [
+		parentTask,
+		...store.tasks.filter(childTask => childTask.parentId === parentTask.id)
+	])
+})
 
 // const tasks = ref([
 // {
@@ -159,5 +165,5 @@ const { tasks } = storeToRefs(store)
 </script>
 
 <template>
-	<GanttChart theme="light" :tasks="tasks" locale="en-US" />
+	<GanttChart theme="light" :tasks="sortedTasks" locale="en-US" />
 </template>
