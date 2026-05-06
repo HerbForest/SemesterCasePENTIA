@@ -5,6 +5,8 @@ import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
 
+import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
+
 import ButtonCard from '@/components/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue';
 
@@ -33,18 +35,18 @@ onMounted(async () => {
 
 <Header/>
 
-<ButtonCard buttonTitle="Byggeplan" :arrow="true" to="/buyer/byggeplan">
+<ButtonCard buttonTitle="Byggeplan" :arrow="true" :icon="Calendar" to="/buyer/byggeplan">
 
 	<!-- Brug dette når icon bibliotek installeres -->
 	<!-- <template #icon>
             <CalendarIcon />
         </template> -->
 </ButtonCard>
-<ButtonCard buttonTitle="Kontrakter" :arrow="true" to="/buyer/dokumenter">
+<ButtonCard buttonTitle="Kontrakter" :arrow="true" :icon="FileText" to="/buyer/dokumenter">
 </ButtonCard>
-<ButtonCard buttonTitle="Beskeder" :arrow="true" to="/buyer/kontakt">
+<ButtonCard buttonTitle="Beskeder" :arrow="true" :icon="MessageCircle" to="/buyer/kontakt">
 </ButtonCard>
-<ButtonCard buttonTitle="Kontakt din byggeleder" :arrow="true" to="/buyer/kontakt"> 
+<ButtonCard buttonTitle="Kontakt din byggeleder" :icon="Phone" :arrow="true" to="/buyer/kontakt"> 
 </ButtonCard>
 </div>
 <BuyerFooter/>
