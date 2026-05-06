@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
-import {  House, MapPin } from '@lucide/vue';
+import {  House, MapPin, Calendar } from '@lucide/vue';
 
 const router = useRouter();
 
@@ -50,7 +50,7 @@ const buildingProgress = '63%';
 					</span>
 				</div>
 			</div>
-			<div class="hero-card__progress-pill">📅 Din byggeplan {{ buildingProgress }}</div>
+			<div class="hero-card__progress-pill"><Calendar/> Din byggeplan {{ buildingProgress }}</div>
 		</button>
 	</div>
 </template>
