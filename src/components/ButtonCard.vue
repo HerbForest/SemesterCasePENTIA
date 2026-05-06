@@ -70,7 +70,7 @@ defineProps({
 	background: $card-color;
 	border-radius: 16px;
 	border: 1px solid $border-color;
-	padding: 16px 20px;
+	padding: 16px 20px 16px 0px;
 	margin-bottom: 12px;
 	text-decoration: none;
 
@@ -81,13 +81,14 @@ defineProps({
 		width: 44px;
 		height: 44px;
 		background: $accent-color;
-		border-radius: 10px;
+		border-radius: 999px;
 		font-size: 1.3rem;
 		flex-shrink: 0;
+		color: $foreground-color;
 	}
 
 	&__content {
-		flex: 1; // ← her skal den sidde
+		flex: 1; 
 		display: flex;
 		flex-direction: column;
 		gap: 2px;
