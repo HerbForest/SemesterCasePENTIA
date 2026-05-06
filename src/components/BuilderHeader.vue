@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
-import {  House, MapPin } from '@lucide/vue';
+import {  House, MapPin, Calendar } from '@lucide/vue';
 
 const router = useRouter();
 
@@ -41,16 +41,16 @@ const buildingProgress = '63%';
 		<!-- Info boks -->
 		<button class="hero-card__info" @click="goToProject">
 			<div class="hero-card__identity">
-				<div class="hero-card__icon-box"><House /></div>
+				<div class="hero-card__icon-box"><House :size="22"/></div>
 				<div class="hero-card__text">
 					<h2 class="hero-card__title">Mit Byggeri</h2>
 					<span class="hero-card__address">
-						<span class="hero-card__address-icon"><MapPin /></span>
+						<span class="hero-card__address-icon"><MapPin :size="13" /></span>
 						{{ builderAdress }}
 					</span>
 				</div>
 			</div>
-			<div class="hero-card__progress-pill">📅 Din byggeplan {{ buildingProgress }}</div>
+			<div class="hero-card__progress-pill"><Calendar :size="14"/> Din byggeplan {{ buildingProgress }}</div>
 		</button>
 	</div>
 </template>
@@ -60,7 +60,7 @@ const buildingProgress = '63%';
 	position: relative;
 	border-radius: 16px;
 	overflow: hidden;
-	margin-bottom: 12px;
+	margin-bottom: 20px;
 
 	// Slideshow
 	&__slideshow {
@@ -123,6 +123,7 @@ const buildingProgress = '63%';
 		text-align: left;
 		cursor: pointer;
 		width: calc(100% - 24px);
+		border: 1px solid $border-color;
 	}
 
 	&__identity {
@@ -144,8 +145,8 @@ const buildingProgress = '63%';
 	}
 
 	&__title {
-		font-size: $font-size-xl;
-		font-weight: $font-weight-bold;
+		font-size: $font-size-lg;
+		font-weight: $font-weight-semibold;
 		color: $foreground-color;
 		margin: 0 0 2px;
 	}
@@ -167,8 +168,8 @@ const buildingProgress = '63%';
 		color: $primary-foreground-color;
 		padding: 8px 16px;
 		border-radius: 999px;
-		font-size: $font-size-sm;
-		font-weight: $font-weight-semibold;
+		font-size: $font-size-xs;
+		font-weight: $font-weight-normal;
 		width: fit-content;
 	}
 }

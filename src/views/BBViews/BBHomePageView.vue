@@ -5,6 +5,8 @@ import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
 
+import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
+
 import ButtonCard from '@/components/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue';
 
@@ -25,34 +27,39 @@ onMounted(async () => {
 
 <template>
 <div class="layout-bb">
-
-	<div class="bbHero">
-		<h1 class="">Mit Byggeri</h1>
-		<h2 class="bbWelcome">Velkommen! {{ buyerStore.buyer?.firstName }}</h2>
+	<div class="buyer-hero">
+		<h1 class="buyer-hero__title">Mit Byggeri</h1>
+		<h2 class="buyer-hero__welcome">Velkommen, {{ buyerStore.buyer?.firstName }}!</h2>
 	</div>
 
 <Header/>
 
-<ButtonCard buttonTitle="Byggeplan" :arrow="true" to="/buyer/byggeplan">
-
-	<!-- Brug dette når icon bibliotek installeres -->
-	<!-- <template #icon>
-            <CalendarIcon />
-        </template> -->
+<ButtonCard buttonTitle="Byggeplan" :arrow="true" :icon="Calendar" to="/buyer/byggeplan">
 </ButtonCard>
-<ButtonCard buttonTitle="Kontrakter" :arrow="true" to="/buyer/dokumenter">
+<ButtonCard buttonTitle="Kontrakter" :arrow="true" :icon="FileText" to="/buyer/dokumenter">
 </ButtonCard>
-<ButtonCard buttonTitle="Beskeder" :arrow="true" to="/buyer/kontakt">
+<ButtonCard buttonTitle="Beskeder" :arrow="true" :icon="MessageCircle" to="/buyer/kontakt">
 </ButtonCard>
-<ButtonCard buttonTitle="Kontakt din byggeleder" :arrow="true" to="/buyer/kontakt"> 
+<ButtonCard buttonTitle="Kontakt din byggeleder" :icon="Phone" :arrow="true" to="/buyer/kontakt"> 
 </ButtonCard>
 </div>
 <BuyerFooter/>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.buyer-hero{
 
-h1{
-	color: v.$card-color;
+	&__title{
+		font-size: $font-size-2xl;
+		color: $foreground-color;
+		margin-bottom: 0;
+	}
+	&__welcome{
+		font-size: $font-size-lg;
+		font-weight: $font-weight-normal;
+		color: $muted-foreground-color;
+		margin-top: 4px;
+		padding-bottom: 10px;
+	}
 }
 </style>

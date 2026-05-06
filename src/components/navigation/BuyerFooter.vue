@@ -1,17 +1,17 @@
-<!-- components/BBFooter.vue -->
 <script setup>
 import { RouterLink } from 'vue-router'
+import { House, Calendar, MessageCircle, Ellipsis } from '@lucide/vue';
 
 const navItems = [
-    { label: 'Mit Byggeri', icon: '🏠', to: '/buyer/home' },
-    { label: 'Byggeplan', icon: '📅', to: '/buyer/byggeplan' },
-    { label: 'Beskeder', icon: '💬', to: '/buyer/beskeder', badge: 1 },
-    { label: 'Mere', icon: '···', to: '/buyer/mere' },
+    { label: 'Mit Byggeri', to: '/buyer/home' },
+    { label: 'Byggeplan', to: '/buyer/byggeplan' },
+    { label: 'Beskeder', to: '/buyer/beskeder', badge: 1 },
+    { label: 'Mere', to: '/buyer/mere' },
 ]
 </script>
 
 <template>
-    <footer class="buyer-footer layout-bb">
+    <footer class="buyer-footer">
         <RouterLink
             v-for="item in navItems"
             :key="item.label"
@@ -19,7 +19,10 @@ const navItems = [
             class="buyer-footer__item"
         >
             <div class="buyer-footer__icon-wrapper">
-                <span class="buyer-footer__icon">{{ item.icon }}</span>
+                <House v-if="item.label === 'Mit Byggeri'" class="buyer-footer__icon" :size="20"/>
+                <Calendar v-else-if="item.label === 'Byggeplan'" class="buyer-footer__icon" :size="20"/>
+                <MessageCircle v-else-if="item.label === 'Beskeder'" class="buyer-footer__icon" :size="20"/>
+                <Ellipsis v-else-if="item.label === 'Mere'" class="buyer-footer__icon" :size="20"/>
                 <span v-if="item.badge" class="buyer-footer__badge">{{ item.badge }}</span>
             </div>
             <span class="buyer-footer__label">{{ item.label }}</span>
