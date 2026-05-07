@@ -8,11 +8,21 @@ import { useBuyerStore } from '@/stores/buyerStore';
 import ButtonCard from '@/components/ButtonCard.vue';
 import Card from '@/components/TextCard.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
+import { Phone, Mail, MessageCircle } from '@lucide/vue';
 
 const builderStore = useBuilderStore();
 const projectStore = useProjectStore();
 const buyerStore = useBuyerStore();
 
+onMounted(async () => {
+    if (!projectStore.project) {
+        await buyerStore.fetchBuyer('1DqXNJfqTOaS85GKWsDl')
+        await projectStore.fetchProject(buyerStore.buyer.projectId)
+    }
+    if (!builderStore.builder) {
+        await builderStore.fetchBuilder(projectStore.project.builderId)
+    }
+})
 </script>
 
 <template >
@@ -24,18 +34,18 @@ const buyerStore = useBuyerStore();
             <div class="contact__img">
                 <img src="/images/house1.jpg" alt="Byggeleder">
             </div>
-            <p class="contact__builder-name">{{ byggeleder.builderName }}</p>
-            <p class="contact__builder-title">{{ byggeleder.builderTitle }}</p>
+            <p class="contact__builder-name">{{ builderStore.builder?.firstName }} {{ builderStore.builder?.lastName }}</p>
+            <p class="contact__builder-title">{{ builderStore.builder?.title }}</p>
         </div>
 
         <div class="contact__info-card">
-            <ButtonCard buttonTitle="Telefon" :buttonText="byggeleder.phone" :arrow="false" />
-            <ButtonCard buttonTitle="Mail" :buttonText="byggeleder.mail" :arrow="false" />
+            <ButtonCard buttonTitle="Telefon" :buttonText="builderStore.builder?.phone" :icon="Phone" :arrow="false" />
+            <ButtonCard buttonTitle="Mail" :buttonText="builderStore.builder?.email" :icon="Mail" :arrow="false" />
         </div>
 
 				<div class="contact__about-builder">
-					<Card :title="`Om ${byggeleder.builderName}`">
-							<p>{{ byggeleder.aboutBuilder }}</p>
+					<Card :title="`Om ${builderStore.builder?.firstName}`">
+							<p class="contact__about-builder-text">{{ builderStore.builder?.about }}</p>
 					</Card>
 				</div>
 
@@ -51,7 +61,7 @@ const buyerStore = useBuyerStore();
         </div>
 
         <RouterLink to="/buyer/beskeder" class="contact__message-btn">
-            💬 Send besked til {{ byggeleder.builderName }}
+            <MessageCircle :size="15" />  Send besked til {{ builderStore.builder?.firstName }}
         </RouterLink>
     </div>
 </div>
@@ -77,11 +87,23 @@ const buyerStore = useBuyerStore();
         margin-bottom: 24px;
     }
 
+    &__about-builder-{
+        font-size: $font-size-xl;
+        color: $muted-foreground-color;
+    }
+
+    &__about-builder-text{
+        font-size: $font-size-sm;
+        color: $muted-foreground-color;
+    }
+
 		&__info-card,
-    &__availability-card,
-		&__about-builder,
+        &__availability-card,
+		&__about-builder {
+             width: 100%;
+        }
     &__message-btn {
-        width: 100%;
+        width: 92%;
     }
 
     &__img {
@@ -119,8 +141,8 @@ const buyerStore = useBuyerStore();
     color: $primary-foreground-color;
     border: none;
     border-radius: 16px;
-    font-size: $font-size-lg;
-    font-weight: $font-weight-semibold;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-normal;
     cursor: pointer;
     display: flex;
     align-items: center;
