@@ -1,15 +1,17 @@
 <script setup>
+import { onMounted } from 'vue';
+
+import { useBuilderStore } from '@/stores/builderStore';
+import { useProjectStore } from '@/stores/projectStore';
+import { useBuyerStore } from '@/stores/buyerStore';
+
 import ButtonCard from '@/components/ButtonCard.vue';
 import Card from '@/components/TextCard.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 
-const byggeleder = {
-	builderName: 'Thomas',
-	phone: '+45 12 34 56 78',
-	builderTitle: 'Byggeleder',
-	mail: 'thomas@mileton.dk',
-	aboutBuilder: 'Thomas har over 15 års erfaring...'
-};
+const builderStore = useBuilderStore();
+const projectStore = useProjectStore();
+const buyerStore = useBuyerStore();
 
 </script>
 
