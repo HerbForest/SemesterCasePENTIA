@@ -16,7 +16,7 @@ const router = useRouter()
     border: none;
     color: $foreground-color;
     font-size: $font-size-lg;
-    font-weight: $font-weight-semibold;
+    font-weight: $font-weight-semi;
     cursor: pointer;
     padding: 0;
     margin-bottom: 16px;

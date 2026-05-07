@@ -1,6 +1,7 @@
 <script setup>
 import ButtonCard from '@/components/ButtonCard.vue';
 import Card from '@/components/TextCard.vue';
+import ReturnButton from '@/components/buttons/ReturnButton.vue';
 
 const byggeleder = {
 	builderName: 'Thomas',
@@ -14,7 +15,7 @@ const byggeleder = {
 
 <template >
 <div class="layout-bb">
-<RouterLink to="/buyer/mere" class="back-button">← Tilbage</RouterLink>
+    <ReturnButton/>
 
     <div class="contact">
         <div class="contact__profile">
