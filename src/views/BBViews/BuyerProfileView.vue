@@ -2,11 +2,14 @@
 import { computed } from 'vue'
 import { useBuyerStore } from '@/stores/buyerStore'
 import { useProjectStore } from '@/stores/projectStore'
+import { useBuilderStore } from '@/stores/builderStore'
 import ProfileCard from '@/components/cards/ProfileCard.vue'
 import ReturnButton from '@/components/buttons/ReturnButton.vue'
+import Card from '@/components/TextCard.vue';
 
-const buyerStore = useBuyerStore()
-const projectStore = useProjectStore()
+const buyerStore = useBuyerStore();
+const projectStore = useProjectStore();
+const builderStore = useBuilderStore();
 
 const initials = computed(() => {
     if (!buyerStore.buyer) return ''
@@ -35,6 +38,18 @@ const handleSave = async (updatedData) => {
         :address="projectStore.project?.address"
 				@save="handleSave"
   />
+	<div class="buyer-profile__project-card">
+      <Card title="Dit projekt">
+          <div class="buyer-profile__project-info">
+              <span class="buyer-profile__project-info-title">Projekt</span>
+              <span class="buyer-profile__project-info-text">{{ projectStore.project?.address }}</span>
+              <span class="buyer-profile__project-info-title">Byggeleder</span>
+              <span class="buyer-profile__project-info-text">{{ builderStore.builder?.firstName }} {{ builderStore.builder?.lastName  }}</span>
+							<span class="buyer-profile__project-info-title">Forventet aflevering</span>
+              <span class="buyer-profile__project-info-text">{{  projectStore.project?.expectedDelivery}}</span>
+          </div>
+        </Card>
+  </div>
 </div>
 </template>
 
@@ -74,6 +89,28 @@ const handleSave = async (updatedData) => {
 			margin-top: 1.5%;
 			margin-bottom: 4%;
 		}
+
+		  &__project-card {
+    }
+
+    &__project-info {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 8px 16px;
+        align-items: center;
+
+        &-title {
+            color: $muted-foreground-color;
+            font-size: $font-size-sm;
+        }
+
+        &-text {
+            color: $foreground-color;
+            font-size: $font-size-sm;
+            text-align: right;
+
+        }
+    }
 
 		}
 		</style>
