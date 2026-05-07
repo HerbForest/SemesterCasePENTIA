@@ -5,7 +5,7 @@ import { useProjectStore } from '@/stores/projectStore'
 import { storeToRefs } from 'pinia'
 
 
-defineProps({
+const props = defineProps({
 	projectId: {
 		type: String,
 		required: true
@@ -19,9 +19,43 @@ const sortedTasks = computed(() => {
 	return parentTasks.flatMap(parentTask => [
 		parentTask,
 		...store.tasks.filter(childTask => childTask.parentId === parentTask.id)
-	])
-})
+	]);
+});
 
+const handleTaskAdded = async (newTask) => {
+	const rawTask = newTask.task;
+	const taskToSave = {
+		id: rawTask.id,
+		name: rawTask.name,
+		startDate: rawTask.startDate,
+		endDate: rawTask.endDate,
+		progress: rawTask.progress,
+		type: rawTask.type,
+		estimatedHours: rawTask.estimatedHours,
+		description: rawTask.description,
+	};
+	await store.addTask(props.projectId, taskToSave);
+	console.log('ny task:', newTask);
+};
+
+const handleTaskUpdated = async ({ task }) => {
+	console.log('task-updated:', task);
+	await store.updateTask(props.projectId, task);
+};
+
+const handleTaskRowMoved = async ({ draggedTask }) => {
+	console.log('task-row-moved:', draggedTask);
+	await store.updateTask(props.projectId, draggedTask);
+};
+const handleTaskbarDragEnd = async (taskBarDragEnd) => {
+	console.log('taskbar-drag-end:', taskBarDragEnd);
+	await store.updateTask(props.projectId, taskBarDragEnd);
+};
+
+const handlePredecessorAdded = async ({ newTask }) => {
+	console.log('predecessor-added:', newTask);
+	await store.updateTask(props.projectId, newTask);
+};
 // const tasks = ref([
 // {
 // id: 1,
@@ -165,5 +199,8 @@ const sortedTasks = computed(() => {
 </script>
 
 <template>
-	<GanttChart theme="light" :tasks="sortedTasks" locale="en-US" />
+	<GanttChart theme="light" :autoSortByStartDate=true :tasks="sortedTasks" locale="en-US" @task-added="handleTaskAdded"
+		@task-updated="handleTaskUpdated" :enable-task-row-moved="true" @task-row-moved="handleTaskRowMoved"
+		@predecessor-added="handlePredecessorAdded" @taskbar-drag-end="handleTaskbarDragEnd" :allowDragAndResize=true
+		pendingTaskBackgroundColor="#2c687d" />
 </template>

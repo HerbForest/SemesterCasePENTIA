@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
-import { doc, getDoc, getDocs, collection } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection, setDoc } from 'firebase/firestore';
 
 export const useProjectStore = defineStore('project', () => {
 	const project = ref(null);
@@ -35,6 +35,28 @@ export const useProjectStore = defineStore('project', () => {
 
 		}
 	}
-	console.log(fetchTasks);
-	return { project, loading, fetchProject, fetchTasks, tasks };
+	const addTask = async (projectId, task) => {
+		try {
+			const tasksCollection = collection(db, 'projects', projectId, 'tasks');
+			await setDoc(doc(tasksCollection, String(task.id)), task);
+			tasks.value.push(task);
+
+		} catch (error) {
+			console.error('Fejl ved tilføjelse af task:', error);
+		}
+	};
+	const updateTask = async (projectId, task) => {
+		try {
+			const taskDoc = doc(db, 'projects', projectId, 'tasks', String(task.id));
+			await setDoc(taskDoc, task);
+			const index = tasks.value.findIndex(storedTask => storedTask.id === task.id)
+			if (index !== -1) {
+				tasks.value[index] = task;
+			}
+		}
+		catch (error) {
+			console.error('fejl ved opdatering af task:', error);
+		}
+	};
+	return { project, loading, fetchProject, fetchTasks, tasks, addTask, updateTask };
 });

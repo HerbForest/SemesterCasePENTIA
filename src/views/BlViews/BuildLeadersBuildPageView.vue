@@ -69,7 +69,7 @@ const photoFolders = [
 
 <style scoped lang='scss'>
 .build-CardWrapper {
-	isplay: flex;
+	display: flex;
 	justify-content: center;
 	margin: 0;
 }
