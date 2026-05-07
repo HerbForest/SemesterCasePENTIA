@@ -26,8 +26,9 @@ defineProps({
 	margin-bottom: 12px;
 
 	&__title {
-		color: $primary-color;
-		font-size: 1.1rem;
+		color: $foreground-color;
+		font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
 		margin-bottom: 12px;
 	}
 }
