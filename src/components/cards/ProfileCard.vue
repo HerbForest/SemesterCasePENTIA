@@ -40,24 +40,24 @@ const save = () => {
 
         <div class="profile-card__rows">
             <div class="profile-card__row">
-                <UserRound :size="18" class="profile-card__icon" />
+                <UserRound :size="15" class="profile-card__icon" />
                 <span>{{ firstName }} {{ lastName }}</span>
             </div>
 
             <div class="profile-card__row">
-                <Mail :size="18" class="profile-card__icon" />
+                <Mail :size="15" class="profile-card__icon" />
                 <input v-if="isEditing" v-model="form.email" class="profile-card__input" />
                 <span v-else>{{ email }}</span>
             </div>
 
             <div class="profile-card__row">
-                <Phone :size="18" class="profile-card__icon" />
+                <Phone :size="15" class="profile-card__icon" />
                 <input v-if="isEditing" v-model="form.phone" class="profile-card__input" />
                 <span v-else>{{ phone }}</span>
             </div>
 
             <div class="profile-card__row">
-                <MapPin :size="18" class="profile-card__icon" />
+                <MapPin :size="15" class="profile-card__icon" />
                 <span>{{ address }}</span>
             </div>
         </div>
@@ -79,7 +79,7 @@ const save = () => {
     }
 
     &__title {
-        font-size: $font-size-lg;
+        font-size: $font-size-sm;
         font-weight: $font-weight-bold;
         color: $foreground-color;
         margin: 0;
@@ -108,6 +108,9 @@ const save = () => {
         display: flex;
         align-items: center;
         gap: 12px;
+				font-size: $font-size-sm;
+				$font-weight-normal: 400;
+				color: $foreground-color;
     }
 
     &__icon {
@@ -120,7 +123,7 @@ const save = () => {
         border: 1px solid $border-input-color;
         border-radius: 8px;
         padding: 6px 10px;
-        font-size: $font-size-sm;
+        font-size: $font-size-xs;
         color: $foreground-color;
         background: $background-color;
 
