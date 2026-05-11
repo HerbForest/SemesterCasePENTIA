@@ -56,6 +56,9 @@ const handlePredecessorAdded = async ({ newTask }) => {
 	console.log('predecessor-added:', newTask);
 	await store.updateTask(props.projectId, newTask);
 };
+const handleTaskDeleted = async ({ task }) => {
+	await store.deleteTask(props.projectId, task.id);
+};
 // const tasks = ref([
 // {
 // id: 1,
@@ -201,6 +204,6 @@ const handlePredecessorAdded = async ({ newTask }) => {
 <template>
 	<GanttChart theme="light" :autoSortByStartDate=true :tasks="sortedTasks" locale="en-US" @task-added="handleTaskAdded"
 		@task-updated="handleTaskUpdated" :enable-task-row-moved="true" @task-row-moved="handleTaskRowMoved"
-		@predecessor-added="handlePredecessorAdded" @taskbar-drag-end="handleTaskbarDragEnd" :allowDragAndResize=true
-		pendingTaskBackgroundColor="#2c687d" />
+		@predecessor-added="handlePredecessorAdded" @taskbar-drag-end="handleTaskbarDragEnd" @task-deleted="handleTaskDeleted"
+		:allowDragAndResize=true pendingTaskBackgroundColor="#2c687d" />
 </template>

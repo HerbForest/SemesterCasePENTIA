@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
-import { doc, getDoc, getDocs, collection, setDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore';
 
 export const useProjectStore = defineStore('project', () => {
 	const project = ref(null);
@@ -49,7 +49,7 @@ export const useProjectStore = defineStore('project', () => {
 		try {
 			const taskDoc = doc(db, 'projects', projectId, 'tasks', String(task.id));
 			await setDoc(taskDoc, task);
-			const index = tasks.value.findIndex(storedTask => storedTask.id === task.id)
+			const index = tasks.value.findIndex(storedTask => storedTask.id === task.id);
 			if (index !== -1) {
 				tasks.value[index] = task;
 			}
@@ -58,5 +58,14 @@ export const useProjectStore = defineStore('project', () => {
 			console.error('fejl ved opdatering af task:', error);
 		}
 	};
-	return { project, loading, fetchProject, fetchTasks, tasks, addTask, updateTask };
+	const deleteTask = async (projectId, taskId) => {
+		try {
+			await deleteDoc(doc(db, 'projects', projectId, 'tasks', String(taskId)));
+			tasks.value = tasks.value.filter(t => t.id !== taskId);
+		} catch (error) {
+			console.error('Fejl ved sletning af task:', error);
+		}
+	};
+
+	return { project, loading, fetchProject, fetchTasks, tasks, addTask, updateTask, deleteTask };
 });
