@@ -83,6 +83,12 @@ const router = createRouter({
 					component: () => import('@/views/BLViews/BuilderSettingsView.vue'),
 					meta: { pageName: 'Indstillinger & support' },
 				},
+				{
+					path: 'upload',
+					name: 'BuilderMenu',
+					component: () => import('@/views/BLViews/BuilderUploadView.vue'),
+					meta: { pageName: 'Upload nye filer' },
+				},
 			],
 		},
 	],
