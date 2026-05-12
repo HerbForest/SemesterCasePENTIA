@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+import UploadCard from '@/components/cards/UploadCard.vue';
+
+</script>
 <template>
-	<div>message</div>
+	<div>
+		<UploadCard/>
+	</div>
 </template>
