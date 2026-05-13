@@ -39,5 +39,15 @@ defineProps({
                 </div>
             </div>
         </div>
+				        <!-- Buyer besked - højrestillet uden avatar -->
+        <div v-else class="message-card__buyer">
+            <div class="message-card__meta message-card__meta--right">
+                <span class="message-card__name">{{ name }}</span>
+                <span class="message-card__time">{{ time }}</span>
+            </div>
+            <div class="message-card__bubble message-card__bubble--buyer">
+                <slot />
+            </div>
+        </div>
 </div>
 </template>
