@@ -54,7 +54,7 @@ defineProps({
 
 <style scoped lang="scss">
 .message-card {
-    margin-bottom: 16px
+    margin-bottom: 16px;
 
     // Builder besked
     &--builder {
@@ -98,7 +98,7 @@ defineProps({
     &__meta {
         display: flex;
         align-items: center;
-        gap: 8px
+        gap: 8px;
         margin-bottom: 4px;
 
         &--right {
