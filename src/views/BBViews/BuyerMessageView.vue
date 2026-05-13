@@ -1,9 +1,9 @@
 <script setup>
-import UploadCard from '@/components/cards/UploadCard.vue';
+import MessageCard from '@/components/cards/MessageCard.vue';
 
 </script>
 <template>
 	<div>
-		<UploadCard/>
+		<MessageCard/>
 	</div>
 </template>
