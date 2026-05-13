@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, computed } from 'vue'
 import MessageCard from '@/components/cards/MessageCard.vue'
+import MessageInput from '@/components/MessageInput.vue'
 import { useBuyerStore } from '@/stores/buyerStore'
 import { useBuilderStore } from '@/stores/builderStore'
 import { useProjectStore } from '@/stores/projectStore'
@@ -69,7 +70,7 @@ const builderImage = computed(() => builderStore.builder?.profileImage)
         >
             <p>Fundamentet er nu støbt og hærder planmæssigt. Alt ser rigtig fint ud!</p>
         </MessageCard>
-
+				<MessageInput />
     </div>
 </div>
 </template>
@@ -94,6 +95,7 @@ const builderImage = computed(() => builderStore.builder?.profileImage)
     display: flex;
     flex-direction: column;
     padding: 16px;
+		padding-bottom: 60px;
 
     &__date-divider {
         text-align: center;
