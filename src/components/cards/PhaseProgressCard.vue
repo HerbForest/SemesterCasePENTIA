@@ -19,14 +19,14 @@ const phaseProps = defineProps({
 const isExpanded = ref(phaseProps.status === 'active');
 
 const toggle = () => {
-	if (phaseProps.status === 'completed' || phaseProps === 'active') {
+	if (phaseProps.status === 'completed' || phaseProps.status === 'active') {
 		isExpanded.value = !isExpanded.value;
 	};
 };
 </script>
 
 <template>
-	<div :class="['phase-card', `phase-card--${satus}`]"
+	<div :class="['phase-card', `phase-card--${status}`]"
 	@click="toggle"
 	>
 	<!-- main content -->
@@ -50,7 +50,7 @@ const toggle = () => {
 					Estimeret dato: {{ estimatedDate }}
 				</span>
 				<span v-else-if="status === 'active' && !isExpanded">
-					Forventes Færdig inden for {{ daysLeft }} dage
+					Forventes Færdig inden for {{ timeLeft}} dage
 				</span>
 			</p>
 		</div>
@@ -60,7 +60,7 @@ const toggle = () => {
 	 </div>
 
 	 <!-- foldbart indhold -->
-		<div vi-if="isExpanded && images.length" class="phase-card__images">
+		<div v-if="isExpanded && images.length" class="phase-card__images">
 			<img 
 			v-for="(img, index) in images"
 			:key="index"
@@ -70,14 +70,14 @@ const toggle = () => {
 			/>
 		</div>
 
-		<p v-if="isExpanded && daysLeft" class="phase-card__footer">
-			forventes færdig inden for {{ daysLeft }} dage
+		<p v-if="isExpanded && timeLeft" class="phase-card__footer">
+			forventes færdig inden for {{ timeLeft }} dage
 		</p>
 	</div>
 
 </template>
 
-<style scoped lang="css">
+<style scoped lang="scss">
 .phase-card {
 	border-radius: 16px;
 	padding: 16px;
@@ -159,6 +159,13 @@ const toggle = () => {
 		font-size: $font-size-sm;
 		margin: 4px 0 0;
 	}
+
+	&__main-content {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 12px;
+    align-items: start;
+}
 
 	&__progress {
 		background: rgba(255,255,255,0.2);

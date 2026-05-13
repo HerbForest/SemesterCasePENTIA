@@ -38,7 +38,7 @@ onMounted(async () => {
 </ButtonCard>
 <ButtonCard buttonTitle="Kontrakter" :arrow="true" :icon="FileText" to="/buyer/dokumenter">
 </ButtonCard>
-<ButtonCard buttonTitle="Beskeder" :arrow="true" :icon="MessageCircle" to="/buyer/kontakt">
+<ButtonCard buttonTitle="Beskeder" :arrow="true" :icon="MessageCircle" to="/buyer/beskeder">
 </ButtonCard>
 <ButtonCard buttonTitle="Kontakt din byggeleder" :icon="Phone" :arrow="true" to="/buyer/kontakt"> 
 </ButtonCard>
