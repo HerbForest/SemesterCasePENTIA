@@ -5,6 +5,7 @@ import BuilderButtomNav from '@/components/BuilderButtomNav.vue';
 <template>
 	<main>
 		<BuilderNavbar />
+		<!-- måske bruge slots her -->
 		<RouterView />
 		<BuilderButtomNav />
 	</main>

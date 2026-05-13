@@ -1,8 +1,6 @@
 <script setup>
-import { ref, computed } from 'vue'
-import { GanttChart } from 'jordium-gantt-vue3'
-import { useProjectStore } from '@/stores/projectStore'
-import { storeToRefs } from 'pinia'
+import { GanttChart } from 'jordium-gantt-vue3';
+import { useProjectStore } from '@/stores/projectStore';
 
 
 const props = defineProps({
@@ -14,28 +12,11 @@ const props = defineProps({
 
 const store = useProjectStore();
 
-const sortedTasks = computed(() => {
-	const parentTasks = store.tasks.filter(task => task.isParent);
-	return parentTasks.flatMap(parentTask => [
-		parentTask,
-		...store.tasks.filter(childTask => childTask.parentId === parentTask.id)
-	]);
-});
+const cleanTask = (task) =>
+	Object.fromEntries(Object.entries(task).filter(([, v]) => v !== undefined));
 
 const handleTaskAdded = async (newTask) => {
-	const rawTask = newTask.task;
-	const taskToSave = {
-		id: rawTask.id,
-		name: rawTask.name,
-		startDate: rawTask.startDate,
-		endDate: rawTask.endDate,
-		progress: rawTask.progress,
-		type: rawTask.type,
-		estimatedHours: rawTask.estimatedHours,
-		description: rawTask.description,
-	};
-	await store.addTask(props.projectId, taskToSave);
-	console.log('ny task:', newTask);
+	await store.addTask(props.projectId, cleanTask(newTask.task));
 };
 
 const handleTaskUpdated = async ({ task }) => {
@@ -202,8 +183,8 @@ const handleTaskDeleted = async ({ task }) => {
 </script>
 
 <template>
-	<GanttChart theme="light" :autoSortByStartDate=true :tasks="sortedTasks" locale="en-US" @task-added="handleTaskAdded"
+	<GanttChart theme="light" :autoSortByStartDate=true :tasks="store.tasks" locale="en-US" @task-added="handleTaskAdded"
 		@task-updated="handleTaskUpdated" :enable-task-row-moved="true" @task-row-moved="handleTaskRowMoved"
-		@predecessor-added="handlePredecessorAdded" @taskbar-drag-end="handleTaskbarDragEnd" @task-deleted="handleTaskDeleted"
-		:allowDragAndResize=true pendingTaskBackgroundColor="#2c687d" />
+		@predecessor-added="handlePredecessorAdded" @taskbar-drag-end="handleTaskbarDragEnd"
+		@task-deleted="handleTaskDeleted" :allowDragAndResize=true pendingTaskBackgroundColor="#2c687d" />
 </template>

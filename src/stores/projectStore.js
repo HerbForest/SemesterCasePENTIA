@@ -34,7 +34,7 @@ export const useProjectStore = defineStore('project', () => {
 			loading.value = false;
 
 		}
-	}
+	};
 	const addTask = async (projectId, task) => {
 		try {
 			const tasksCollection = collection(db, 'projects', projectId, 'tasks');
