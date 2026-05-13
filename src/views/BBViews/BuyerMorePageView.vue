@@ -11,7 +11,7 @@ import {  FileText, HardHat, UserRound, Settings } from '@lucide/vue';
 	</ButtonCard>
 	<ButtonCard buttonTitle="Profil" buttonText="Dine oplysninger" to="/buyer/profil" :icon="UserRound" :arrow="true">
 	</ButtonCard>
-	<ButtonCard buttonTitle="indstillinger" buttonText="App-indstillinger" to="/buyer/dokumenter" :icon="Settings":arrow="true">
+	<ButtonCard buttonTitle="indstillinger" buttonText="App-indstillinger" to="/buyer/settings" :icon="Settings":arrow="true">
 	</ButtonCard>
 </div>
 </template>
