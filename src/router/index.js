@@ -42,6 +42,11 @@ const router = createRouter({
 					name: 'beskeder',
 					component: () => import('@/views/BBViews/BuyerMessageView.vue'),
 				},
+					{
+					path: 'settings',
+					name: 'settings',
+					component: () => import('@/views/BBViews/BuyerSettingsView.vue'),
+				},
 			],
 		},
 
