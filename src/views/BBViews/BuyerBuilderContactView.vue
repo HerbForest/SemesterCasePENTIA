@@ -16,7 +16,7 @@ const buyerStore = useBuyerStore();
 
 onMounted(async () => {
     if (!projectStore.project) {
-        await buyerStore.fetchBuyer('1DqXNJfqTOaS85GKWsDl')
+        await buyerStore.fetchBuyer(authStore.user.uid)
         await projectStore.fetchProject(buyerStore.buyer.projectId)
     }
     if (!builderStore.builder) {
