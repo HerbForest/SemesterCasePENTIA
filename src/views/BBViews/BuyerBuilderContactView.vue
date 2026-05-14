@@ -32,7 +32,7 @@ onMounted(async () => {
     <div class="contact">
         <div class="contact__profile">
             <div class="contact__img">
-                <img src="/images/house1.jpg" alt="Byggeleder">
+                <img :src="builderStore.builder?.profileImage" alt="Byggeleder">
             </div>
             <p class="contact__builder-name">{{ builderStore.builder?.firstName }} {{ builderStore.builder?.lastName }}</p>
             <p class="contact__builder-title">{{ builderStore.builder?.title }}</p>
