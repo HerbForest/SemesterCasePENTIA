@@ -5,12 +5,18 @@ import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { useDocumentStore } from '@/stores/documentStore';
 import { useProjectStore } from '@/stores/projectStore';
 
-const documentStore = useDocumentStore();
-const projectStore = useProjectStore();
+const documentStore = useDocumentStore()
+const projectStore = useProjectStore()
+const buyerStore = useBuyerStore()
+const authStore = useAuthStore()
 
 onMounted(async () => {
-	await documentStore.fetchDocuments(projectStore.project.id);
-});
+    if (!projectStore.project) {
+        await buyerStore.fetchBuyer(authStore.user.uid)
+        await projectStore.fetchProject(buyerStore.buyer.projectId)
+    }
+    await documentStore.fetchDocuments(projectStore.project.id)
+})
 </script>
 <template>
 <div class="layout-bb">
