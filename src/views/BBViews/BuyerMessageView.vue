@@ -28,8 +28,8 @@ const builderImage = computed(() => builderStore.builder?.profileImage)
 <template>
 	<div class="layout-bb">
 		<header class="document-header">
-	<h1 class="message-header__headline">Kontrakter</h1>
-	<p class="message-header__sub-headline">Overblik over dine aftaler og ændringer</p>
+	<h1 class="message-header__headline">Beskeder</h1>
+	<p class="message-header__sub-headline">Kommunikation med din byggeleder</p>
 </header>
     <div class="messages">
         <div class="messages__date-divider">I DAG</div>
