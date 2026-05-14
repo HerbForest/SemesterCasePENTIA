@@ -7,9 +7,10 @@ import ProfileCard from '@/components/cards/ProfileCard.vue'
 import ReturnButton from '@/components/buttons/ReturnButton.vue'
 import Card from '@/components/TextCard.vue';
 
-const buyerStore = useBuyerStore();
-const projectStore = useProjectStore();
-const builderStore = useBuilderStore();
+const buyerStore = useBuyerStore()
+const projectStore = useProjectStore()
+const builderStore = useBuilderStore()
+const authStore = useAuthStore()
 
 const initials = computed(() => {
     if (!buyerStore.buyer) return ''
@@ -19,6 +20,18 @@ const initials = computed(() => {
 const handleSave = async (updatedData) => {
     await buyerStore.updateBuyer(updatedData)
 }
+
+onMounted(async () => {
+    if (!buyerStore.buyer) {
+        await buyerStore.fetchBuyer(authStore.user.uid)
+    }
+    if (!projectStore.project) {
+        await projectStore.fetchProject(buyerStore.buyer.projectId)
+    }
+    if (!builderStore.builder) {
+        await builderStore.fetchBuilder(projectStore.project.builderId)
+    }
+})
 </script>
 <template>
 <div class="buyer-profile layout-bb">
