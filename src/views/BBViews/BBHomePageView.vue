@@ -4,6 +4,7 @@ import { onMounted  } from 'vue';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
+import { useAuthStore } from '@/stores/authStore'
 
 import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
 
@@ -15,10 +16,10 @@ import BuyerFooter from '@/components/navigation/BuyerFooter.vue';
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
+const authStore = useAuthStore()
 
 onMounted(async () => {
-	// Midlertidigt hardcodet ID indtil login er sat op
-	await buyerStore.fetchBuyer('1DqXNJfqTOaS85GKWsDl');
+	await buyerStore.fetchBuyer(authStore.user.uid)
 	await projectStore.fetchProject(buyerStore.buyer.projectId);
 	await builderStore.fetchBuilder(projectStore.project.builderId);
 });
