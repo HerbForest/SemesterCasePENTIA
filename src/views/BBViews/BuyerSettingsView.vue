@@ -9,7 +9,9 @@ import ButtonCard from '@/components/ButtonCard.vue'
 const pushNotifications = ref(true)
 const emailUpdates = ref(true)
 const darkMode = ref(false)
-const language = ref('dansk')</script>
+const language = ref('dansk')
+
+</script>
 <template>
 <div class="layout-bb">
 		<ReturnButton/> 
