@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { Bell, Moon, Globe, Shield, LogOut } from '@lucide/vue'
 import SlideButtons from '@/components/buttons/SlideButtons.vue'
+import ReturnButton from '@/components/buttons/ReturnButton.vue'
 import Card from '@/components/TextCard.vue'
 import ButtonCard from '@/components/ButtonCard.vue'
 
@@ -11,6 +12,7 @@ const darkMode = ref(false)
 const language = ref('dansk')</script>
 <template>
 <div class="layout-bb">
+		<ReturnButton/> 
     <h1 class="settings__title">Indstillinger</h1>
 
     <!-- Notifikationer og præferencer -->
