@@ -1,7 +1,7 @@
 <script setup>
-import ButtonCard from '@/components/ButtonCard.vue';
+import ButtonCard from '@/components/cards/ButtonCard.vue';
 import backgroundImg from '@/assets/hero-construction.jpg';
-import ProgressCircle from '@/components/ProgressCircle.vue';
+import ProgressCircle from '@/components/library/ProgressCircle.vue';
 import { Calendar } from '@lucide/vue';
 // dynamisk side ændring til to card :to="{ name: 'BuildLeaderBuildPage', params: { id: build.id } }";
 
@@ -11,47 +11,26 @@ import { Calendar } from '@lucide/vue';
 		<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
 	</div>
 	<div class="bagground">
-		<ButtonCard
-			buttonTitle="Mågevej 112"
-			buttonText="Lars og Mette Hansen"
-			buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')"
-			:icon="Calendar"
-		>
+		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
 			<template #progress>
 				<ProgressCircle />
 			</template>
 		</ButtonCard>
-		<ButtonCard
-			buttonTitle="Mågevej 112"
-			buttonText="Lars og Mette Hansen"
-			buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')"
-			:icon="Calendar"
-			:to="{ name: 'BuildLeadersBuildPage' }"
-		>
+		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')" :icon="Calendar" :to="{ name: 'buildLeaderBuildPage' }">
 			<template #progress>
 				<ProgressCircle />
 			</template>
 		</ButtonCard>
-		<ButtonCard
-			buttonTitle="Mågevej 112"
-			buttonText="Lars og Mette Hansen"
-			buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')"
-			:icon="Calendar"
-		>
+		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
 			<template #progress>
 				<ProgressCircle />
 			</template>
 		</ButtonCard>
-		<ButtonCard
-			buttonTitle="Mågevej 112"
-			buttonText="Lars og Mette Hansen"
-			buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')"
-			:icon="Calendar"
-		>
+		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
+			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
 			<template #progress>
 				<ProgressCircle />
 			</template>

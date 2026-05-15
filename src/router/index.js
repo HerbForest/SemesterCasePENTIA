@@ -5,9 +5,9 @@ const router = createRouter({
 	routes: [
 
 		{
-    path: '/login',
-    name: 'login',
-    component: () => import('@/views/LoginView.vue')
+			path: '/login',
+			name: 'login',
+			component: () => import('@/views/LoginView.vue')
 		},
 
 		{
@@ -16,43 +16,43 @@ const router = createRouter({
 			children: [
 				{
 					path: 'home',
-					name: 'BBHomePage',
-					component: () => import('@/views/BBViews/BBHomePageView.vue'),
+					name: 'buyerHomePage',
+					component: () => import('@/views/buyerViews/BuyerHomePageView.vue'),
 				},
 				{
 					path: 'byggeplan',
 					name: 'byggeplan',
-					component: () => import('@/views/BBViews/BuyerBuildPlanView.vue'),
+					component: () => import('@/views/buyerViews/BuyerBuildPlanView.vue'),
 				},
 				{
 					path: 'mere',
 					name: 'mere',
-					component: () => import('@/views/BBViews/BuyerMorePageView.vue'),
+					component: () => import('@/views/buyerViews/BuyerMorePageView.vue'),
 				},
 				{
 					path: 'kontakt',
 					name: 'kontakt',
-					component: () => import('@/views/BBViews/BuyerBuilderContactView.vue'),
+					component: () => import('@/views/buyerViews/BuyerBuilderContactView.vue'),
 				},
 				{
 					path: 'dokumenter',
 					name: 'dokumenter',
-					component: () => import('@/views/BBViews/BuyerDocumentView.vue'),
+					component: () => import('@/views/buyerViews/BuyerDocumentView.vue'),
 				},
 				{
 					path: 'profil',
 					name: 'profil',
-					component: () => import('@/views/BBViews/BuyerProfileView.vue'),
+					component: () => import('@/views/buyerViews/BuyerProfileView.vue'),
 				},
 				{
 					path: 'beskeder',
 					name: 'beskeder',
-					component: () => import('@/views/BBViews/BuyerMessageView.vue'),
+					component: () => import('@/views/buyerViews/BuyerMessageView.vue'),
 				},
-					{
+				{
 					path: 'settings',
 					name: 'settings',
-					component: () => import('@/views/BBViews/BuyerSettingsView.vue'),
+					component: () => import('@/views/buyerViews/BuyerSettingsView.vue'),
 				},
 			],
 		},
@@ -62,43 +62,43 @@ const router = createRouter({
 
 
 		{
-			path: '/BL',
-			component: () => import('@/layout/BLLayout.vue'),
+			path: '/builder',
+			component: () => import('@/layout/BuilderLayout.vue'),
 			children: [
 				{
 					path: 'homepage',
-					name: 'BLHomePage',
-					component: () => import('@/views/BLViews/BLHomePageView.vue'),
+					name: 'builderHomePage',
+					component: () => import('@/views/builderViews/BuilderHomePageView.vue'),
 					meta: { pageName: 'byggeleder portal' },
 				},
 				{
 					path: 'bygger/:id',
-					name: 'BuildLeaderBuildPage',
-					component: () => import('@/views/BLViews/BuildLeadersBuildPageView.vue'),
+					name: 'buildLeaderBuildPage',
+					component: () => import('@/views/builderViews/BuildLeadersBuildPageView.vue'),
 					meta: { pageName: 'Lars og Mette' },
 				},
 				{
 					path: 'byggeplan',
-					name: 'BuilderByggeplan',
-					component: () => import('@/views/BLViews/BuilderBuildPlanView.vue'),
+					name: 'builderByggeplan',
+					component: () => import('@/views/builderViews/BuilderBuildPlanView.vue'),
 					meta: { pageName: 'Oversigt over alle projekter' },
 				},
 				{
 					path: 'beskeder',
-					name: 'BuilderBeskeder',
-					component: () => import('@/views/BLViews/BuilderMessengerView.vue'),
+					name: 'builderBeskeder',
+					component: () => import('@/views/builderViews/BuilderMessengerView.vue'),
 					meta: { pageName: 'Alle samtaler' },
 				},
 				{
 					path: 'menu',
-					name: 'BuilderMenu',
-					component: () => import('@/views/BLViews/BuilderSettingsView.vue'),
+					name: 'builderMenu',
+					component: () => import('@/views/builderViews/BuilderSettingsView.vue'),
 					meta: { pageName: 'Indstillinger & support' },
 				},
 				{
 					path: 'upload/:id',
 					name: 'BuilderMenu',
-					component: () => import('@/views/BLViews/BuilderUploadView.vue'),
+					component: () => import('@/views/builderViews/BuilderUploadView.vue'),
 					meta: { pageName: 'Upload nye filer' },
 				},
 			],

@@ -5,8 +5,8 @@ import SeederButton from '@/components/buttons/SeederButton.vue';
 
 <template>
 	<nav>
-		<RouterLink to="/buyer/home">BB Home Page</RouterLink>
-		<RouterLink to="/BL/homepage">BL Home Page</RouterLink>
+		<RouterLink to="/buyer/home">buyer Home Page</RouterLink>
+		<RouterLink to="/builder/homepage">builder Home Page</RouterLink>
 		<SeederButton />
 	</nav>
 	<RouterView />

@@ -4,28 +4,19 @@ import { House, Calendar, MessageSquare, Ellipsis } from '@lucide/vue';
 
 const route = useRoute();
 const navItems = [
-	{ name: 'BLHomePage', icon: House, label: 'Mit Byggeri' },
-	{ name: 'BuilderByggeplan', icon: Calendar, label: 'Byggeplan' },
-	{ name: 'BuilderBeskeder', icon: MessageSquare, label: 'Beskeder' },
-	{ name: 'BuilderMenu', icon: Ellipsis, label: 'Menu' },
+	{ name: 'builderHomePage', icon: House, label: 'Mit Byggeri' },
+	{ name: 'builderByggeplan', icon: Calendar, label: 'Byggeplan' },
+	{ name: 'builderBeskeder', icon: MessageSquare, label: 'Beskeder' },
+	{ name: 'builderMenu', icon: Ellipsis, label: 'Menu' },
 ];
 </script>
 <template>
 	<nav class="bottom-nav">
 		<div class="bottom-nav__inner">
-			<RouterLink
-				v-for="item in navItems"
-				:key="item.name"
-				:to="{ name: item.name }"
-				class="bottom-nav__item"
-				:class="{ 'bottom-nav__item--active': route.name === item.name }"
-			>
+			<RouterLink v-for="item in navItems" :key="item.name" :to="{ name: item.name }" class="bottom-nav__item"
+				:class="{ 'bottom-nav__item--active': route.name === item.name }">
 				<div class="bottom-nav__icon-wrapper">
-					<component
-						:is="item.icon"
-						class="bottom-nav__icon"
-						:stroke-width="route.name === item.name ? 2.2 : 1.8"
-					/>
+					<component :is="item.icon" class="bottom-nav__icon" :stroke-width="route.name === item.name ? 2.2 : 1.8" />
 					<span v-if="item.badge" class="bottom-nav__badge">{{ item.badge }}</span>
 				</div>
 				<span class="bottom-nav__label">{{ item.label }}</span>

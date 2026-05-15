@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted  } from 'vue';
+import { onMounted } from 'vue';
 
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
@@ -8,7 +8,7 @@ import { useAuthStore } from '@/stores/authStore'
 
 import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
 
-import ButtonCard from '@/components/ButtonCard.vue';
+import ButtonCard from '@/components/cards/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue';
 
 import BuyerFooter from '@/components/navigation/BuyerFooter.vue';
@@ -27,35 +27,36 @@ onMounted(async () => {
 </script>
 
 <template>
-<div class="layout-bb">
-	<div class="buyer-hero">
-		<h1 class="buyer-hero__title">Mit Byggeri</h1>
-		<h2 class="buyer-hero__welcome">Velkommen, {{ buyerStore.buyer?.firstName }}!</h2>
+	<div class="layout-bb">
+		<div class="buyer-hero">
+			<h1 class="buyer-hero__title">Mit Byggeri</h1>
+			<h2 class="buyer-hero__welcome">Velkommen, {{ buyerStore.buyer?.firstName }}!</h2>
+		</div>
+
+		<Header />
+
+		<ButtonCard buttonTitle="Byggeplan" :arrow="true" :icon="Calendar" to="/buyer/byggeplan">
+		</ButtonCard>
+		<ButtonCard buttonTitle="Kontrakter" :arrow="true" :icon="FileText" to="/buyer/dokumenter">
+		</ButtonCard>
+		<ButtonCard buttonTitle="Beskeder" :arrow="true" :icon="MessageCircle" to="/buyer/beskeder">
+		</ButtonCard>
+		<ButtonCard buttonTitle="Kontakt din byggeleder" :icon="Phone" :arrow="true" to="/buyer/kontakt">
+		</ButtonCard>
 	</div>
-
-<Header/>
-
-<ButtonCard buttonTitle="Byggeplan" :arrow="true" :icon="Calendar" to="/buyer/byggeplan">
-</ButtonCard>
-<ButtonCard buttonTitle="Kontrakter" :arrow="true" :icon="FileText" to="/buyer/dokumenter">
-</ButtonCard>
-<ButtonCard buttonTitle="Beskeder" :arrow="true" :icon="MessageCircle" to="/buyer/beskeder">
-</ButtonCard>
-<ButtonCard buttonTitle="Kontakt din byggeleder" :icon="Phone" :arrow="true" to="/buyer/kontakt"> 
-</ButtonCard>
-</div>
-<BuyerFooter/>
+	<BuyerFooter />
 </template>
 
 <style scoped lang="scss">
-.buyer-hero{
+.buyer-hero {
 
-	&__title{
+	&__title {
 		font-size: $font-size-2xl;
 		color: $foreground-color;
 		margin-bottom: 0;
 	}
-	&__welcome{
+
+	&__welcome {
 		font-size: $font-size-lg;
 		font-weight: $font-weight-normal;
 		color: $muted-foreground-color;
