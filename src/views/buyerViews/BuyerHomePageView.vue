@@ -18,12 +18,6 @@ const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
 const authStore = useAuthStore()
 
-onMounted(async () => {
-	await buyerStore.fetchBuyer(authStore.user.uid)
-	await projectStore.fetchProject(buyerStore.buyer.projectId);
-	await builderStore.fetchBuilder(projectStore.project.builderId);
-});
-
 </script>
 
 <template>

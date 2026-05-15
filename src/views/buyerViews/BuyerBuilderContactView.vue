@@ -13,16 +13,6 @@ import { Phone, Mail, MessageCircle } from '@lucide/vue';
 const builderStore = useBuilderStore();
 const projectStore = useProjectStore();
 const buyerStore = useBuyerStore();
-
-onMounted(async () => {
-	if (!projectStore.project) {
-		await buyerStore.fetchBuyer(authStore.user.uid)
-		await projectStore.fetchProject(buyerStore.buyer.projectId)
-	}
-	if (!builderStore.builder) {
-		await builderStore.fetchBuilder(projectStore.project.builderId)
-	}
-})
 </script>
 
 <template>

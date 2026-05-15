@@ -10,19 +10,6 @@ const buyerStore = useBuyerStore()
 const builderStore = useBuilderStore()
 const projectStore = useProjectStore()
 
-onMounted(async () => {
-    if (!projectStore.project) {
-        await buyerStore.fetchBuyer(authStore.user.uid)
-        await projectStore.fetchProject(buyerStore.buyer.projectId)
-    }
-    if (!builderStore.builder) {
-        await builderStore.fetchBuilder(projectStore.project.builderId)
-    }
-})
-
-const buyerName = computed(() => buyerStore.buyer?.firstName)
-const builderName = computed(() => `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`)
-const builderImage = computed(() => builderStore.builder?.profileImage)
 
 </script>
 <template>
