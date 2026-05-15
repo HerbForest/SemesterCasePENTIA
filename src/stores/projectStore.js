@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
-import { doc, getDoc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, getDocs, collection, setDoc, deleteDoc, query, where } from 'firebase/firestore';
 
 export const useProjectStore = defineStore('project', () => {
 	const project = ref(null);
@@ -20,6 +20,19 @@ export const useProjectStore = defineStore('project', () => {
 		} finally {
 			loading.value = false;
 		}
+	};
+	const fetchAllProjects = async (builderId) => {
+		loading.value = true;
+		try {
+			const querySnapshot = await getDocs(collection(db, 'projects',));
+			querySnapshot.forEach((doc) => {
+				console.log(`Project: ${doc.id}, ${doc.data()}`);
+			});
+		} catch (error) {
+			console.error('Fejl ved hentning af projekter:', error);
+		}
+
+
 	};
 	//henter subcollectionen task fra projekt fra firestores
 	const fetchTasks = async (projectId) => {
@@ -67,5 +80,5 @@ export const useProjectStore = defineStore('project', () => {
 		}
 	};
 
-	return { project, loading, fetchProject, fetchTasks, tasks, addTask, updateTask, deleteTask };
+	return { project, loading, fetchProject, fetchAllProjects, fetchTasks, tasks, addTask, updateTask, deleteTask };
 });
