@@ -13,6 +13,22 @@ const authStore = useAuthStore()
 const buyerStore = useBuyerStore()
 const projectStore = useProjectStore()
 const builderStore = useBuilderStore()
+
+onMounted(async () => {
+    await new Promise((resolve) => {
+        const unsubscribe = authStore.onAuthReady(async (user) => {
+            if (user) {
+                await buyerStore.fetchBuyer(user.uid)
+                await projectStore.fetchProject(buyerStore.buyer.projectId)
+                await builderStore.fetchBuilder(projectStore.project.builderId)
+            } else {
+                router.push('/login')
+            }
+            unsubscribe()
+            resolve()
+        })
+    })
+})
 </script>
 
 <template>
