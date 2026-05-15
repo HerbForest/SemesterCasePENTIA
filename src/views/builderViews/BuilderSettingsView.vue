@@ -23,5 +23,123 @@ const handleLogout = async () => {
 </script>
 
 <template>
-	
+	<div class="bl-settings">
+
+    <Card>
+        <div class="bl-settings__profile">
+            <div class="bl-settings__avatar">{{ initials }}</div>
+            <div>
+                <p class="bl-settings__name">{{ builderStore.builder?.firstName }} {{ builderStore.builder?.lastName }}</p>
+                <p class="bl-settings__role">Byggeleder · Milton Huse</p>
+            </div>
+        </div>
+    </Card>
+
+		<p class="bl-settings__section-title">SUPPORT</p>
+		<div class="bl-settings__group">
+				<ButtonCard buttonTitle="Kontakt admin" buttonText="Skriv til support-teamet" :icon="Mail" :arrow="true" />
+				<ButtonCard buttonTitle="Hjælp & FAQ" buttonText="Ofte stillede spørgsmål" :icon="CircleHelp" :arrow="true" />
+		</div>
+
+		<p class="bl-settings__section-title">INDSTILLINGER</p>
+    <div class="bl-settings__group">
+        <ButtonCard buttonTitle="Sprog" buttonText="Dansk" :icon="Globe" :arrow="true" />
+        <ButtonCard buttonTitle="Mørk tilstand" buttonText="Slået fra" :icon="Moon" :arrow="true" />
+        <ButtonCard buttonTitle="Notifikationer" buttonText="Alle aktive" :icon="Bell" :arrow="true" />
+        <ButtonCard buttonTitle="Sikkerhed" buttonText="Adgangskode & login" :icon="Shield" :arrow="true" />
+    </div>
+
+		 <button class="bl-settings__logout" @click="handleLogout">
+        <LogOut :size="18" />
+        Log ud
+    </button>
+	</div>
 </template>
+
+<style scoped lang="scss">
+.bl-settings {
+    padding: 16px;
+
+    &__profile {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+    }
+
+    &__avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: $primary-color;
+        color: $primary-foreground-color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        flex-shrink: 0;
+    }
+
+    &__name {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        color: $foreground-color;
+        margin: 0;
+    }
+
+    &__role {
+        font-size: $font-size-sm;
+        color: $muted-foreground-color;
+        margin: 0;
+    }
+
+    &__section-title {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        color: $muted-foreground-color;
+        letter-spacing: 1px;
+        margin: 16px 0 8px;
+    }
+
+    &__logout {
+        width: 100%;
+        padding: 16px;
+        background: $card-color;
+        color: $destructive-color;
+        border: solid;
+        border-radius: 16px;
+				border-color: $border-color;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 12px;
+    		margin-bottom: 80px; 
+    }
+				&__group {
+				background: $card-color;
+				border-radius: 16px;
+				border: 1px solid $border-color;
+				margin-bottom: 12px;
+
+				:deep(.card) {
+						border: none;
+						border-radius: 0;
+						margin-bottom: 0;
+						border-bottom: 1px solid $border-color;
+
+						&:last-child {
+								border-bottom: none;
+								border-radius: 0 0 16px 16px;
+						}
+
+						&:first-child {
+								border-radius: 16px 16px 0 0;
+						}
+				}
+		}
+}
+</style>
