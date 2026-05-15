@@ -26,6 +26,9 @@ export const useAuthStore = defineStore('auth', () => {
             console.error('Fejl ved logout:', error)
         }
     }
+        const onAuthReady = (callback) => {
+            return onAuthStateChanged(auth, callback)
+    }
 
-    return { user, loading, login, logout }
+    return { user, loading, login, logout, onAuthReady }
 })
