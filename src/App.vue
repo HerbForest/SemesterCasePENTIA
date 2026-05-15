@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView } from 'vue-router';
-import SeederButton from '@/components/buttons/SeederButton.vue';
+//import SeederButton from '@/components/buttons/SeederButton.vue';
 import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
@@ -32,12 +32,10 @@ onMounted(async () => {
 </script>
 
 <template>
-	<nav>
-		<RouterLink to="/buyer/home">buyer Home Page</RouterLink>
-		<RouterLink to="/builder/homepage">builder Home Page</RouterLink>
-		<SeederButton />
-	</nav>
-	<RouterView />
+	<div v-if="authStore.loading">
+        <!-- Ingenting vises mens Firebase checker login -->
+    </div>
+    <RouterView v-else />
 </template>
 
 <style scoped></style>
