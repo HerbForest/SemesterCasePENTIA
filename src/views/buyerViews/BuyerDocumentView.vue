@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted } from 'vue';
+import { watch } from 'vue';
 import DocumentCard from '@/components/cards/DocumentCard.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { useDocumentStore } from '@/stores/documentStore';
@@ -7,16 +7,12 @@ import { useProjectStore } from '@/stores/projectStore';
 
 const documentStore = useDocumentStore()
 const projectStore = useProjectStore()
-const buyerStore = useBuyerStore()
-const authStore = useAuthStore()
 
-onMounted(async () => {
-    if (!projectStore.project) {
-        await buyerStore.fetchBuyer(authStore.user.uid)
-        await projectStore.fetchProject(buyerStore.buyer.projectId)
+watch(() => projectStore.project, async (project) => {
+    if (project) {
+        await documentStore.fetchDocuments(project.id)
     }
-    await documentStore.fetchDocuments(projectStore.project.id)
-})
+}, { immediate: true })
 </script>
 <template>
 <div class="layout-bb">
