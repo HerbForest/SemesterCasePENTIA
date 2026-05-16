@@ -8,6 +8,9 @@ import { useBuyerStore } from '@/stores/buyerStore'
 import { useProjectStore } from '@/stores/projectStore'
 import { useBuilderStore } from '@/stores/builderStore'
 
+import { db } from '@/config/firebase'
+import { doc, getDoc } from 'firebase/firestore'
+
 const router = useRouter()
 const authStore = useAuthStore()
 const buyerStore = useBuyerStore()
@@ -18,9 +21,17 @@ onMounted(async () => {
     await new Promise((resolve) => {
         const unsubscribe = authStore.onAuthReady(async (user) => {
             if (user) {
-                await buyerStore.fetchBuyer(user.uid)
-                await projectStore.fetchProject(buyerStore.buyer.projectId)
-                await builderStore.fetchBuilder(projectStore.project.builderId)
+                const snap = await getDoc(doc(db, 'users', user.uid))
+                const role = snap.data()?.role
+
+                if (role === 'byggeleder') {
+                    
+                } else {
+                    
+                    await buyerStore.fetchBuyer(user.uid)
+                    await projectStore.fetchProject(buyerStore.buyer.projectId)
+                    await builderStore.fetchBuilder(projectStore.project.builderId)
+                }
             } else {
                 router.push('/login')
             }
