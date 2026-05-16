@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import { db } from '@/config/firebase'
+import { doc, getDoc } from 'firebase/firestore'
 import { Eye, EyeOff } from '@lucide/vue'
 
 const router = useRouter();
@@ -18,7 +20,15 @@ const handleLogin = async () => {
     loading.value = true
     try {
         await authStore.login(email.value, password.value)
-        router.push('/buyer/home') // midlertidigt - skal senere routes baseret på brugertype
+        
+        const uid = authStore.user.uid
+        const snap = await getDoc(doc(db, 'users', uid))
+        
+        if (snap.exists() && snap.data().role === 'byggeleder') {
+            router.push('/builder/homepage')
+        } else {
+            router.push('/buyer/home')
+        }
     } catch (err) {
         error.value = 'Forkert email eller adgangskode'
     } finally {
