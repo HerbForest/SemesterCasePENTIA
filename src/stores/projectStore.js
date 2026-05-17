@@ -80,5 +80,21 @@ export const useProjectStore = defineStore('project', () => {
 		}
 	};
 
-	return { project, loading, fetchProject, fetchAllProjects, fetchTasks, tasks, addTask, updateTask, deleteTask };
+	const builderProjects = ref([])
+	const fetchProjectsByBuilder = async (builderId) => {
+			loading.value = true
+			try {
+					const q = query(
+							collection(db, 'projects'),
+							where('builderId', '==', builderId)
+					)
+					const snap = await getDocs(q)
+					builderProjects.value = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+			} catch (error) {
+					console.error('Fejl ved hentning af byggeleder projekter:', error)
+			} finally {
+					loading.value = false
+			}
+	}
+	return { project, loading, fetchProject, fetchAllProjects, fetchTasks, tasks, addTask, updateTask, deleteTask, builderProjects, fetchProjectsByBuilder };
 });
