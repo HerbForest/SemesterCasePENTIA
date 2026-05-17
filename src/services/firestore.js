@@ -3,7 +3,7 @@ import { collection, addDoc } from 'firebase/firestore';
 
 const buildersData = [
 	{
-		firstName: 'Thomas', //st gammel ot
+		firstName: 'Thomas', 
 		lastName: 'Nørregaard',
 		title: 'Byggeleder',
 		phone: '+45 87 65 43 21',
@@ -15,7 +15,7 @@ const buildersData = [
 		}
 	},
 	{
-		firstName: 'Morten', //ei gammel DD
+		firstName: 'Morten', 
 		lastName: 'Kjeldsen',
 		title: 'Byggeleder',
 		phone: '+45 76 54 32 10',
