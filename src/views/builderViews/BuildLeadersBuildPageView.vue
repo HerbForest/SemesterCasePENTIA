@@ -47,7 +47,7 @@ const photoFolders = [
 	<div class='build-CardWrapper'>
 		<ButtonCard buttonTitle='Mågevej 112' buttonTags='Invendig finish' :buttonDate='new Date(" 2025-08-15")'>
 			<template #progress>
-				<ProgressCircle size='250' />
+				<ProgressCircle :value="store.overallProgress" size='250' />
 			</template>
 		</ButtonCard>
 	</div>

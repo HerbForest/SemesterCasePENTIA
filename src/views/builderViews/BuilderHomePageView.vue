@@ -26,7 +26,7 @@ onMounted(async () => {
 		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
 			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
 			<template #progress>
-				<ProgressCircle />
+				<ProgressCircle :value="store.overallProgress" />
 			</template>
 		</ButtonCard>
 		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"

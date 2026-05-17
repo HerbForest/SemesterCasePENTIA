@@ -12,6 +12,15 @@ const props = defineProps({
 
 const store = useProjectStore();
 
+const toolbarConfig = {
+	showAddMilestone: false,
+	showExportCsv: false,
+	showExportPdf: false,
+	showLanguage: false,
+	showTheme: false,
+	showViewMode: false,
+};
+
 const cleanTask = (task) =>
 	Object.fromEntries(Object.entries(task).filter(([, v]) => v !== undefined));
 
@@ -28,10 +37,17 @@ const handleTaskRowMoved = async ({ draggedTask }) => {
 	console.log('task-row-moved:', draggedTask);
 	await store.updateTask(props.projectId, draggedTask);
 };
-const handleTaskbarDragEnd = async (taskBarDragEnd) => {
-	console.log('taskbar-drag-end:', taskBarDragEnd);
-	await store.updateTask(props.projectId, taskBarDragEnd);
+const handleTaskbarDragEnd = async (task) => {
+	console.log('taskbar-drag-end:', task);
+	await store.updateTask(props.projectId, task);
+	await store.syncTaskProgress(props.projectId);
 };
+
+const handleTaskbarResizeEnd = async (task) => {
+	await store.updateTask(props.projectId, task);
+	await store.syncTaskProgress(props.projectId);
+};
+
 
 const handlePredecessorAdded = async ({ newTask }) => {
 	console.log('predecessor-added:', newTask);
@@ -183,8 +199,9 @@ const handleTaskDeleted = async ({ task }) => {
 </script>
 
 <template>
-	<GanttChart theme="light" :autoSortByStartDate=true :tasks="store.tasks" locale="en-US" @task-added="handleTaskAdded"
-		@task-updated="handleTaskUpdated" :enable-task-row-moved="true" @task-row-moved="handleTaskRowMoved"
-		@predecessor-added="handlePredecessorAdded" @taskbar-drag-end="handleTaskbarDragEnd"
+	<GanttChart theme="light" :autoSortByStartDate=true :tasks="store.tasksWithDateProgress" locale="en-US" :toolbar-config="toolbarConfig"
+		@task-added="handleTaskAdded" @task-updated="handleTaskUpdated" :enable-task-row-moved="true"
+		@task-row-moved="handleTaskRowMoved" @predecessor-added="handlePredecessorAdded"
+		@taskbar-drag-end="handleTaskbarDragEnd" @taskbar-resize-end="handleTaskbarResizeEnd"
 		@task-deleted="handleTaskDeleted" :allowDragAndResize=true pendingTaskBackgroundColor="#2c687d" />
 </template>
