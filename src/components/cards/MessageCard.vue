@@ -15,7 +15,11 @@ defineProps({
      profileImage: {
         type: String,
         default: null  // null = vis initialer i stedet
-    }
+    },
+    role: { 
+        type: String, 
+        default: '' 
+    } 
 })
 </script>
 <template>
@@ -32,6 +36,7 @@ defineProps({
             <div class="message-card__body">
                 <div class="message-card__meta">
                     <span class="message-card__name">{{ name }}</span>
+                    <span v-if="role" class="message-card__role">{{ role }}</span>
                     <span class="message-card__time">{{ time }}</span>
                 </div>
                 <div class="message-card__bubble">
@@ -110,6 +115,16 @@ defineProps({
         font-size: $font-size-sm;
         font-weight: $font-weight-semibold;
         color: $foreground-color;
+    }
+
+    &__role {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        color: $muted-foreground-color;
+        background: $muted-color;
+        padding: 2px 8px;
+        border-radius: 999px;
+        text-transform: uppercase;
     }
 
     &__time {

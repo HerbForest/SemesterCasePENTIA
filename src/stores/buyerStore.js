@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc, collection, query, where, getDocs } from 'firebase/firestore';
 
 export const useBuyerStore = defineStore('buyer', () => {
 	const buyer = ref(null);
@@ -30,5 +30,21 @@ export const useBuyerStore = defineStore('buyer', () => {
         }
     }
 
-    return { buyer, loading, fetchBuyer, updateBuyer };
+
+	const fetchBuyerByProjectId = async (projectId) => {
+    try {
+        const q = query(
+            collection(db, 'users'),
+            where('projectId', '==', projectId)
+        )
+        const snap = await getDocs(q)
+        if (!snap.empty) {
+            return { id: snap.docs[0].id, ...snap.docs[0].data() }
+        }
+    } catch (error) {
+        console.error('Fejl ved hentning af bruger:', error)
+    }
+}
+
+    return { buyer, loading, fetchBuyer, updateBuyer, fetchBuyerByProjectId };
 });

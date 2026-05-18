@@ -90,6 +90,12 @@ const router = createRouter({
 					meta: { pageName: 'Alle samtaler' },
 				},
 				{
+					path: 'chat/:id',
+					name: 'builderChat',
+					component: () => import('@/views/builderViews/BuilderChatView.vue'),
+					meta: { pageName: 'Samtale' },
+				},
+				{
 					path: 'menu',
 					name: 'builderMenu',
 					component: () => import('@/views/builderViews/BuilderSettingsView.vue'),
