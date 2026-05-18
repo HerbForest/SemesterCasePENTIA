@@ -19,7 +19,11 @@ defineProps({
     role: { 
         type: String, 
         default: '' 
-    } 
+    }, 
+    profileImage: { 
+        type: String, 
+        default: null 
+    }
 })
 </script>
 <template>
@@ -27,7 +31,12 @@ defineProps({
         
        
         <div v-if="type === 'builder'" class="message-card__builder">
-            <div class="message-card__avatar">{{ initials }}</div>
+            <img 
+                v-if="profileImage" 
+                :src="profileImage" 
+                class="message-card__avatar-img"
+                />
+        <div v-else class="message-card__avatar">{{ initials }}</div>
             <div class="message-card__body">
                 <div class="message-card__meta">
                     <span class="message-card__name">{{ name }}</span>
@@ -92,6 +101,14 @@ defineProps({
         justify-content: center;
         font-size: $font-size-sm;
         font-weight: $font-weight-semibold;
+        flex-shrink: 0;
+    }
+    
+    &__avatar-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
         flex-shrink: 0;
     }
 
