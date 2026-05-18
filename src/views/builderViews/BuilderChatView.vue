@@ -1,9 +1,10 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted} from 'vue'
 import { useRoute } from 'vue-router'
 import { useBuilderStore } from '@/stores/builderStore'
 import { useBuyerStore } from '@/stores/buyerStore'
 import { useProjectStore } from '@/stores/projectStore'
+import { useAuthStore } from '@/stores/authStore'
 import MessageCard from '@/components/cards/MessageCard.vue'
 import MessageInput from '@/components/MessageInput.vue'
 
@@ -11,10 +12,38 @@ const route = useRoute()
 const builderStore = useBuilderStore()
 const buyerStore = useBuyerStore()
 const projectStore = useProjectStore()
+const authStore = useAuthStore()
 
 const builderName = computed(() => `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`)
 const builderImage = computed(() => builderStore.builder?.profileImage)
 const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.buyer?.lastName}`)
+
+
+onMounted(async () => {
+    // Hent projekt hvis ikke allerede hentet
+    if (!projectStore.project || projectStore.project.id !== route.params.id) {
+        await projectStore.fetchProject(route.params.id)
+    }
+    // Hent byggeleder hvis ikke allerede hentet
+    if (!builderStore.builder) {
+        await builderStore.fetchBuilder(projectStore.project.builderId)
+    }
+    // Hent bygherre via projectId
+    const buyer = await buyerStore.fetchBuyerByProjectId(route.params.id)
+    if (buyer) {
+        buyerStore.buyer = buyer
+    }
+})
+
+const builderInitials = computed(() => {
+    if (!builderStore.builder) return ''
+    return `${builderStore.builder.firstName[0]}${builderStore.builder.lastName[0]}`
+})
+
+const buyerInitials = computed(() => {
+    if (!buyerStore.buyer) return ''
+    return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`
+})
 </script>
 <template>
 	<div class="builder-chat">
@@ -24,6 +53,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
 		<MessageCard
 			type="builder"
 			:name='builderName'
+			:initials="builderInitials"
 			time='07:03'
 			:profileImage='builderImage'
 			role='Byggeleder'
@@ -36,6 +66,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
 		 <MessageCard
             type="builder"
             :name="buyerName"
+						:initials="buyerInitials"
             time="09:15"
             role="Bygherre"
         >
@@ -45,6 +76,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
 				<MessageCard
             type="builder"
             :name="builderName"
+						:initials="builderInitials"
             time="09:28"
             :profileImage="builderImage"
             role="Byggeleder"
@@ -55,6 +87,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
 				<MessageCard
             type="builder"
             :name="buyerName"
+						:initials="buyerInitials"
             time="09:47"
             role="Bygherre"
         >
@@ -64,6 +97,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
 				<MessageCard
             type="builder"
             :name="builderName"
+						:initials="builderInitials"
             time="10:03"
             :profileImage="builderImage"
             role="Byggeleder"
@@ -76,6 +110,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
 				  <MessageCard
             type="builder"
             :name="buyerName"
+						:initials="buyerInitials"
             time="14:22"
             role="Bygherre"
         >
@@ -85,6 +120,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
         <MessageCard
             type="builder"
             :name="builderName"
+						:initials="builderInitials"
             time="15:10"
             :profileImage="builderImage"
             role="Byggeleder"
@@ -95,6 +131,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
 				 <MessageCard
             type="builder"
             :name="buyerName"
+						:initials="buyerInitials"
             time="15:35"
             role="Bygherre"
         >
@@ -104,6 +141,7 @@ const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.bu
         <MessageCard
             type="builder"
             :name="builderName"
+						:initials="builderInitials"
             time="16:00"
             :profileImage="builderImage"
             role="Byggeleder"
