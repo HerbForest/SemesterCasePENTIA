@@ -17,6 +17,7 @@ const selectedFile = ref(null)
 const selectedCategory = ref('Kontrakt')
 const selectedImage = ref(null)
 const selectedPhase = ref(null)
+const imageDescription = ref('')
 
 onMounted(async () => {
     if (!projectStore.tasks.length) {
@@ -46,12 +47,13 @@ const handleImageUpload = async () => {
         selectedImage.value,
         props.projectId,
         selectedPhase.value,
-        `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`
+        `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`,
+        imageDescription.value
     )
     
-   
     selectedImage.value = null
     selectedPhase.value = null
+    imageDescription.value = '' 
 }
 </script>
 <template>
@@ -97,15 +99,21 @@ const handleImageUpload = async () => {
 					</label>
 
 					<select v-model="selectedPhase" class="upload-card__select">
-							<option :value="null" disabled>Vælg fase</option>
-							<option 
-									v-for="task in projectStore.tasks" 
-									:key="task.id"
-									:value="task.id"
-							>
-									{{ task.name }}
-							</option>
-					</select>
+                        <option :value="null" disabled>Vælg fase</option>
+                        <option 
+                            v-for="task in projectStore.tasks.filter(t => t.isParent)" 
+                            :key="task.id"
+                            :value="task.id"
+                        >
+                            {{ task.name }}
+                        </option>
+                    </select>
+                    <input 
+                        v-model="imageDescription"
+                        type="text"
+                        placeholder="Beskriv billedet..."
+                        class="upload-card__input-text"
+                    />
 
             <button 
                 class="upload-card__btn"
@@ -183,6 +191,20 @@ const handleImageUpload = async () => {
             border-color: $primary-color;
         }
     }
+
+    &__input-text {
+    padding: 8px 12px;
+    border: 1px solid $border-input-color;
+    border-radius: 8px;
+    font-size: $font-size-sm;
+    color: $foreground-color;
+    background: $background-color;
+
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+    }
+}
 
     &__btn {
         width: 100%;
