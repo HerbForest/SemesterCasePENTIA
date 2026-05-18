@@ -1,6 +1,10 @@
 <script setup>
 import { GanttChart } from 'jordium-gantt-vue3';
 import { useProjectStore } from '@/stores/projectStore';
+import { useTaskStore } from '@/stores/taskStore';
+import { useProgressStore } from '@/stores/progressStore';
+
+
 
 
 const props = defineProps({
@@ -10,7 +14,9 @@ const props = defineProps({
 	}
 })
 
-const store = useProjectStore();
+const projektStore = useProjectStore();
+const taskStore = useTaskStore();
+const progressStore = useProgressStore();
 
 const toolbarConfig = {
 	showAddMilestone: false,
@@ -25,36 +31,36 @@ const cleanTask = (task) =>
 	Object.fromEntries(Object.entries(task).filter(([, v]) => v !== undefined));
 
 const handleTaskAdded = async (newTask) => {
-	await store.addTask(props.projectId, cleanTask(newTask.task));
+	await taskStore.addTask(props.projectId, cleanTask(newTask.task));
 };
 
 const handleTaskUpdated = async ({ task }) => {
 	console.log('task-updated:', task);
-	await store.updateTask(props.projectId, task);
+	await taskStore.updateTask(props.projectId, task);
 };
 
 const handleTaskRowMoved = async ({ draggedTask }) => {
 	console.log('task-row-moved:', draggedTask);
-	await store.updateTask(props.projectId, draggedTask);
+	await taskStore.updateTask(props.projectId, draggedTask);
 };
 const handleTaskbarDragEnd = async (task) => {
 	console.log('taskbar-drag-end:', task);
-	await store.updateTask(props.projectId, task);
-	await store.syncTaskProgress(props.projectId);
+	await taskStore.updateTask(props.projectId, task);
+	await progressStore.syncTaskProgress(props.projectId);
 };
 
 const handleTaskbarResizeEnd = async (task) => {
-	await store.updateTask(props.projectId, task);
-	await store.syncTaskProgress(props.projectId);
+	await taskStore.updateTask(props.projectId, task);
+	await progressStore.syncTaskProgress(props.projectId);
 };
 
 
 const handlePredecessorAdded = async ({ newTask }) => {
 	console.log('predecessor-added:', newTask);
-	await store.updateTask(props.projectId, newTask);
+	await taskStore.updateTask(props.projectId, newTask);
 };
 const handleTaskDeleted = async ({ task }) => {
-	await store.deleteTask(props.projectId, task.id);
+	await taskStore.deleteTask(props.projectId, task.id);
 };
 // const tasks = ref([
 // {
@@ -199,9 +205,9 @@ const handleTaskDeleted = async ({ task }) => {
 </script>
 
 <template>
-	<GanttChart theme="light" :autoSortByStartDate=true :tasks="store.tasksWithDateProgress" locale="en-US" :toolbar-config="toolbarConfig"
-		@task-added="handleTaskAdded" @task-updated="handleTaskUpdated" :enable-task-row-moved="true"
-		@task-row-moved="handleTaskRowMoved" @predecessor-added="handlePredecessorAdded"
+	<GanttChart theme="light" :autoSortByStartDate=true :tasks="store.tasksWithDateProgress" locale="en-US"
+		:toolbar-config="toolbarConfig" @task-added="handleTaskAdded" @task-updated="handleTaskUpdated"
+		:enable-task-row-moved="true" @task-row-moved="handleTaskRowMoved" @predecessor-added="handlePredecessorAdded"
 		@taskbar-drag-end="handleTaskbarDragEnd" @taskbar-resize-end="handleTaskbarResizeEnd"
 		@task-deleted="handleTaskDeleted" :allowDragAndResize=true pendingTaskBackgroundColor="#2c687d" />
 </template>

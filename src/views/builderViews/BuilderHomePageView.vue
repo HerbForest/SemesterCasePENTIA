@@ -22,7 +22,7 @@ onMounted(async () => {
 			<ProgressCircle />
 		</template>
 	</ButtonCard>
-	<div class="bagground">
+	<!-- <div class="bagground">
 		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
 			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
 			<template #progress>
@@ -47,7 +47,7 @@ onMounted(async () => {
 				<ProgressCircle />
 			</template>
 		</ButtonCard>
-	</div>
+	</div> -->
 </template>
 <style lang="scss" scoped>
 .hero {
