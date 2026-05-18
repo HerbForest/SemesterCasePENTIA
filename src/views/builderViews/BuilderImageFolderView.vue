@@ -15,4 +15,10 @@ onMounted(async () => {
     await taskStore.fetchTasks(route.params.projectId)
 })
 
+const phasesWithImages = computed(() => {
+    return taskStore.tasks
+        .filter(task => task.isParent && imageStore.imagesByPhase[task.id]?.length > 0)
+        .sort((a, b) => a.id - b.id)
+})
+
 </script>
