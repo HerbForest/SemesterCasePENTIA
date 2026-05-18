@@ -1,5 +1,5 @@
 <script setup>
-import { watch } from 'vue';
+import { watch, computed } from 'vue';
 import DocumentCard from '@/components/cards/DocumentCard.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { useDocumentStore } from '@/stores/documentStore';
@@ -13,6 +13,14 @@ watch(() => projectStore.project, async (project) => {
         await documentStore.fetchDocuments(project.id)
     }
 }, { immediate: true })
+
+const kontrakter = computed(() => 
+    documentStore.documents.filter(doc => doc.category === 'Kontrakt')
+)
+
+const tillaegsaftaler = computed(() => 
+    documentStore.documents.filter(doc => doc.category === 'Tillægsaftale')
+)
 </script>
 <template>
 <div class="layout-bb">
@@ -26,9 +34,21 @@ watch(() => projectStore.project, async (project) => {
 		<h2 class="contract-section__headline">Mine kontrakter</h2>
 		<p class="contract-section__description">Her kan du se de aftaler, du har skrevet under på.</p>
 	</div>
-	   <div class="layout-bb">
         <DocumentCard
-            v-for="doc in documentStore.documents"
+            v-for="doc in kontrakter"
+            :key="doc.id"
+            :name="doc.name"
+            :size="doc.size"
+            :date="doc.date"
+            :uploadedBy="doc.uploadedBy"
+            :downloadUrl="doc.downloadUrl"
+					/>
+		<div class="contract-section">
+		<h2 class="contract-section__headline">Tillægsaftaler</h2>
+		<p class="contract-section__description">Ændringer under byggeriet kræver din godkendelse. Gennemgå hver ændring, og acceptér eller afvis.</p>
+	</div>
+	<DocumentCard
+            v-for="doc in tillaegsaftaler"
             :key="doc.id"
             :name="doc.name"
             :size="doc.size"
@@ -36,11 +56,6 @@ watch(() => projectStore.project, async (project) => {
             :uploadedBy="doc.uploadedBy"
             :downloadUrl="doc.downloadUrl"
         />
-    </div>
-		<div class="contract-section">
-		<h2 class="contract-section__headline">Tillægsaftaler</h2>
-		<p class="contract-section__description">Ændringer under byggeriet kræver din godkendelse. Gennemgå hver ændring, og acceptér eller afvis.</p>
-	</div>
 </main>
 </div>
 </template>
@@ -63,6 +78,7 @@ watch(() => projectStore.project, async (project) => {
 
 .contract-section{
 	font-family: $font-family;
+	margin: 0;
 
 	&__headline{
 		color: $foreground-color;
