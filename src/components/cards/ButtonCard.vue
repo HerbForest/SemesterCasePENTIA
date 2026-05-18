@@ -31,20 +31,20 @@ defineProps({
 		default: false,
 	},
 	to: {
-		type: [String,Object],
+		type: [String, Object],
 		default: null
 	}
 });
 </script>
 
 <template>
-<component :is="to ? RouterLink : 'div'" :to="to || undefined" class="card">
+	<component :is="to ? RouterLink : 'div'" :to="to || undefined" class="card">
 
 		<div class="card__progess">
 			<slot name="progress" />
 		</div>
 		<div v-if="icon" class="card__icon">
-			<component :is="icon" :size="19"/>
+			<component :is="icon" :size="19" />
 		</div>
 
 		<div class="card__content">
@@ -52,12 +52,15 @@ defineProps({
 			<p v-if="buttonText" class="card__text">{{ buttonText }}</p>
 			<span v-if="buttonTags" class="card__tags">{{ buttonTags }}</span>
 
-		<p v-if="buttonDate" class="card__date">
-			 Indflytning: {{ buttonDate.toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' }) }}
-	 </p>
+			<p v-if="buttonDate" class="card__date">
+				Indflytning: {{ buttonDate instanceof Date ? buttonDate.toLocaleDateString('da-DK', {
+					day: 'numeric', month:
+						'long', year: 'numeric'
+				}) : buttonDate }}
+			</p>
 		</div>
 		<span v-if="arrow" class="card__arrow">›</span>
-</component>
+	</component>
 </template>
 
 <style scoped lang="scss">
@@ -86,7 +89,7 @@ defineProps({
 	}
 
 	&__content {
-		flex: 1; 
+		flex: 1;
 		display: flex;
 		flex-direction: column;
 		gap: 2px;
@@ -104,12 +107,13 @@ defineProps({
 		font-size: $font-size-sm;
 		margin: 0;
 	}
-	&__date{
+
+	&__date {
 		color: $muted-foreground-color;
 		font-size: $font-size-sm;
 		margin: 0;
 	}
-	
+
 	&__tags {
 		background-color:$muted-color;
 		display: inline-block; 

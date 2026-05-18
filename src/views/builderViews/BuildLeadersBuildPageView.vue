@@ -1,6 +1,12 @@
 <script setup>
 import ProgressCircle from '@/components/library/ProgressCircle.vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
+import GanttDiagram from '@/components/library/GanttDiagram.vue';
+import { useRoute } from 'vue-router'
+import { onMounted } from 'vue'
+import { useProjectStore } from '@/stores/projectStore';
+import { useTaskStore } from '@/stores/taskStore';
+import { useProgressStore } from '@/stores/progressStore';
 import {
 	Camera,
 	Upload,
@@ -12,19 +18,19 @@ import {
 	Sofa,
 	BedDouble,
 } from '@lucide/vue';
-import GanttDiagram from '@/components/library/GanttDiagram.vue';
-import { useRoute } from 'vue-router'
-import { onMounted } from 'vue'
-import { useProjectStore } from '@/stores/projectStore';
 
-const store = useProjectStore()
+
+const projectStore = useProjectStore();
+const taskStore = useTaskStore();
+const progressStore = useProgressStore();
 
 const route = useRoute();
 
 onMounted(async () => {
-	await store.fetchProject(route.params.id);
-	await store.fetchTasks(route.params.id);
-	console.log('tasks:', store.tasks);
+	await projectStore.fetchProject(route.params.id);
+	await taskStore.fetchTasks(route.params.id);
+	await progressStore.syncTaskProgress(route.params.id);
+	console.log('tasks:', taskStore.tasks);
 
 });
 
@@ -45,9 +51,10 @@ const photoFolders = [
 
 <template>
 	<div class='build-CardWrapper'>
-		<ButtonCard buttonTitle='Mågevej 112' buttonTags='Invendig finish' :buttonDate='new Date(" 2025-08-15")'>
+		<ButtonCard :buttonTitle="projectStore.project?.address" :buttonTags="progressStore.currentPhaseProgress?.name"
+			:buttonDate="projectStore.project?.expectedDelivery">
 			<template #progress>
-				<ProgressCircle size='250' />
+				<ProgressCircle :value="progressStore.overallProgress" size='250' />
 			</template>
 		</ButtonCard>
 	</div>
@@ -111,4 +118,5 @@ const photoFolders = [
 		align-items: center;
 	}
 }
+
 </style>
