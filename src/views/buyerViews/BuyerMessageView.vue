@@ -14,6 +14,7 @@ const builderName = computed(() => `${builderStore.builder?.firstName} ${builder
 const builderImage = computed(() => builderStore.builder?.profileImage)
 
 
+
 </script>
 <template>
 	<div class="layout-bb">
