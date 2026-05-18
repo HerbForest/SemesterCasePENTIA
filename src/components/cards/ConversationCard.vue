@@ -37,6 +37,8 @@ defineProps({
     border: 1px solid $border-color;
     padding: 16px;
     margin-bottom: 12px;
+		margin-top: 12px;
+		margin: 12px;
     text-decoration: none;
     cursor: pointer;
 
