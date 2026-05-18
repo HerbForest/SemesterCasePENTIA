@@ -7,6 +7,7 @@ import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
 import { useAuthStore } from '@/stores/authStore';
 import { useImageStore } from '@/stores/imageStore'
+import { useTaskStore } from '@/stores/taskStore'
 
 
 
@@ -15,6 +16,7 @@ const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
 const imageStore = useImageStore()
+const taskStore = useTaskStore()
 
 onMounted(async () => {
     if (!projectStore.project) {
@@ -24,19 +26,17 @@ onMounted(async () => {
     if (!builderStore.builder) {
         await builderStore.fetchBuilder(projectStore.project.builderId)
     }
-    await projectStore.fetchTasks(projectStore.project.id)
+    await taskStore.fetchTasks(projectStore.project.id)
     await imageStore.fetchImagesByProject(projectStore.project.id)
-   	await projectStore.fetchTasks(projectStore.project.id)
-    console.log('tasks:', projectStore.tasks)
+   console.log('tasks:', taskStore.tasks)
 })
 
 
 const phases = computed(() => {
-    if (!projectStore.tasks?.length) return []
-    
-    const parentTasks = projectStore.tasks
-        .filter(task => task.isParent)
-        .sort((a, b) => a.id - b.id)
+    if (!taskStore.tasks?.length) return []
+
+		const parentTasks = taskStore.tasks
+				.filter(task => task.isParent)
 
     const activeIndex = parentTasks.findIndex(task => (task.progress ?? 0) < 100)
 
