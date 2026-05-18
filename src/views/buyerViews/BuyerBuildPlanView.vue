@@ -1,80 +1,73 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, computed } from 'vue';
 import PhaseProgressCard from '@/components/cards/PhaseProgressCard.vue';
 import ProgressCircle from '@/components/library/ProgressCircle.vue';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
 import { useAuthStore } from '@/stores/authStore';
+import { useImageStore } from '@/stores/imageStore'
+
 
 
 const authStore = useAuthStore();
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
+const imageStore = useImageStore()
 
 onMounted(async () => {
-	if (!projectStore.project) {
-		await buyerStore.fetchBuyer(authStore.user.uid)
-		await projectStore.fetchProject(buyerStore.buyer.projectId);
-	}
-	if (!builderStore.builder) {
-		await builderStore.fetchBuilder(projectStore.project.builderId);
-	}
+    if (!projectStore.project) {
+        await buyerStore.fetchBuyer(authStore.user.uid)
+        await projectStore.fetchProject(buyerStore.buyer.projectId)
+    }
+    if (!builderStore.builder) {
+        await builderStore.fetchBuilder(projectStore.project.builderId)
+    }
+    await projectStore.fetchTasks(projectStore.project.id)
+    await imageStore.fetchImagesByProject(projectStore.project.id)
+   	await projectStore.fetchTasks(projectStore.project.id)
+    console.log('tasks:', projectStore.tasks)
 })
 
-const phases = [
-	{
-		number: 1,
-		title: 'Fundament',
-		description: 'Støbning af fundament',
-		status: 'completed',
-		completedDate: '28. februar 2026',
-		images: [],
-	},
-	{
-		number: 2,
-		title: 'Råhus',
-		description: 'Opførelse af råhus',
-		status: 'active',
-		progress: 42,
-		timeLeft: 7,
-		images: ['/images/house1.jpg', '/images/house2.jpg'],
-	},
-	{
-		number: 3,
-		title: 'Indendørs arbejde',
-		description: 'Opsætning af køkken & gulve',
-		status: 'upcoming',
-		estimatedDate: 'August 2026',
-	},
-	{
-		number: 4,
-		title: 'Bryggers',
-		description: 'Opsætning af bryggers',
-		status: 'upcoming',
-		estimatedDate: 'Oktober 2026',
-	},
-	{
-		number: 5,
-		title: 'Aflevering',
-		description: 'Færdiggørelse og aflevering',
-		status: 'upcoming',
-		estimatedDate: 'Januar 2027',
-	},
-]
+
+const phases = computed(() => {
+		const parentTasks = projectStore.tasks.filter(task => task.isParent)
+    console.log('parent tasks:', parentTasks)
+    const tasks = projectStore.tasks
+        .filter(task => task.isParent)
+        .sort((a, b) => a.id - b.id)
+
+    // Find den første ikke-færdige fase
+    const activeIndex = tasks.findIndex(task => task.progress < 100)
+
+    return tasks.map((task, index) => ({
+            number: task.id,
+            title: task.name,
+            description: task.description || '',
+            status: task.progress === 100 ? 'completed' : task.progress > 0 ? 'active' : 'upcoming',
+            completedDate: task.endDate || '',
+            estimatedDate: task.endDate || '',
+            progress: task.progress,
+            timeLeft: null,
+        }))
+})
 </script>
 
 <template>
 	<div class="layout-bb">
 		<header class="buildplan-header">
 			<h1 class="buildplan-header__title">Byggeplan</h1>
-			<ProgressCircle :value="projectStore.project?.progress" :max="100" percentage colorUnfilled="#2c687d"
-				strokeWidth="8" />
-			<p>Estimeret indflytning i {{ estimatedDate }}</p>
+			<ProgressCircle :value="projectStore.project?.progress ?? 0" />
+		<p class="buildplan-header__sub-text">Estimeret indflytning i {{ projectStore.project?.expectedDelivery }}</p>
 		</header>
 
-		<PhaseProgressCard v-for="phase in phases" :key="phase.number" v-bind="phase" />
+		 <PhaseProgressCard
+            v-for="phase in phases"
+            :key="phase.number"
+            v-bind="phase"
+            :images="imageStore.imagesByPhase[phase.number] || []"
+      />
 	</div>
 </template>
 
@@ -87,6 +80,12 @@ const phases = [
 		font-weight: $font-weight-bold;
 		color: $foreground-color;
 		margin: 0;
+	}
+
+	&__sub-text{
+		text-align: center;
+    color: $muted-foreground-color;
+    font-size: $font-size-sm;
 	}
 
 }
