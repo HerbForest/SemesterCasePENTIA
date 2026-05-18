@@ -17,7 +17,7 @@ const language = ref('dansk');
 		<ReturnButton />
 		<h1 class="settings__title">Indstillinger</h1>
 
-		<!-- Notifikationer og præferencer -->
+	
 		<Card>
 			<div class="settings__row">
 				<div class="settings__row-left">
@@ -73,20 +73,20 @@ const language = ref('dansk');
 			</div>
 		</Card>
 
-		<!-- Privatliv -->
+	
 		<ButtonCard buttonTitle="Privatliv & sikkerhed" buttonText="Administrer dine data og samtykke" :arrow="false">
 			<template #icon>
 				<Shield :size="20" />
 			</template>
 		</ButtonCard>
 
-		<!-- Log ud -->
+	
 		<button class="settings__logout">
 			<LogOut :size="18" />
 			Log ud
 		</button>
 
-		<!-- Version -->
+	
 		<Card>
 			<p class="settings__version">Byggeplan App v1.0.0 · © 2026 Byggeplan A/S</p>
 		</Card>

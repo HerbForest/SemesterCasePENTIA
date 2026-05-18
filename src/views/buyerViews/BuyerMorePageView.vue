@@ -16,7 +16,7 @@ import { FileText, HardHat, UserRound, Settings, LogOut } from '@lucide/vue';
 			:arrow="true">
 		</ButtonCard>
 
-		<!-- Log ud -->
+	
 		<button class="logout">
 			<LogOut :size="18" />
 			Log ud
