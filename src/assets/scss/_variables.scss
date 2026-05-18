@@ -37,7 +37,12 @@ $font-weight-bold: 700;
 $font-weight-semibold: 600;
 $font-weight-semi: 450;
 $font-weight-normal: 400;
+
+//border radius
+$border-radius: 6px;
+
 //lav mixins her
+
 //button size
 @mixin btn-size($size: default) {
 	@if $size == default {

@@ -22,29 +22,29 @@ export const useBuyerStore = defineStore('buyer', () => {
 	};
 
 	const updateBuyer = async (updatedData) => {
-        try {
-            await updateDoc(doc(db, 'users', buyer.value.id), updatedData)
-            buyer.value = { ...buyer.value, ...updatedData }
-        } catch (error) {
-            console.error('Fejl ved opdatering:', error)
-        }
-    }
+		try {
+			await updateDoc(doc(db, 'users', buyer.value.id), updatedData)
+			buyer.value = { ...buyer.value, ...updatedData }
+		} catch (error) {
+			console.error('Fejl ved opdatering:', error)
+		}
+	}
 
 
 	const fetchBuyerByProjectId = async (projectId) => {
-    try {
-        const q = query(
-            collection(db, 'users'),
-            where('projectId', '==', projectId)
-        )
-        const snap = await getDocs(q)
-        if (!snap.empty) {
-            return { id: snap.docs[0].id, ...snap.docs[0].data() }
-        }
-    } catch (error) {
-        console.error('Fejl ved hentning af bruger:', error)
-    }
-}
+		try {
+			const q = query(
+				collection(db, 'users'),
+				where('projectId', '==', projectId)
+			);
+			const snap = await getDocs(q);
+			if (!snap.empty) {
+				return { id: snap.docs[0].id, ...snap.docs[0].data() };
+			}
+		} catch (error) {
+			console.error('Fejl ved hentning af bruger:', error);
+		}
+	};
 
-    return { buyer, loading, fetchBuyer, updateBuyer, fetchBuyerByProjectId };
+	return { buyer, loading, fetchBuyer, updateBuyer, fetchBuyerByProjectId };
 });

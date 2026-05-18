@@ -20,40 +20,19 @@ onMounted(async () => {
 	<div class="hero">
 		<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
 	</div>
-	<ButtonCard v-for="project in projectStore.builderProjects" :key="project.id" :buttonTitle="project.address"
-		:buttonText="project.name" :to="{ name: 'buildLeaderBuildPage', params: { id: project.id } }"
-		:buttonDate="project.expectedDelivery" :icon="Calendar">
+	<div class="cards__projects">
 
-		<template #progress>
-			<ProgressCircle :value="project.progress" />
-		</template>
-	</ButtonCard>
-	<!-- <div class="bagground">
-		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
+		<ButtonCard v-for="project in projectStore.builderProjects" :key="project.id" :buttonTitle="project.address"
+			:buttonText="project.name" :to="{ name: 'buildLeaderBuildPage', params: { id: project.id } }"
+			:buttonDate="project.expectedDelivery" :icon="Calendar">
+
 			<template #progress>
-				<ProgressCircle :value="store.overallProgress" />
+				<ProgressCircle :value="project.progress" />
 			</template>
 		</ButtonCard>
-		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
-			<template #progress>
-				<ProgressCircle />
-			</template>
-		</ButtonCard>
-		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
-			<template #progress>
-				<ProgressCircle />
-			</template>
-		</ButtonCard>
-		<ButtonCard buttonTitle="Mågevej 112" buttonText="Lars og Mette Hansen" buttonTags="invendig finish"
-			:buttonDate="new Date('2025-08-15')" :icon="Calendar">
-			<template #progress>
-				<ProgressCircle />
-			</template>
-		</ButtonCard>
-	</div> -->
+	</div>
+
+
 </template>
 <style lang="scss" scoped>
 .hero {
