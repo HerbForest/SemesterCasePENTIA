@@ -12,9 +12,9 @@ defineProps({
         type: String,
         default: ''
     },
-     profileImage: {
-        type: String,
-        default: null  // null = vis initialer i stedet
+    initials: { 
+        type: String, 
+        default: '' 
     },
     role: { 
         type: String, 
@@ -25,14 +25,9 @@ defineProps({
 <template>
 <div :class="['message-card', `message-card--${type}`]">
         
-        <!-- Builder besked - venstrestillet med avatar og navn -->
+       
         <div v-if="type === 'builder'" class="message-card__builder">
-            <img 
-                v-if="profileImage" 
-                :src="profileImage" 
-                class="message-card__avatar"
-                alt="Byggeleder"
-            />
+            <div class="message-card__avatar">{{ initials }}</div>
             <div class="message-card__body">
                 <div class="message-card__meta">
                     <span class="message-card__name">{{ name }}</span>
@@ -44,7 +39,7 @@ defineProps({
                 </div>
             </div>
         </div>
-				        <!-- Buyer besked - højrestillet uden avatar -->
+				      
         <div v-else class="message-card__buyer">
             <div class="message-card__meta message-card__meta--right">
                 <span class="message-card__name">{{ name }}</span>
@@ -61,7 +56,7 @@ defineProps({
 .message-card {
     margin-bottom: 16px;
 
-    // Builder besked
+   
     &--builder {
         display: flex;
         justify-content: flex-start;
@@ -90,7 +85,13 @@ defineProps({
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        object-fit: cover;
+        background: $primary-color;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $font-size-sm;
+        font-weight: $font-weight-semibold;
         flex-shrink: 0;
     }
 

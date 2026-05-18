@@ -18,7 +18,7 @@ const form = ref({
     phone: props.phone,
 })
 
-// Opdater form når props ændrer sig (når data er hentet fra Firestore)
+
 watch(() => props.email, (val) => form.value.email = val)
 watch(() => props.phone, (val) => form.value.phone = val)
 

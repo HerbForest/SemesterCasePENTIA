@@ -7,7 +7,7 @@ const phaseProps = defineProps({
 	description: { type: String, default: '' },
 	status: {
 		type: String,
-		default: 'upcoming', // 'completed' | 'active' | 'upcoming'
+		default: 'upcoming', // 'completed' 'active' 'upcoming'
 	},
 	completedDate: { type: String, default: '' },  
 	estimatedDate: { type: String, default: '' },
@@ -29,7 +29,7 @@ const toggle = () => {
 	<div :class="['phase-card', `phase-card--${status}`]"
 	@click="toggle"
 	>
-	<!-- main content -->
+
 	 <div class="phase-card__main-content">
 		<div class="phase-card__badge">
 			<span v-if="status === 'completed'">✓</span>
@@ -59,7 +59,7 @@ const toggle = () => {
 		</div>
 	 </div>
 
-	 <!-- foldbart indhold -->
+	
 		<div v-if="isExpanded && images.length" class="phase-card__images">
 			<img 
 			v-for="(img, index) in images"
@@ -85,13 +85,12 @@ const toggle = () => {
 	cursor: pointer;
 	transition: all 0.2s ease;
 
-	/* // Afsluttet */
+	
 	&--completed {
 		background: $card-color;
 		border: 1px solid $border-color;
 	}
 
-	/* // Igangværende */
 	&--active {
 		background: $primary-color;
 		border: none;
@@ -107,7 +106,6 @@ const toggle = () => {
 		}
 	}
 
-	/* // Ikke startet */
 	&--upcoming {
 		background: $card-color;
 		border: 1px solid $border-color;

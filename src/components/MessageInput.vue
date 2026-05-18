@@ -29,7 +29,7 @@ const message = ref('')
     border: 1px solid $border-color;
     padding: 12px 16px;
     position: fixed;
-    bottom: 80px; // ← over footeren
+    bottom: 80px; 
     left: 16px;
     right: 16px;
 

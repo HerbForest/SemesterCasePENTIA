@@ -112,7 +112,7 @@ defineProps({
 	
 	&__tags {
 		background-color:$muted-color;
-		display: inline-block; /* hvis parent er flexbox */
+		display: inline-block; 
   	width: fit-content;
   	padding:5px 10px;
 		color:$primary-color;

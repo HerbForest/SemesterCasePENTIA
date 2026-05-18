@@ -34,7 +34,7 @@ const handleDocumentUpload = async () => {
         `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`
     )
     
-    // Nulstil efter upload
+   
     selectedFile.value = null
     selectedCategory.value = 'Kontrakt'
 }
@@ -49,7 +49,7 @@ const handleImageUpload = async () => {
         `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`
     )
     
-    // Nulstil efter upload
+   
     selectedImage.value = null
     selectedPhase.value = null
 }
@@ -57,7 +57,7 @@ const handleImageUpload = async () => {
 <template>
 	<div class="upload-card">
         
-        <!-- Dokument upload -->
+      
         <div class="upload-card__section">
             <h3 class="upload-card__title">Dokument</h3>
             <label class="upload-card__dropzone">
@@ -83,7 +83,6 @@ const handleImageUpload = async () => {
             </button>
         </div>
 
-				<!-- Billede upload -->
         <div class="upload-card__section">
             <h3 class="upload-card__title">Billede</h3>
             <label class="upload-card__dropzone">
@@ -167,7 +166,7 @@ const handleImageUpload = async () => {
     }
 
     &__input {
-        display: none; /* skjult - label håndterer klikket */
+        display: none; 
     }
 
     &__select {
