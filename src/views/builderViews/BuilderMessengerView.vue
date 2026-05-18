@@ -1,5 +1,4 @@
-script setup>
-<script>
+<script setup>
 import { onMounted, ref } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useProjectStore } from '@/stores/projectStore'
@@ -9,6 +8,8 @@ import ConversationCard from '@/components/cards/ConversationCard.vue'
 const authStore = useAuthStore()
 const projectStore = useProjectStore()
 const buyerStore = useBuyerStore()
+
+const conversations = ref([])
 
 onMounted(async () => {
     await projectStore.fetchProjectsByBuilder(authStore.user.uid)
@@ -29,9 +30,18 @@ onMounted(async () => {
     }
 })
 </script>
-
 <template>
-  <div>
-
+  <div class="builder-messages">
+      <ConversationCard
+          v-for="conversation in conversations"
+          :key="conversation.address"
+          :initials="conversation.initials"
+          :name="conversation.name"
+          :address="conversation.address"
+          :lastMessage="conversation.lastMessage"
+          :time="conversation.time"
+          :unread="conversation.unread"
+          :to="conversation.to"
+      />
   </div>
 </template>
