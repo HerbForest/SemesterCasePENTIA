@@ -1,14 +1,14 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { RouterLink } from "vue-router";
 
 defineProps({
 	buttonTitle: {
 		type: String,
-		default: '',
+		default: "",
 	},
 	buttonText: {
 		type: String,
-		default: '',
+		default: "",
 	},
 	icon: {
 		type: [Object, Function],
@@ -20,7 +20,7 @@ defineProps({
 	},
 	buttonTags: {
 		type: String,
-		default: '',
+		default: "",
 	},
 	buttonDate: {
 		type: Date,
@@ -32,15 +32,14 @@ defineProps({
 	},
 	to: {
 		type: [String, Object],
-		default: null
-	}
+		default: null,
+	},
 });
 </script>
 
 <template>
 	<component :is="to ? RouterLink : 'div'" :to="to || undefined" class="card">
-
-		<div class="card__progess">
+		<div class="card__progress">
 			<slot name="progress" />
 		</div>
 		<div v-if="icon" class="card__icon">
@@ -53,10 +52,16 @@ defineProps({
 			<span v-if="buttonTags" class="card__tags">{{ buttonTags }}</span>
 
 			<p v-if="buttonDate" class="card__date">
-				Indflytning: {{ buttonDate instanceof Date ? buttonDate.toLocaleDateString('da-DK', {
-					day: 'numeric', month:
-						'long', year: 'numeric'
-				}) : buttonDate }}
+				Indflytning:
+				{{
+					buttonDate instanceof Date
+						? buttonDate.toLocaleDateString("da-DK", {
+								day: "numeric",
+								month: "long",
+								year: "numeric",
+							})
+						: buttonDate
+				}}
 			</p>
 		</div>
 		<span v-if="arrow" class="card__arrow">›</span>
@@ -74,6 +79,12 @@ defineProps({
 	padding: 16px 20px 16px 0px;
 	margin-bottom: 12px;
 	text-decoration: none;
+
+	&__progress {
+		font-size: 16px;
+		font-weight: bold;
+		color: $primary-color;
+	}
 
 	&__icon {
 		display: flex;
@@ -115,14 +126,13 @@ defineProps({
 	}
 
 	&__tags {
-		background-color:$muted-color;
-		display: inline-block; 
-  	width: fit-content;
-  	padding:5px 10px;
-		color:$primary-color;
+		background-color: $muted-color;
+		display: inline-block;
+		width: fit-content;
+		padding: 5px 10px;
+		color: $primary-color;
 		border-radius: 999px;
 		font-weight: $font-weight-semibold;
-
 	}
 
 	&__arrow {

@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import profilePicture from '@/assets/profile-picture.jpg';
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import profilePicture from "@/assets/profile-picture.jpg";
 
 const route = useRoute();
 //kan bruges til composables
@@ -20,7 +20,6 @@ const PageName = computed(() => route.meta.pageName);
 	</nav>
 </template>
 
-
 <style lang="scss" scoped>
 .navbar {
 	background-color: $primary-color;
@@ -29,9 +28,9 @@ const PageName = computed(() => route.meta.pageName);
 	align-items: center;
 	padding: 0.5rem 1rem;
 
-
 	&__brand {
 		text-align: center;
+		margin: 0;
 	}
 
 	&__brand-title {
@@ -42,6 +41,8 @@ const PageName = computed(() => route.meta.pageName);
 		line-height: 1.25;
 		letter-spacing: 0.15em;
 		color: $secondary-color;
+		margin: 0;
+		padding-top: 5px;
 	}
 
 	&__brand-subtitle {
@@ -51,6 +52,7 @@ const PageName = computed(() => route.meta.pageName);
 		text-transform: uppercase;
 		font-family: $font-family;
 		color: $secondary-color;
+		margin: 0;
 	}
 
 	&__page-name {
