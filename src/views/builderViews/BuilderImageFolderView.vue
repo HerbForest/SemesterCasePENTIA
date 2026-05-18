@@ -21,4 +21,10 @@ const phasesWithImages = computed(() => {
         .sort((a, b) => a.id - b.id)
 })
 
+const filteredImages = computed(() => {
+    if (selectedPhase.value === 'alle') {
+        return Object.values(imageStore.imagesByPhase).flat()
+    }
+    return imageStore.imagesByPhase[selectedPhase.value] || []
+})
 </script>
