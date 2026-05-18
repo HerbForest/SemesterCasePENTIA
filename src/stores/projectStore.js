@@ -22,34 +22,34 @@ export const useProjectStore = defineStore('project', () => {
 		}
 	};
 
-	const fetchAllProjects = async (builderId) => {
+	// const fetchAllProjects = async (builderId) => {
+	// 	loading.value = true;
+	// 	try {
+	// 		const q = query(collection(db, 'projects'), where('builderId', '==', builderId));
+	// 		const snap = await getDocs(q);
+	// 		projects.value = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+	// 	} catch (error) {
+	// 		console.error('Fejl ved hentning af projekter:', error);
+	// 	} finally {
+	// 		loading.value = false;
+	// 	}
+	// };
+
+	const builderProjects = ref([]);
+	const fetchProjectsByBuilder = async (builderId) => {
 		loading.value = true;
 		try {
-			const q = query(collection(db, 'projects'), where('builderId', '==', builderId));
+			const q = query(
+				collection(db, 'projects'),
+				where('builderId', '==', builderId)
+			);
 			const snap = await getDocs(q);
-			projects.value = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+			builderProjects.value = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 		} catch (error) {
-			console.error('Fejl ved hentning af projekter:', error);
+			console.error('Fejl ved hentning af byggeleder projekter:', error);
 		} finally {
 			loading.value = false;
 		}
 	};
-
-	const builderProjects = ref([])
-	const fetchProjectsByBuilder = async (builderId) => {
-			loading.value = true
-			try {
-					const q = query(
-							collection(db, 'projects'),
-							where('builderId', '==', builderId)
-					)
-					const snap = await getDocs(q)
-					builderProjects.value = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }))
-			} catch (error) {
-					console.error('Fejl ved hentning af byggeleder projekter:', error)
-			} finally {
-					loading.value = false
-			}
-	}
-	return { project, loading, fetchProject, fetchAllProjects,   builderProjects, fetchProjectsByBuilder };
+	return { project, loading, fetchProject, builderProjects, fetchProjectsByBuilder };
 });

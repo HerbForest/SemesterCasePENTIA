@@ -5,21 +5,27 @@ import ProgressCircle from '@/components/library/ProgressCircle.vue';
 import { Calendar } from '@lucide/vue';
 import { onMounted } from 'vue';
 import { useProjectStore } from '@/stores/projectStore';
+import { useAuthStore } from '@/stores/authStore';
+
 // dynamisk side ændring til to card :to="{ name: 'BuildLeaderBuildPage', params: { id: build.id } }";
 const projectStore = useProjectStore();
+const authStore = useAuthStore();
 
 onMounted(async () => {
-	await projectStore.fetchAllProjects();
+	await projectStore.fetchProjectsByBuilder(authStore.user.uid);
+	console.log(projectStore.builderProjects);
 });
 </script>
 <template>
 	<div class="hero">
 		<img class="hero__image" :src="backgroundImg" alt="hero-construction" />
 	</div>
-	<ButtonCard v-for="project in projectStore.projects" :key="project.id" :buttonTitle="project.name"
-		:to="{ name: 'buildLeaderBuildPage', params: { id: project.id } }">
+	<ButtonCard v-for="project in projectStore.builderProjects" :key="project.id" :buttonTitle="project.address"
+		:buttonText="project.name" :to="{ name: 'buildLeaderBuildPage', params: { id: project.id } }"
+		:buttonDate="project.expectedDelivery" :icon="Calendar">
+
 		<template #progress>
-			<ProgressCircle />
+			<ProgressCircle :value="project.progress" />
 		</template>
 	</ButtonCard>
 	<!-- <div class="bagground">
