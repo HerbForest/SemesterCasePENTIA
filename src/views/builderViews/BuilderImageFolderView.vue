@@ -28,3 +28,33 @@ const filteredImages = computed(() => {
     return imageStore.imagesByPhase[selectedPhase.value] || []
 })
 </script>
+<template>
+	<div class="image-folder">
+		<div class="image-folder__filters">
+            <button 
+                :class="['image-folder__filter', { 'image-folder__filter--active': selectedPhase === 'alle' }]"
+                @click="selectedPhase = 'alle'"
+            >
+                Alle
+            </button>
+            <button
+                v-for="phase in phasesWithImages"
+                :key="phase.id"
+                :class="['image-folder__filter', { 'image-folder__filter--active': selectedPhase === phase.id }]"
+                @click="selectedPhase = phase.id"
+            >
+                {{ phase.name }}
+            </button>
+        </div>
+
+				<div class="image-folder__grid">
+            <div
+                v-for="(imageUrl, index) in filteredImages"
+                :key="index"
+                class="image-folder__item"
+            >
+                <img :src="imageUrl" :alt="`Billede ${index + 1}`" class="image-folder__img" />
+            </div>
+        </div>
+	</div>
+</template>
