@@ -8,7 +8,7 @@ export const useStorage = () => {
     const uploadProgress = ref(0)
     const error = ref(null)
 
-const uploadDocument = async (file, projectId, category, uplaoded) => {
+const uploadDocument = async (file, projectId, category, uploadedBy) => {
 	uploading.value = true;
 	uploadProgress.value = 0;
 	error.value = null
