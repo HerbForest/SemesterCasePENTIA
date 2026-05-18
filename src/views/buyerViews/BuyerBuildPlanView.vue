@@ -32,25 +32,24 @@ onMounted(async () => {
 
 
 const phases = computed(() => {
-		const parentTasks = projectStore.tasks.filter(task => task.isParent)
-    console.log('parent tasks:', parentTasks)
-    const tasks = projectStore.tasks
+    if (!projectStore.tasks?.length) return []
+    
+    const parentTasks = projectStore.tasks
         .filter(task => task.isParent)
         .sort((a, b) => a.id - b.id)
 
-    // Find den første ikke-færdige fase
-    const activeIndex = tasks.findIndex(task => task.progress < 100)
+    const activeIndex = parentTasks.findIndex(task => (task.progress ?? 0) < 100)
 
-    return tasks.map((task, index) => ({
-            number: task.id,
-            title: task.name,
-            description: task.description || '',
-            status: task.progress === 100 ? 'completed' : task.progress > 0 ? 'active' : 'upcoming',
-            completedDate: task.endDate || '',
-            estimatedDate: task.endDate || '',
-            progress: task.progress,
-            timeLeft: null,
-        }))
+    return parentTasks.map((task, index) => ({
+        number: task.id,
+        title: task.name,
+        description: task.description || '',
+        status: (task.progress ?? 0) === 100 ? 'completed' : index === activeIndex ? 'active' : 'upcoming',
+        completedDate: task.endDate || '',
+        estimatedDate: task.endDate || '',
+        progress: task.progress ?? 0,
+        timeLeft: null,
+    }))
 })
 </script>
 
