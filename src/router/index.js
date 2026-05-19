@@ -103,7 +103,7 @@ const router = createRouter({
 				},
 				{
 					path: 'upload/:id',
-					name: 'Builderupload',
+					name: 'builderUpload',
 					component: () => import('@/views/builderViews/BuilderUploadView.vue'),
 					meta: { pageName: 'Upload nye filer' },
 				},
