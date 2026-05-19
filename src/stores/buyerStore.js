@@ -11,6 +11,8 @@ export const useBuyerStore = defineStore('buyer', () => {
 
 	/** @type {import('vue').Ref<Object|null>} Den aktuelle bygherre med alle felter fra Firestore */
 	const buyer = ref(null);
+
+	/** @type {import('vue').Ref<boolean>} True mens bygherre data hentes fra Firestore */
 	const loading = ref(false);
 
 	const fetchBuyer = async (buyerId) => {
