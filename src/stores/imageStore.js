@@ -3,6 +3,10 @@ import { ref } from 'vue'
 import { db } from '@/config/firebase'
 import { collection, query, where, getDocs } from 'firebase/firestore'
 
+/**
+ * Image store til håndtering af billede data fra Firestore.
+ * Henter og gemmer billeder tilknyttet et specifikt projekt og fase.
+ */
 export const useImageStore = defineStore('images', () => {
     const images = ref([])
     const loading = ref(false)
@@ -24,7 +28,7 @@ export const useImageStore = defineStore('images', () => {
         }
     }
 
-   const imagesByPhase = ref({}) // { phaseId: [billede1, billede2] }
+const imagesByPhase = ref({}) 
 
 const fetchImagesByProject = async (projectId) => {
     loading.value = true
@@ -35,7 +39,7 @@ const fetchImagesByProject = async (projectId) => {
         )
         const snap = await getDocs(q)
         
-        // Gruppér billeder efter phaseId
+        
         const grouped = {}
         snap.docs.forEach(doc => {
             const data = { id: doc.id, ...doc.data() }
