@@ -24,16 +24,10 @@ onMounted(async () => {
 			<p class="hero__count-number">{{ projectStore.builderProjects.length }}</p>
 		</div>
 	</div>
-	<div class="cards__projects">
-		<ButtonCard
-			v-for="project in projectStore.builderProjects"
-			:key="project.id"
-			:buttonTitle="project.address"
-			:buttonText="project.name"
-			:to="{ name: 'buildLeaderBuildPage', params: { id: project.id } }"
-			:buttonDate="project.expectedDelivery"
-			:icon="Calendar"
-		>
+	<div class="project-cards">
+		<ButtonCard v-for="project in projectStore.builderProjects" :key="project.id" :buttonTitle="project.address"
+			:buttonText="project.name" :to="{ name: 'buildLeaderBuildPage', params: { id: project.id } }"
+			:buttonDate="project.expectedDelivery" :icon="Calendar">
 			<template #progress>
 				<ProgressCircle :value="project.progress" />
 			</template>
@@ -47,6 +41,7 @@ onMounted(async () => {
 	overflow: hidden;
 	position: relative;
 
+
 	&::before {
 		content: "";
 		position: absolute;
@@ -57,6 +52,7 @@ onMounted(async () => {
 		background: linear-gradient(to bottom, transparent, white);
 		z-index: 1;
 	}
+
 	&__image {
 		display: block;
 		width: 100%;
@@ -64,6 +60,7 @@ onMounted(async () => {
 		object-fit: cover;
 		object-position: center 40%;
 	}
+
 	&__count {
 		position: absolute;
 		bottom: 16px;
@@ -86,7 +83,7 @@ onMounted(async () => {
 	}
 }
 
-.bagground {
-	position: relative;
+.project-cards {
+	background-color: $background-color;
 }
 </style>

@@ -56,10 +56,10 @@ defineProps({
 				{{
 					buttonDate instanceof Date
 						? buttonDate.toLocaleDateString("da-DK", {
-								day: "numeric",
-								month: "long",
-								year: "numeric",
-							})
+							day: "numeric",
+							month: "long",
+							year: "numeric",
+						})
 						: buttonDate
 				}}
 			</p>
