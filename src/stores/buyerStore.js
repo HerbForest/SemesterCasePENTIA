@@ -36,6 +36,12 @@ export const useBuyerStore = defineStore('buyer', () => {
 		}
 	};
 
+	/**
+     * Opdaterer bygherrens data i Firestore og i den lokale store.
+     * Bruges til at gemme ændringer fra profil siden.
+     * @param {Object} updatedData - Objekt med de felter der skal opdateres
+     * @returns {Promise<void>}
+     */
 	const updateBuyer = async (updatedData) => {
 		try {
 			await updateDoc(doc(db, 'users', buyer.value.id), updatedData)
