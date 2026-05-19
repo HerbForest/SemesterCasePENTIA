@@ -43,15 +43,20 @@ export const useImageStore = defineStore('images', () => {
     }
 
 
-
-const fetchImagesByProject = async (projectId) => {
+     /**
+    * Henter alle billeder fra Firestore tilknyttet et projekt og grupperer dem efter fase.
+    * Bruges til at vise billeder sorteret efter fase i byggeplan og billedmappe viewet.
+    * @param {string} projectId - Projektets dokument ID i Firestore projects collection
+    * @returns {Promise<void>}
+    */
+    const fetchImagesByProject = async (projectId) => {
     loading.value = true
-    try {
-        const q = query(
-            collection(db, 'images'),
-            where('projectId', '==', projectId)
-        )
-        const snap = await getDocs(q)
+        try {
+            const q = query(
+                collection(db, 'images'),
+                where('projectId', '==', projectId)
+            )
+            const snap = await getDocs(q)
         
         
         const grouped = {}
