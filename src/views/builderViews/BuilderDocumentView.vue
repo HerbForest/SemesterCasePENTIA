@@ -15,6 +15,14 @@ watch(() => route.params.id, async (id) => {
         await documentStore.fetchDocuments(id)
     }
 }, { immediate: true })
+
+const kontrakter = computed(() =>
+    documentStore.documents.filter(doc => doc.category === 'Kontrakt')
+)
+
+const tillaegsaftaler = computed(() =>
+    documentStore.documents.filter(doc => doc.category === 'Tillægsaftale')
+)
 </script>
 
 <template>
