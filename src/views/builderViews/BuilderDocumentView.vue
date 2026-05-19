@@ -10,6 +10,11 @@ const route = useRoute()
 const documentStore = useDocumentStore()
 const { deleteFile } = useStorage()
 
+watch(() => route.params.id, async (id) => {
+    if (id) {
+        await documentStore.fetchDocuments(id)
+    }
+}, { immediate: true })
 </script>
 
 <template>
