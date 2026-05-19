@@ -67,3 +67,34 @@ const handleDelete = async (doc) => {
     <p v-if="!tillaegsaftaler.length" class="builder-docs__empty">Ingen tillægsaftaler uploadet endnu</p>
 	</div>
 </template>
+
+<style scoped lang="scss">
+.builder-docs {
+    padding: 16px;
+
+    &__header {
+        margin-bottom: 8px;
+    }
+
+    &__title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-bold;
+        color: $foreground-color;
+        margin: 0;
+    }
+
+    &__section-title {
+        font-size: $font-size-xs;
+        font-weight: $font-weight-semibold;
+        color: $muted-foreground-color;
+        letter-spacing: 1px;
+        margin: 16px 0 8px;
+    }
+
+    &__empty {
+        font-size: $font-size-sm;
+        color: $muted-foreground-color;
+        margin: 8px 0 16px;
+    }
+}
+</style>
