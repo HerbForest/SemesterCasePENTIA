@@ -11,6 +11,11 @@ export const useImageStore = defineStore('images', () => {
 
      /** @type {import('vue').Ref<Array>} Liste af billeder for en specifik fase */
     const images = ref([])
+
+     /** @type {import('vue').Ref<Object>} Billeder grupperet efter fase ID { phaseId: [billede1, billede2] } */
+    const imagesByPhase = ref({}) 
+
+    
     const loading = ref(false)
 
     const fetchImagesByPhase = async (projectId, phaseId) => {
@@ -30,7 +35,7 @@ export const useImageStore = defineStore('images', () => {
         }
     }
 
-const imagesByPhase = ref({}) 
+
 
 const fetchImagesByProject = async (projectId) => {
     loading.value = true
