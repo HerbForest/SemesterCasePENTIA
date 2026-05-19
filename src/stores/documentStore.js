@@ -8,6 +8,8 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
  * Henter og gemmer dokumenter tilknyttet et specifikt projekt.
  */
 export const useDocumentStore = defineStore('documents', () => {
+
+	/** @type {import('vue').Ref<Array>} Liste af dokumenter tilknyttet det aktuelle projekt */
 	const documents = ref([]);
 	const loading = ref(false);
 
