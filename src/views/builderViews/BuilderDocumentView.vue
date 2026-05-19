@@ -23,6 +23,13 @@ const kontrakter = computed(() =>
 const tillaegsaftaler = computed(() =>
     documentStore.documents.filter(doc => doc.category === 'Tillægsaftale')
 )
+
+const handleDelete = async (doc) => {
+    if (confirm(`Er du sikker på at du vil slette ${doc.name}?`)) {
+        await deleteFile(doc.projectId, doc.name, 'documents')
+        await documentStore.fetchDocuments(route.params.id)
+    }
+}
 </script>
 
 <template>
