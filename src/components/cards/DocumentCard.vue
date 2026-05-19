@@ -1,4 +1,6 @@
 <script setup>
+import { FileText, Download, Trash2 } from '@lucide/vue'
+
 defineProps({
 	name: {
 		type: String,
@@ -20,6 +22,10 @@ defineProps({
 		type: String,
 		default: '',
 	},
+    deletable: { 
+        type: Boolean, 
+        default: false 
+    ,} 
 });
 
 const openDocument = (url) => {
@@ -37,17 +43,17 @@ const downloadDocument = (url, name) => {
 <template>
     <div class="doc-card" @click="openDocument(downloadUrl)">
         <div class="doc-card__icon">
-            📄
+            <FileText :size="18" />
         </div>
         <div class="doc-card__content">
             <p class="doc-card__name">{{ name }}</p>
             <p class="doc-card__meta">{{ size }} · {{ date }} · fra {{ uploadedBy }}</p>
         </div>
-        <button
-            class="doc-card__download"
-            @click.stop="downloadDocument(downloadUrl, name)"
-        >
-            ↓
+        <button class="doc-card__download" @click.stop="downloadDocument(downloadUrl, name)">
+            <Download :size="18" />
+        </button>
+        <button v-if="deletable" class="doc-card__delete" @click.stop="emit('delete')">
+            <Trash2 :size="18" />
         </button>
     </div>
 </template>
