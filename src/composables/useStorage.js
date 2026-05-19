@@ -1,7 +1,7 @@
 import { ref } from 'vue'
 import { storage, db } from '@/config/firebase'
 import { ref as storageRef, uploadBytesResumable, getDownloadURL, deleteObject } from 'firebase/storage'
-import { collection, addDoc, deleteDoc, doc } from 'firebase/firestore'
+import { collection, addDoc, deleteDoc, doc, where, getDoc } from 'firebase/firestore'
 
 export const useStorage = () => {
     const uploading = ref(false)
@@ -91,5 +91,5 @@ const uploadDocument = async (file, projectId, category, uploadedBy) => {
     }
 }
 
-return { uploading, uploadProgress, error, uploadDocument, uploadImage }
+return { uploading, uploadProgress, error, uploadDocument, uploadImage, deleteFile }
 }
