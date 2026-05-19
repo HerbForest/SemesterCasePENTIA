@@ -107,6 +107,12 @@ const router = createRouter({
 					component: () => import('@/views/builderViews/BuilderUploadView.vue'),
 					meta: { pageName: 'Upload nye filer' },
 				},
+				{
+					path: 'images/:projectId',
+					name: 'builderImages',
+					component: () => import('@/views/builderViews/BuilderImageFolderView.vue'),
+					meta: { pageName: 'Fotomapper' },
+				},
 			],
 		},
 	],
