@@ -28,6 +28,8 @@ defineProps({
     ,} 
 });
 
+const emit = defineEmits(['delete'])
+
 const openDocument = (url) => {
 	window.open(url, '_blank');
 };

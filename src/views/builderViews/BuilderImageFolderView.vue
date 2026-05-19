@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import ReturnButton from '@/components/buttons/ReturnButton.vue'
 import { useImageStore } from '@/stores/imageStore'
 import { useTaskStore } from '@/stores/taskStore'
 
@@ -31,6 +32,7 @@ const filteredImages = computed(() => {
 </script>
 <template>
 	<div class="image-folder">
+        <ReturnButton/>
 		<div class="image-folder__filters">
             <button 
                 :class="['image-folder__filter', { 'image-folder__filter--active': selectedPhase === 'alle' }]"

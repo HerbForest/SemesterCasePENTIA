@@ -7,6 +7,7 @@ import { useProjectStore } from '@/stores/projectStore'
 import { useAuthStore } from '@/stores/authStore'
 import MessageCard from '@/components/cards/MessageCard.vue'
 import MessageInput from '@/components/MessageInput.vue'
+import ReturnButton from '@/components/buttons/ReturnButton.vue'
 
 const route = useRoute()
 const builderStore = useBuilderStore()
@@ -47,6 +48,7 @@ const buyerInitials = computed(() => {
 </script>
 <template>
 	<div class="builder-chat">
+        <ReturnButton/>
 		<div class="messages">
 		<div class="messages__date-divider">I DAG</div>
 
