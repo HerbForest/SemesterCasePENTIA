@@ -38,7 +38,7 @@ const cards = [
 	{ text: 'fotos', icon: Camera, to: { name: 'builderImages', params: { projectId: route.params.id } } },
 	{ text: 'Upload', icon: Upload, to: { name: 'builderUpload', params: { id: route.params.id } } },
 	{ text: 'Chat', icon: MessageSquare, to: { name: 'builderChat', params: { id: route.params.id } } },
-	{ text: 'Dokumenter', icon: FileText, to: null },
+	{ text: 'Dokumenter', icon: FileText, to: { name: 'builderDocuments', params: { id: route.params.id } } },
 	{ text: 'Plantegninger', icon: Map, to: null },
 	{ text: 'Gantt Diagram', icon: ChartColumn, to: null },
 ];
