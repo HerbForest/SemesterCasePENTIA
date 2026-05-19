@@ -102,7 +102,8 @@ const downloadDocument = (url, name) => {
         margin: 0;
     }
 
-    &__download {
+    &__download,
+    &__delete {
         background: none;
         border: none;
         color: $muted-foreground-color;
@@ -114,6 +115,12 @@ const downloadDocument = (url, name) => {
         &:hover {
             color: $primary-color;
         }
+    }
+
+    &__delete{
+       &:hover {
+        color: $destructive-color; 
+    }
     }
 }
 </style>
