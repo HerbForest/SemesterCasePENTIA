@@ -26,5 +26,19 @@ import DocumentCard from '@/components/cards/DocumentCard.vue'
         @delete="handleDelete(doc)"
     />
     <p v-if="!kontrakter.length" class="builder-docs__empty">Ingen kontrakter uploadet endnu</p>
+
+		<p class="builder-docs__section-title">TILLÆGSAFTALER</p>
+    <DocumentCard
+        v-for="doc in tillaegsaftaler"
+        :key="doc.id"
+        :name="doc.name"
+        :size="doc.size"
+        :date="doc.date"
+        :uploadedBy="doc.uploadedBy"
+        :downloadUrl="doc.downloadUrl"
+        :deletable="true"
+        @delete="handleDelete(doc)"
+    />
+    <p v-if="!tillaegsaftaler.length" class="builder-docs__empty">Ingen tillægsaftaler uploadet endnu</p>
 	</div>
 </template>
