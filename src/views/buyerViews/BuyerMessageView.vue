@@ -4,11 +4,9 @@ import MessageCard from '@/components/cards/MessageCard.vue';
 import MessageInput from '@/components/MessageInput.vue';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useBuilderStore } from '@/stores/builderStore';
-import { useProjectStore } from '@/stores/projectStore';
 
 const buyerStore = useBuyerStore();
 const builderStore = useBuilderStore();
-const projectStore = useProjectStore();
 const buyerName = computed(() => buyerStore.buyer?.firstName);
 const builderName = computed(() => `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`);
 const builderImage = computed(() => builderStore.builder?.profileImage);
