@@ -65,7 +65,7 @@ const phases = computed(() => {
             v-for="phase in phases"
             :key="phase.number"
             v-bind="phase"
-            :images="imageStore.imagesByPhase[phase.number] || []"
+            :images="(imageStore.imagesByPhase[phase.number] || []).map(img => img.downloadUrl)"
       />
 	</div>
 </template>
