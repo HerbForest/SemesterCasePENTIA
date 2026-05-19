@@ -15,7 +15,7 @@ export const useImageStore = defineStore('images', () => {
      /** @type {import('vue').Ref<Object>} Billeder grupperet efter fase ID { phaseId: [billede1, billede2] } */
     const imagesByPhase = ref({}) 
 
-    
+    /** @type {import('vue').Ref<boolean>} True mens billeder hentes fra Firestore */
     const loading = ref(false)
 
     const fetchImagesByPhase = async (projectId, phaseId) => {
