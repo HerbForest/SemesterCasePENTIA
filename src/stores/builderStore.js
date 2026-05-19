@@ -3,10 +3,24 @@ import { ref } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 
+/**
+ * Builder store til håndtering af byggeleder data fra Firestore.
+ * Henter og gemmer data for den byggeleder der er tilknyttet det aktuelle projekt.
+ */
 export const useBuilderStore = defineStore('builder', () => {
+
+	 /** @type {import('vue').Ref<Object|null>} Den aktuelle byggeleder med alle felter fra Firestore */
 	const builder = ref(null);
+	
+	/** @type {import('vue').Ref<boolean>} True mens byggeleder data hentes fra Firestore */
 	const loading = ref(false);
 
+	/**
+  * Henter en byggeleder fra Firestore baseret på byggelederens ID.
+  * Gemmer resultatet i builder ref så det er tilgængeligt i hele appen via storen.
+  * @param {string} builderId - Byggelederens dokument ID i Firestore builders collection
+  * @returns {Promise<void>}
+  */
 	const fetchBuilder = async (builderId) => {
 		loading.value = true;
 		try {
