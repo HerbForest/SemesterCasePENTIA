@@ -15,6 +15,13 @@ export const useBuyerStore = defineStore('buyer', () => {
 	/** @type {import('vue').Ref<boolean>} True mens bygherre data hentes fra Firestore */
 	const loading = ref(false);
 
+
+	/**
+     * Henter en bygherre fra Firestore baseret på brugerens ID.
+     * Bruges typisk med Firebase Auth brugerens UID efter login.
+     * @param {string} buyerId - Bygherrens dokument ID i Firestore users collection
+     * @returns {Promise<void>}
+     */
 	const fetchBuyer = async (buyerId) => {
 		loading.value = true;
 		try {
