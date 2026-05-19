@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
-import { useAuthStore } from '@/stores/authStore';
 import ProfileCard from '@/components/cards/ProfileCard.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import Card from '@/components/cards/TextCard.vue';
@@ -11,7 +10,6 @@ import Card from '@/components/cards/TextCard.vue';
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
-const authStore = useAuthStore();
 
 const initials = computed(() => {
 	if (!buyerStore.buyer) return '';
