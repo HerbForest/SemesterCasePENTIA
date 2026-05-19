@@ -2,9 +2,9 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
-import { db } from '@/config/firebase'
-import { doc, getDoc } from 'firebase/firestore'
-import { Eye, EyeOff } from '@lucide/vue'
+import { db } from '@/config/firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { Eye, EyeOff } from '@lucide/vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -13,28 +13,28 @@ const email = ref('');
 const password = ref('');
 const error = ref();
 const loading = ref(false);
-const showPassword = ref(false)
+const showPassword = ref(false);
 
 const handleLogin = async () => {
-    error.value = ''
-    loading.value = true
-    try {
-        await authStore.login(email.value, password.value)
+	error.value = '';
+	loading.value = true;
+	try {
+		await authStore.login(email.value, password.value);
         
-        const uid = authStore.user.uid
-        const snap = await getDoc(doc(db, 'users', uid))
+		const uid = authStore.user.uid;
+		const snap = await getDoc(doc(db, 'users', uid));
         
-        if (snap.exists() && snap.data().role === 'byggeleder') {
-            router.push('/builder/homepage')
-        } else {
-            router.push('/buyer/home')
-        }
-    } catch (err) {
-        error.value = 'Forkert email eller adgangskode'
-    } finally {
-        loading.value = false
-    }
-}
+		if (snap.exists() && snap.data().role === 'byggeleder') {
+			router.push('/builder/homepage');
+		} else {
+			router.push('/buyer/home');
+		}
+	} catch (err) {
+		error.value = 'Forkert email eller adgangskode';
+	} finally {
+		loading.value = false;
+	}
+};
 </script>
 
 <template>

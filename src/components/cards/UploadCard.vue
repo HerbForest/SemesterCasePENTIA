@@ -1,62 +1,62 @@
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Camera, FileText } from '@lucide/vue'
-import { useStorage } from '@/composables/useStorage'
-import { useBuilderStore } from '@/stores/builderStore'
-import { useProjectStore } from '@/stores/projectStore'
-import { useTaskStore } from '@/stores/taskStore'
+import { ref, onMounted } from 'vue';
+import { Camera, FileText } from '@lucide/vue';
+import { useStorage } from '@/composables/useStorage';
+import { useBuilderStore } from '@/stores/builderStore';
+import { useProjectStore } from '@/stores/projectStore';
+import { useTaskStore } from '@/stores/taskStore';
 
 const props = defineProps({
-    projectId: { type: String, required: true }
-})
+	projectId: { type: String, required: true }
+});
 
-const { uploading, uploadProgress, uploadDocument, uploadImage } = useStorage()
-const builderStore = useBuilderStore()
-const projectStore = useProjectStore()
-const taskStore = useTaskStore()
+const { uploading, uploadProgress, uploadDocument, uploadImage } = useStorage();
+const builderStore = useBuilderStore();
+const projectStore = useProjectStore();
+const taskStore = useTaskStore();
 
-const selectedFile = ref(null)
-const selectedCategory = ref('Kontrakt')
-const selectedImage = ref(null)
-const selectedPhase = ref(null)
-const imageDescription = ref('')
+const selectedFile = ref(null);
+const selectedCategory = ref('Kontrakt');
+const selectedImage = ref(null);
+const selectedPhase = ref(null);
+const imageDescription = ref('');
 
 onMounted(async () => {
-    if (!taskStore.tasks.length) {
-        await taskStore.fetchTasks(props.projectId)
-    }
-})
+	if (!taskStore.tasks.length) {
+		await taskStore.fetchTasks(props.projectId);
+	}
+});
 
 const handleDocumentUpload = async () => {
-    if (!selectedFile.value) return
+	if (!selectedFile.value) return;
     
-    await uploadDocument(
-        selectedFile.value,
-        props.projectId,
-        selectedCategory.value,
-        `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`
-    )
+	await uploadDocument(
+		selectedFile.value,
+		props.projectId,
+		selectedCategory.value,
+		`${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`
+	);
     
    
-    selectedFile.value = null
-    selectedCategory.value = 'Kontrakt'
-}
+	selectedFile.value = null;
+	selectedCategory.value = 'Kontrakt';
+};
 
 const handleImageUpload = async () => {
-    if (!selectedImage.value || !selectedPhase.value) return
+	if (!selectedImage.value || !selectedPhase.value) return;
     
-    await uploadImage(
-        selectedImage.value,
-        props.projectId,
-        selectedPhase.value,
-        `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`,
-        imageDescription.value
-    )
+	await uploadImage(
+		selectedImage.value,
+		props.projectId,
+		selectedPhase.value,
+		`${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`,
+		imageDescription.value
+	);
     
-    selectedImage.value = null
-    selectedPhase.value = null
-    imageDescription.value = '' 
-}
+	selectedImage.value = null;
+	selectedPhase.value = null;
+	imageDescription.value = ''; 
+};
 </script>
 <template>
 	<div class="upload-card">

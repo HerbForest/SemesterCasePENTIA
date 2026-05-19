@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue'
-import { Paperclip, Send } from '@lucide/vue'
+import { ref } from 'vue';
+import { Paperclip, Send } from '@lucide/vue';
 
-const message = ref('')
+const message = ref('');
 </script>
 
 <template>

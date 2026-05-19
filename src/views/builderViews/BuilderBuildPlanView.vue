@@ -1,12 +1,12 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useAuthStore } from '@/stores/authStore'
-import { useProjectStore } from '@/stores/projectStore'
-import { useTaskStore } from '@/stores/taskStore'
-import { db } from '@/config/firebase'
-import { collection, getDocs } from 'firebase/firestore'
-import ButtonCard from '@/components/cards/ButtonCard.vue'
-import ProgressCircle from '@/components/library/ProgressCircle.vue'
+import { ref, computed, onMounted } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
+import { useProjectStore } from '@/stores/projectStore';
+import { useTaskStore } from '@/stores/taskStore';
+import { db } from '@/config/firebase';
+import { collection, getDocs } from 'firebase/firestore';
+import ButtonCard from '@/components/cards/ButtonCard.vue';
+import ProgressCircle from '@/components/library/ProgressCircle.vue';
 
 const authStore = useAuthStore();
 const projectStore = useProjectStore();

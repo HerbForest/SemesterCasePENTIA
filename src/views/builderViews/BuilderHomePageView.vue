@@ -1,11 +1,11 @@
 <script setup>
-import ButtonCard from "@/components/cards/ButtonCard.vue";
-import backgroundImg from "@/assets/hero-construction.jpg";
-import ProgressCircle from "@/components/library/ProgressCircle.vue";
-import { Calendar } from "@lucide/vue";
-import { onMounted } from "vue";
-import { useProjectStore } from "@/stores/projectStore";
-import { useAuthStore } from "@/stores/authStore";
+import ButtonCard from '@/components/cards/ButtonCard.vue';
+import backgroundImg from '@/assets/hero-construction.jpg';
+import ProgressCircle from '@/components/library/ProgressCircle.vue';
+import { Calendar } from '@lucide/vue';
+import { onMounted } from 'vue';
+import { useProjectStore } from '@/stores/projectStore';
+import { useAuthStore } from '@/stores/authStore';
 
 // dynamisk side ændring til to card :to="{ name: 'BuildLeaderBuildPage', params: { id: build.id } }";
 const projectStore = useProjectStore();

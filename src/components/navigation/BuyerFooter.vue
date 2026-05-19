@@ -1,13 +1,13 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { RouterLink } from 'vue-router';
 import { House, Calendar, MessageCircle, Ellipsis } from '@lucide/vue';
 
 const navItems = [
-    { label: 'Mit Byggeri', to: '/buyer/home' },
-    { label: 'Byggeplan', to: '/buyer/byggeplan' },
-    { label: 'Beskeder', to: '/buyer/beskeder', badge: 1 },
-    { label: 'Mere', to: '/buyer/mere' },
-]
+	{ label: 'Mit Byggeri', to: '/buyer/home' },
+	{ label: 'Byggeplan', to: '/buyer/byggeplan' },
+	{ label: 'Beskeder', to: '/buyer/beskeder', badge: 1 },
+	{ label: 'Mere', to: '/buyer/mere' },
+];
 </script>
 
 <template>

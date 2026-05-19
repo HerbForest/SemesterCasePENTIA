@@ -6,8 +6,8 @@ import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
 import { useAuthStore } from '@/stores/authStore';
-import { useImageStore } from '@/stores/imageStore'
-import { useTaskStore } from '@/stores/taskStore'
+import { useImageStore } from '@/stores/imageStore';
+import { useTaskStore } from '@/stores/taskStore';
 
 
 
@@ -15,42 +15,42 @@ const authStore = useAuthStore();
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
-const imageStore = useImageStore()
-const taskStore = useTaskStore()
+const imageStore = useImageStore();
+const taskStore = useTaskStore();
 
 onMounted(async () => {
-    if (!projectStore.project) {
-        await buyerStore.fetchBuyer(authStore.user.uid)
-        await projectStore.fetchProject(buyerStore.buyer.projectId)
-    }
-    if (!builderStore.builder) {
-        await builderStore.fetchBuilder(projectStore.project.builderId)
-    }
-    await taskStore.fetchTasks(projectStore.project.id)
-    await imageStore.fetchImagesByProject(projectStore.project.id)
-   console.log('tasks:', taskStore.tasks)
-})
+	if (!projectStore.project) {
+		await buyerStore.fetchBuyer(authStore.user.uid);
+		await projectStore.fetchProject(buyerStore.buyer.projectId);
+	}
+	if (!builderStore.builder) {
+		await builderStore.fetchBuilder(projectStore.project.builderId);
+	}
+	await taskStore.fetchTasks(projectStore.project.id);
+	await imageStore.fetchImagesByProject(projectStore.project.id);
+	console.log('tasks:', taskStore.tasks);
+});
 
 
 const phases = computed(() => {
-    if (!taskStore.tasks?.length) return []
+	if (!taskStore.tasks?.length) return [];
 
-		const parentTasks = taskStore.tasks
-				.filter(task => task.isParent)
+	const parentTasks = taskStore.tasks
+		.filter(task => task.isParent);
 
-    const activeIndex = parentTasks.findIndex(task => (task.progress ?? 0) < 100)
+	const activeIndex = parentTasks.findIndex(task => (task.progress ?? 0) < 100);
 
-    return parentTasks.map((task, index) => ({
-        number: task.id,
-        title: task.name,
-        description: task.description || '',
-        status: (task.progress ?? 0) === 100 ? 'completed' : index === activeIndex ? 'active' : 'upcoming',
-        completedDate: task.endDate || '',
-        estimatedDate: task.endDate || '',
-        progress: task.progress ?? 0,
-        timeLeft: null,
-    }))
-})
+	return parentTasks.map((task, index) => ({
+		number: task.id,
+		title: task.name,
+		description: task.description || '',
+		status: (task.progress ?? 0) === 100 ? 'completed' : index === activeIndex ? 'active' : 'upcoming',
+		completedDate: task.endDate || '',
+		estimatedDate: task.endDate || '',
+		progress: task.progress ?? 0,
+		timeLeft: null,
+	}));
+});
 </script>
 
 <template>

@@ -1,50 +1,50 @@
 <script setup>
-import { computed, onMounted} from 'vue'
-import { useRoute } from 'vue-router'
-import { useBuilderStore } from '@/stores/builderStore'
-import { useBuyerStore } from '@/stores/buyerStore'
-import { useProjectStore } from '@/stores/projectStore'
-import { useAuthStore } from '@/stores/authStore'
-import MessageCard from '@/components/cards/MessageCard.vue'
-import MessageInput from '@/components/MessageInput.vue'
-import ReturnButton from '@/components/buttons/ReturnButton.vue'
+import { computed, onMounted} from 'vue';
+import { useRoute } from 'vue-router';
+import { useBuilderStore } from '@/stores/builderStore';
+import { useBuyerStore } from '@/stores/buyerStore';
+import { useProjectStore } from '@/stores/projectStore';
+import { useAuthStore } from '@/stores/authStore';
+import MessageCard from '@/components/cards/MessageCard.vue';
+import MessageInput from '@/components/MessageInput.vue';
+import ReturnButton from '@/components/buttons/ReturnButton.vue';
 
-const route = useRoute()
-const builderStore = useBuilderStore()
-const buyerStore = useBuyerStore()
-const projectStore = useProjectStore()
-const authStore = useAuthStore()
+const route = useRoute();
+const builderStore = useBuilderStore();
+const buyerStore = useBuyerStore();
+const projectStore = useProjectStore();
+const authStore = useAuthStore();
 
-const builderName = computed(() => `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`)
-const builderImage = computed(() => builderStore.builder?.profileImage)
-const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.buyer?.lastName}`)
+const builderName = computed(() => `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`);
+const builderImage = computed(() => builderStore.builder?.profileImage);
+const buyerName = computed(() => `${buyerStore.buyer?.firstName} ${buyerStore.buyer?.lastName}`);
 
 
 onMounted(async () => {
-    // Hent projekt hvis ikke allerede hentet
-    if (!projectStore.project || projectStore.project.id !== route.params.id) {
-        await projectStore.fetchProject(route.params.id)
-    }
-    // Hent byggeleder hvis ikke allerede hentet
-    if (!builderStore.builder) {
-        await builderStore.fetchBuilder(projectStore.project.builderId)
-    }
-    // Hent bygherre via projectId
-    const buyer = await buyerStore.fetchBuyerByProjectId(route.params.id)
-    if (buyer) {
-        buyerStore.buyer = buyer
-    }
-})
+	// Hent projekt hvis ikke allerede hentet
+	if (!projectStore.project || projectStore.project.id !== route.params.id) {
+		await projectStore.fetchProject(route.params.id);
+	}
+	// Hent byggeleder hvis ikke allerede hentet
+	if (!builderStore.builder) {
+		await builderStore.fetchBuilder(projectStore.project.builderId);
+	}
+	// Hent bygherre via projectId
+	const buyer = await buyerStore.fetchBuyerByProjectId(route.params.id);
+	if (buyer) {
+		buyerStore.buyer = buyer;
+	}
+});
 
 const builderInitials = computed(() => {
-    if (!builderStore.builder) return ''
-    return `${builderStore.builder.firstName[0]}${builderStore.builder.lastName[0]}`
-})
+	if (!builderStore.builder) return '';
+	return `${builderStore.builder.firstName[0]}${builderStore.builder.lastName[0]}`;
+});
 
 const buyerInitials = computed(() => {
-    if (!buyerStore.buyer) return ''
-    return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`
-})
+	if (!buyerStore.buyer) return '';
+	return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`;
+});
 </script>
 <template>
 	<div class="builder-chat">

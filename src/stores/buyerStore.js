@@ -44,12 +44,12 @@ export const useBuyerStore = defineStore('buyer', () => {
      */
 	const updateBuyer = async (updatedData) => {
 		try {
-			await updateDoc(doc(db, 'users', buyer.value.id), updatedData)
-			buyer.value = { ...buyer.value, ...updatedData }
+			await updateDoc(doc(db, 'users', buyer.value.id), updatedData);
+			buyer.value = { ...buyer.value, ...updatedData };
 		} catch (error) {
-			console.error('Fejl ved opdatering:', error)
+			console.error('Fejl ved opdatering:', error);
 		}
-	}
+	};
 
 	/**
      * Henter en bygherre fra Firestore baseret på et projekt ID.

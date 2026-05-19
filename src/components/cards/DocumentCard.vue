@@ -1,5 +1,5 @@
 <script setup>
-import { FileText, Download, Trash2 } from '@lucide/vue'
+import { FileText, Download, Trash2 } from '@lucide/vue';
 
 defineProps({
 	name: {
@@ -22,13 +22,13 @@ defineProps({
 		type: String,
 		default: '',
 	},
-    deletable: { 
-        type: Boolean, 
-        default: false 
-    ,} 
+	deletable: { 
+		type: Boolean, 
+		default: false 
+		,} 
 });
 
-const emit = defineEmits(['delete'])
+const emit = defineEmits(['delete']);
 
 const openDocument = (url) => {
 	window.open(url, '_blank');

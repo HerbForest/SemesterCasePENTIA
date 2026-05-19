@@ -30,7 +30,7 @@ export const useProgressStore = defineStore('progress', () => {
 				rootTasks.push(task);
 
 			} else if (taskMap[task.parentId]) {
-				taskMap[task.parentId].children.push(task)
+				taskMap[task.parentId].children.push(task);
 			}
 		});
 		return rootTasks;

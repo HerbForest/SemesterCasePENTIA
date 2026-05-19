@@ -22,8 +22,8 @@ export const useTaskStore = defineStore('task', () => {
 
 	const fetchTasksForAllProjects = async (projects) => {
 		for (const project of projects) {
-			const snap = await getDocs(collection(db, 'projects', project.id, 'tasks'))
-			allProjectsTasks.value[project.id] = snap.docs.map(d => ({ ...d.data() }))
+			const snap = await getDocs(collection(db, 'projects', project.id, 'tasks'));
+			allProjectsTasks.value[project.id] = snap.docs.map(d => ({ ...d.data() }));
 		}
 	};
 

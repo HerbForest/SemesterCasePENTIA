@@ -1,35 +1,35 @@
 <script setup>
-import { computed, watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { useDocumentStore } from '@/stores/documentStore'
-import { useStorage } from '@/composables/useStorage'
-import ReturnButton from '@/components/buttons/ReturnButton.vue'
-import DocumentCard from '@/components/cards/DocumentCard.vue'
+import { computed, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useDocumentStore } from '@/stores/documentStore';
+import { useStorage } from '@/composables/useStorage';
+import ReturnButton from '@/components/buttons/ReturnButton.vue';
+import DocumentCard from '@/components/cards/DocumentCard.vue';
 
-const route = useRoute()
-const documentStore = useDocumentStore()
-const { deleteFile } = useStorage()
+const route = useRoute();
+const documentStore = useDocumentStore();
+const { deleteFile } = useStorage();
 
 watch(() => route.params.id, async (id) => {
-    if (id) {
-        await documentStore.fetchDocuments(id)
-    }
-}, { immediate: true })
+	if (id) {
+		await documentStore.fetchDocuments(id);
+	}
+}, { immediate: true });
 
 const kontrakter = computed(() =>
-    documentStore.documents.filter(doc => doc.category === 'Kontrakt')
-)
+	documentStore.documents.filter(doc => doc.category === 'Kontrakt')
+);
 
 const tillaegsaftaler = computed(() =>
-    documentStore.documents.filter(doc => doc.category === 'Tillægsaftale')
-)
+	documentStore.documents.filter(doc => doc.category === 'Tillægsaftale')
+);
 
 const handleDelete = async (doc) => {
-    if (confirm(`Er du sikker på at du vil slette ${doc.name}?`)) {
-        await deleteFile(doc.projectId, doc.name, 'documents')
-        await documentStore.fetchDocuments(route.params.id)
-    }
-}
+	if (confirm(`Er du sikker på at du vil slette ${doc.name}?`)) {
+		await deleteFile(doc.projectId, doc.name, 'documents');
+		await documentStore.fetchDocuments(route.params.id);
+	}
+};
 </script>
 
 <template>

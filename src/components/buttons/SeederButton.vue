@@ -18,7 +18,7 @@ export default {
 	data() {
 		return {
 			status: 'idle', // 'idle' | 'loading' | 'success' | 'error'
-		}
+		};
 	},
 
 	methods: {

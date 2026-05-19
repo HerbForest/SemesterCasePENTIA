@@ -1,30 +1,30 @@
 <script setup>
 defineProps({
-    type: {
-        type: String,
-        default: 'builder' // 'builder' eller 'buyer'
-    },
-    name: {
-        type: String,
-        default: ''
-    },
-    time: {
-        type: String,
-        default: ''
-    },
-    initials: { 
-        type: String, 
-        default: '' 
-    },
-    role: { 
-        type: String, 
-        default: '' 
-    }, 
-    profileImage: { 
-        type: String, 
-        default: null 
-    }
-})
+	type: {
+		type: String,
+		default: 'builder' // 'builder' eller 'buyer'
+	},
+	name: {
+		type: String,
+		default: ''
+	},
+	time: {
+		type: String,
+		default: ''
+	},
+	initials: { 
+		type: String, 
+		default: '' 
+	},
+	role: { 
+		type: String, 
+		default: '' 
+	}, 
+	profileImage: { 
+		type: String, 
+		default: null 
+	}
+});
 </script>
 <template>
 <div :class="['message-card', `message-card--${type}`]">

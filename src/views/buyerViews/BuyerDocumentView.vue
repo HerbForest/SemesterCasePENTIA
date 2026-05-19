@@ -5,22 +5,22 @@ import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { useDocumentStore } from '@/stores/documentStore';
 import { useProjectStore } from '@/stores/projectStore';
 
-const documentStore = useDocumentStore()
-const projectStore = useProjectStore()
+const documentStore = useDocumentStore();
+const projectStore = useProjectStore();
 
 watch(() => projectStore.project, async (project) => {
-    if (project) {
-        await documentStore.fetchDocuments(project.id)
-    }
-}, { immediate: true })
+	if (project) {
+		await documentStore.fetchDocuments(project.id);
+	}
+}, { immediate: true });
 
 const kontrakter = computed(() => 
-    documentStore.documents.filter(doc => doc.category === 'Kontrakt')
-)
+	documentStore.documents.filter(doc => doc.category === 'Kontrakt')
+);
 
 const tillaegsaftaler = computed(() => 
-    documentStore.documents.filter(doc => doc.category === 'Tillægsaftale')
-)
+	documentStore.documents.filter(doc => doc.category === 'Tillægsaftale')
+);
 </script>
 <template>
 <div class="layout-bb">

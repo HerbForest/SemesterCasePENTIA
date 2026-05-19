@@ -1,5 +1,5 @@
 <script setup>
-import { CircleProgressBar } from "circle-progress.vue";
+import { CircleProgressBar } from 'circle-progress.vue';
 defineProps({ value: { type: Number, default: 0 } });
 </script>
 

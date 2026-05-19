@@ -1,7 +1,7 @@
 <script setup>
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import profilePicture from "@/assets/profile-picture.jpg";
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+import profilePicture from '@/assets/profile-picture.jpg';
 
 const route = useRoute();
 //kan bruges til composables

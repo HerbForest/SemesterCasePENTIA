@@ -1,14 +1,14 @@
 <script setup>
-import { RouterLink } from "vue-router";
+import { RouterLink } from 'vue-router';
 
 defineProps({
 	buttonTitle: {
 		type: String,
-		default: "",
+		default: '',
 	},
 	buttonText: {
 		type: String,
-		default: "",
+		default: '',
 	},
 	icon: {
 		type: [Object, Function],
@@ -20,7 +20,7 @@ defineProps({
 	},
 	buttonTags: {
 		type: String,
-		default: "",
+		default: '',
 	},
 	buttonDate: {
 		type: [Date, String],

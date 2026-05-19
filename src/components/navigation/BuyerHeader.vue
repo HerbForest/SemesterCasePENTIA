@@ -1,13 +1,13 @@
 <script setup>
-import { computed } from 'vue'
-import { useBuyerStore } from '@/stores/buyerStore'
+import { computed } from 'vue';
+import { useBuyerStore } from '@/stores/buyerStore';
 
-const buyerStore = useBuyerStore()
+const buyerStore = useBuyerStore();
 
 const initials = computed(() => {
-    if (!buyerStore.buyer) return ''
-    return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`
-})
+	if (!buyerStore.buyer) return '';
+	return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`;
+});
 </script>
 
 <template>

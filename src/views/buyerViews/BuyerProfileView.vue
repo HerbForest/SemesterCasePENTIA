@@ -1,26 +1,26 @@
 <script setup>
-import { computed } from 'vue'
-import { useBuyerStore } from '@/stores/buyerStore'
-import { useProjectStore } from '@/stores/projectStore'
-import { useBuilderStore } from '@/stores/builderStore'
-import { useAuthStore } from '@/stores/authStore'
-import ProfileCard from '@/components/cards/ProfileCard.vue'
-import ReturnButton from '@/components/buttons/ReturnButton.vue'
+import { computed } from 'vue';
+import { useBuyerStore } from '@/stores/buyerStore';
+import { useProjectStore } from '@/stores/projectStore';
+import { useBuilderStore } from '@/stores/builderStore';
+import { useAuthStore } from '@/stores/authStore';
+import ProfileCard from '@/components/cards/ProfileCard.vue';
+import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import Card from '@/components/cards/TextCard.vue';
 
-const buyerStore = useBuyerStore()
-const projectStore = useProjectStore()
-const builderStore = useBuilderStore()
-const authStore = useAuthStore()
+const buyerStore = useBuyerStore();
+const projectStore = useProjectStore();
+const builderStore = useBuilderStore();
+const authStore = useAuthStore();
 
 const initials = computed(() => {
-	if (!buyerStore.buyer) return ''
-	return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`
-})
+	if (!buyerStore.buyer) return '';
+	return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`;
+});
 
 const handleSave = async (updatedData) => {
-	await buyerStore.updateBuyer(updatedData)
-}
+	await buyerStore.updateBuyer(updatedData);
+};
 
 </script>
 <template>

@@ -1,6 +1,6 @@
 <script setup>
 import {ref, watch} from 'vue';
-import { UserRound, Mail, Phone, MapPin, Pencil, Check } from '@lucide/vue'
+import { UserRound, Mail, Phone, MapPin, Pencil, Check } from '@lucide/vue';
 
 const props = defineProps({
 	firstName: { type: String, default: ''},
@@ -8,24 +8,24 @@ const props = defineProps({
 	email: { type: String, default: ''},
 	phone: { type: String, default: ''},
 	address: { type: String, default: ''},
-})
-const emit = defineEmits(['save'])
+});
+const emit = defineEmits(['save']);
 
-const isEditing = ref(false)
+const isEditing = ref(false);
 
 const form = ref({
-    email: props.email,
-    phone: props.phone,
-})
+	email: props.email,
+	phone: props.phone,
+});
 
 
-watch(() => props.email, (val) => form.value.email = val)
-watch(() => props.phone, (val) => form.value.phone = val)
+watch(() => props.email, (val) => form.value.email = val);
+watch(() => props.phone, (val) => form.value.phone = val);
 
 const save = () => {
-    emit('save', form.value)
-    isEditing.value = false
-}
+	emit('save', form.value);
+	isEditing.value = false;
+};
 </script>
 <template>
 	 <div class="profile-card">

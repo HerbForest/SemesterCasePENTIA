@@ -2,8 +2,8 @@
 import ProgressCircle from '@/components/library/ProgressCircle.vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import GanttDiagram from '@/components/library/GanttDiagram.vue';
-import { useRoute } from 'vue-router'
-import { onMounted } from 'vue'
+import { useRoute } from 'vue-router';
+import { onMounted } from 'vue';
 import { useProjectStore } from '@/stores/projectStore';
 import { useTaskStore } from '@/stores/taskStore';
 import { useProgressStore } from '@/stores/progressStore';
