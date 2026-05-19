@@ -6,6 +6,7 @@ import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore'
 export const useTaskStore = defineStore('task', () => {
 	const tasks = ref([]);
 	const loading = ref(false);
+	const allProjectsTasks = ref({});
 
 	const fetchTasks = async (projectId) => {
 		loading.value = true;
@@ -16,6 +17,13 @@ export const useTaskStore = defineStore('task', () => {
 			console.error('Fejl ved hentning af tasks:', error);
 		} finally {
 			loading.value = false;
+		}
+	};
+
+	const fetchTasksForAllProjects = async (projects) => {
+		for (const project of projects) {
+			const snap = await getDocs(collection(db, 'projects', project.id, 'tasks'))
+			allProjectsTasks.value[project.id] = snap.docs.map(d => ({ ...d.data() }))
 		}
 	};
 
@@ -47,5 +55,5 @@ export const useTaskStore = defineStore('task', () => {
 		}
 	};
 
-	return { tasks, loading, fetchTasks, addTask, updateTask, deleteTask };
+	return { tasks, loading, fetchTasks, addTask, updateTask, deleteTask, allProjectsTasks, fetchTasksForAllProjects };
 });
