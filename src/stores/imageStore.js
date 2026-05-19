@@ -42,7 +42,7 @@ const fetchImagesByProject = async (projectId) => {
             if (!grouped[data.phaseId]) {
                 grouped[data.phaseId] = []
             }
-            grouped[data.phaseId].push(data.downloadUrl)
+            grouped[data.phaseId].push(data)
         })
         imagesByPhase.value = grouped
     } catch (error) {
