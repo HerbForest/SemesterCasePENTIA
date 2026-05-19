@@ -5,6 +5,11 @@ import { useDocumentStore } from '@/stores/documentStore'
 import { useStorage } from '@/composables/useStorage'
 import ReturnButton from '@/components/buttons/ReturnButton.vue'
 import DocumentCard from '@/components/cards/DocumentCard.vue'
+
+const route = useRoute()
+const documentStore = useDocumentStore()
+const { deleteFile } = useStorage()
+
 </script>
 
 <template>
