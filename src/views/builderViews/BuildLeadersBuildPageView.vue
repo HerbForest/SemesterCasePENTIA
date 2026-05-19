@@ -35,12 +35,12 @@ onMounted(async () => {
 });
 
 const cards = [
-	{ text: 'fotos', icon: Camera },
-	{ text: 'Upload', icon: Upload },
-	{ text: 'Chat', icon: MessageSquare },
-	{ text: 'Dokumenter', icon: FileText },
-	{ text: 'Plantegninger', icon: Map },
-	{ text: 'Gantt Diagram', icon: ChartColumn },
+	{ text: 'fotos', icon: Camera, to: { name: 'builderImages', params: { projectId: route.params.id } } },
+	{ text: 'Upload', icon: Upload, to: { name: 'builderUpload', params: { id: route.params.id } } },
+	{ text: 'Chat', icon: MessageSquare, to: { name: 'builderChat', params: { id: route.params.id } } },
+	{ text: 'Dokumenter', icon: FileText, to: null },
+	{ text: 'Plantegninger', icon: Map, to: null },
+	{ text: 'Gantt Diagram', icon: ChartColumn, to: null },
 ];
 const photoFolders = [
 	{ name: 'køkken', icon: CookingPot, count: 12 },
@@ -60,7 +60,7 @@ const photoFolders = [
 	</div>
 	<hr />
 	<div class='dashboard-grid'>
-		<ButtonCard v-for='card in cards' :key='card.text' :buttonText='card.text' :icon='card.icon'>
+		<ButtonCard v-for='card in cards' :key='card.text' :buttonText='card.text' :icon='card.icon' :to='card.to'>
 		</ButtonCard>
 	</div>
 	<div>
