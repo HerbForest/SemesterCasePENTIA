@@ -23,7 +23,7 @@ defineProps({
 		default: '',
 	},
 	buttonDate: {
-		type: Date,
+		type: [Date, String],
 		default: null,
 	},
 	arrow: {
