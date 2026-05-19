@@ -67,11 +67,15 @@ const photoFolders = [
 		<GanttDiagram :project-id="route.params.id" />
 	</div>
 	<div class='card__photo-folders'>
-		<ButtonCard class='card__photo-folder' v-for='folder in photoFolders' :key='folder.name' :buttonText='folder.name'
-			:icon='folder.icon'>
-			<span class='card__photo-folder-count'>{{ folder.count }} billeder</span>
-		</ButtonCard>
-	</div>
+    <ButtonCard
+        v-for='folder in photoFolders'
+        :key='folder.id'
+        :buttonTitle='folder.name'
+        :buttonText='`${folder.count} billeder`'
+        :to="{ name: 'builderImages', params: { projectId: route.params.id } }"
+        :arrow="true"
+    />
+</div>
 </template>
 
 <style scoped lang='scss'>
@@ -108,9 +112,12 @@ const photoFolders = [
 }
 
 .card__photo-folders {
-	display: flex;
-	flex-direction: column;
-	align-items: left;
+	 :deep(.card) {
+        display: flex;
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+    }
 
 	&__folder {
 		display: flex;
