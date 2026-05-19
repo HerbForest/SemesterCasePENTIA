@@ -8,6 +8,8 @@ import { doc, getDoc, updateDoc, collection, query, where, getDocs } from 'fireb
  * Henter, opdaterer og gemmer data for den indloggede bygherre.
  */
 export const useBuyerStore = defineStore('buyer', () => {
+
+	/** @type {import('vue').Ref<Object|null>} Den aktuelle bygherre med alle felter fra Firestore */
 	const buyer = ref(null);
 	const loading = ref(false);
 
