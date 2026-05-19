@@ -18,6 +18,13 @@ export const useImageStore = defineStore('images', () => {
     /** @type {import('vue').Ref<boolean>} True mens billeder hentes fra Firestore */
     const loading = ref(false)
 
+    /**
+     * Henter alle billeder fra Firestore tilknyttet et specifikt projekt og fase.
+     * Bruges når man vil hente billeder for én bestemt fase.
+     * @param {string} projectId - Projektets dokument ID i Firestore projects collection
+     * @param {number} phaseId - Fasens ID
+     * @returns {Promise<void>}
+     */
     const fetchImagesByPhase = async (projectId, phaseId) => {
         loading.value = true
         try {
