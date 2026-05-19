@@ -26,6 +26,9 @@ export const useTaskStore = defineStore('task', () => {
 			allProjectsTasks.value[project.id] = snap.docs.map(d => ({ ...d.data() }))
 		}
 	};
+	const allParentTasks = computed(() => {
+		Object.value(allProjectsTasks.value).flat().filter(task => task.isParent)
+	});
 
 	const addTask = async (projectId, task) => {
 		try {
@@ -55,5 +58,5 @@ export const useTaskStore = defineStore('task', () => {
 		}
 	};
 
-	return { tasks, loading, fetchTasks, addTask, updateTask, deleteTask, allProjectsTasks, fetchTasksForAllProjects };
+	return { tasks, loading, fetchTasks, addTask, updateTask, deleteTask, allProjectsTasks, fetchTasksForAllProjects, allParentTasks };
 });
