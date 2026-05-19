@@ -10,3 +10,8 @@ import BuilderButtomNav from '@/components/navigation/BuilderButtomNav.vue';
 		<BuilderButtomNav />
 	</main>
 </template>
+<style lang="scss" scoped>
+main {
+	padding-bottom: 80px
+}
+</style>
