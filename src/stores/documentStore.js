@@ -11,6 +11,8 @@ export const useDocumentStore = defineStore('documents', () => {
 
 	/** @type {import('vue').Ref<Array>} Liste af dokumenter tilknyttet det aktuelle projekt */
 	const documents = ref([]);
+
+	/** @type {import('vue').Ref<boolean>} True mens dokumenter hentes fra Firestore */
 	const loading = ref(false);
 
 	const fetchDocuments = async (projectId) => {
