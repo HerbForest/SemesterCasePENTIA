@@ -4,6 +4,7 @@ import { Camera, FileText } from '@lucide/vue'
 import { useStorage } from '@/composables/useStorage'
 import { useBuilderStore } from '@/stores/builderStore'
 import { useProjectStore } from '@/stores/projectStore'
+import { useTaskStore } from '@/stores/taskStore'
 
 const props = defineProps({
     projectId: { type: String, required: true }
@@ -12,6 +13,7 @@ const props = defineProps({
 const { uploading, uploadProgress, uploadDocument, uploadImage } = useStorage()
 const builderStore = useBuilderStore()
 const projectStore = useProjectStore()
+const taskStore = useTaskStore()
 
 const selectedFile = ref(null)
 const selectedCategory = ref('Kontrakt')
@@ -20,8 +22,8 @@ const selectedPhase = ref(null)
 const imageDescription = ref('')
 
 onMounted(async () => {
-    if (!projectStore.tasks.length) {
-        await projectStore.fetchTasks(props.projectId)
+    if (!taskStore.tasks.length) {
+        await taskStore.fetchTasks(props.projectId)
     }
 })
 
@@ -101,7 +103,7 @@ const handleImageUpload = async () => {
 					<select v-model="selectedPhase" class="upload-card__select">
                         <option :value="null" disabled>Vælg fase</option>
                         <option 
-                            v-for="task in projectStore.tasks.filter(t => t.isParent)" 
+                            v-for="task in taskStore.tasks.filter(t => t.isParent)" 
                             :key="task.id"
                             :value="task.id"
                         >
@@ -130,8 +132,11 @@ const handleImageUpload = async () => {
 .upload-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
     margin-bottom: 12px;
+    
 
     &__section {
         background: $card-color;
@@ -141,6 +146,7 @@ const handleImageUpload = async () => {
         display: flex;
         flex-direction: column;
         gap: 12px;
+        padding-bottom: 30px;
     }
 
     &__title {
@@ -193,18 +199,18 @@ const handleImageUpload = async () => {
     }
 
     &__input-text {
-    padding: 8px 12px;
-    border: 1px solid $border-input-color;
-    border-radius: 8px;
-    font-size: $font-size-sm;
-    color: $foreground-color;
-    background: $background-color;
+        padding: 8px 12px;
+        border: 1px solid $border-input-color;
+        border-radius: 8px;
+        font-size: $font-size-sm;
+        color: $foreground-color;
+        background: $background-color;
 
     &:focus {
         outline: none;
         border-color: $primary-color;
     }
-}
+    }
 
     &__btn {
         width: 100%;
