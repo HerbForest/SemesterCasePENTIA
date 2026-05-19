@@ -113,6 +113,12 @@ const router = createRouter({
 					component: () => import('@/views/builderViews/BuilderImageFolderView.vue'),
 					meta: { pageName: 'Fotomapper' },
 				},
+				{
+					path: 'documents/:id',
+					name: 'builderDocuments',
+					component: () => import('@/views/builderViews/BuilderDocumentView.vue'),
+					meta: { pageName: 'Dokumenter' },
+				},
 			],
 		},
 	],
