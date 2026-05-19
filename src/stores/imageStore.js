@@ -8,6 +8,8 @@ import { collection, query, where, getDocs } from 'firebase/firestore'
  * Henter og gemmer billeder tilknyttet et specifikt projekt og fase.
  */
 export const useImageStore = defineStore('images', () => {
+
+     /** @type {import('vue').Ref<Array>} Liste af billeder for en specifik fase */
     const images = ref([])
     const loading = ref(false)
 
