@@ -7,6 +7,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
+import { useImageStore } from './stores/imageStore';
 
 import { db } from '@/config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -16,6 +17,7 @@ const authStore = useAuthStore();
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
+const imageStore = useImageStore()
 
 onMounted(async () => {
 	await new Promise((resolve) => {
@@ -28,6 +30,7 @@ onMounted(async () => {
 					await buyerStore.fetchBuyer(user.uid);
 					await projectStore.fetchProject(buyerStore.buyer.projectId);
 					await builderStore.fetchBuilder(projectStore.project.builderId);
+					await imageStore.fetchImagesByProject(projectStore.project.id)
 				}
 			} else {
 				router.push('/login');
