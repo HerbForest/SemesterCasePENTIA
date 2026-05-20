@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useBuilderStore } from '@/stores/builderStore';
@@ -11,6 +11,12 @@ import LogoutButton from '@/components/buttons/LogoutButton.vue';
 const router = useRouter();
 const authStore = useAuthStore();
 const builderStore = useBuilderStore();
+
+onMounted(async () => {
+    if (!builderStore.builder) {
+        await builderStore.fetchBuilder(authStore.user.uid)
+    }
+})
 
 const initials = computed(() => {
 	if (!builderStore.builder) return '';
