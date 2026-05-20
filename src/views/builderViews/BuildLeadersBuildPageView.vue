@@ -1,4 +1,6 @@
 <script setup>
+import { useImageStore } from '@/stores/imageStore'
+import { computed } from 'vue'
 import ProgressCircle from '@/components/library/ProgressCircle.vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import GanttDiagram from '@/components/library/GanttDiagram.vue';
@@ -14,15 +16,13 @@ import {
 	FileText,
 	Map,
 	ChartColumn,
-	CookingPot,
-	Sofa,
-	BedDouble,
 } from '@lucide/vue';
 
 
 const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 const progressStore = useProgressStore();
+const imageStore = useImageStore()
 
 const route = useRoute();
 
@@ -30,8 +30,8 @@ onMounted(async () => {
 	await projectStore.fetchProject(route.params.id);
 	await taskStore.fetchTasks(route.params.id);
 	await progressStore.syncTaskProgress(route.params.id);
+	await imageStore.fetchImagesByProject(route.params.id)
 	console.log('tasks:', taskStore.tasks);
-
 });
 
 const cards = [
@@ -42,11 +42,16 @@ const cards = [
 	{ text: 'Plantegninger', icon: Map, to: null },
 	{ text: 'Gantt Diagram', icon: ChartColumn, to: null },
 ];
-const photoFolders = [
-	{ name: 'køkken', icon: CookingPot, count: 12 },
-	{ name: 'stue', icon: Sofa, count: 8 },
-	{ name: 'soveværelse', icon: BedDouble, count: 5 },
-];
+
+const photoFolders = computed(() => {
+    return taskStore.tasks
+        .filter(task => task.isParent && imageStore.imagesByPhase[task.id]?.length > 0)
+        .map(task => ({
+            id: task.id,
+            name: task.name,
+            count: imageStore.imagesByPhase[task.id]?.length || 0
+        }))
+})
 </script>
 
 <template>
@@ -67,6 +72,7 @@ const photoFolders = [
 		<GanttDiagram :project-id="route.params.id" />
 	</div>
 	<div class='card__photo-folders'>
+		<p class="card__title">Foto mapper</p>
     <ButtonCard
         v-for='folder in photoFolders'
         :key='folder.id'
@@ -112,6 +118,11 @@ const photoFolders = [
 }
 
 .card__photo-folders {
+		display: flex;
+    flex-direction: column;
+    gap: 10px; 
+    padding: 16px 0;
+
 	 :deep(.card) {
         display: flex;
         flex-direction: row;
