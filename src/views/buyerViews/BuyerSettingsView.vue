@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import { Bell, Moon, Globe, Shield, LogOut } from '@lucide/vue';
 import SlideButtons from '@/components/buttons/SlideButtons.vue';
+import LogoutButton from '@/components/buttons/LogoutButton.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import Card from '@/components/cards/TextCard.vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
@@ -72,21 +73,15 @@ const language = ref('dansk');
 				</select>
 			</div>
 		</Card>
-
 	
 		<ButtonCard buttonTitle="Privatliv & sikkerhed" buttonText="Administrer dine data og samtykke" :arrow="false">
 			<template #icon>
 				<Shield :size="20" />
 			</template>
 		</ButtonCard>
-
 	
-		<button class="settings__logout">
-			<LogOut :size="18" />
-			Log ud
-		</button>
+		<LogoutButton class="settings__logout" variant="filled" />
 
-	
 		<Card>
 			<p class="settings__version">Byggeplan App v1.0.0 · © 2026 Byggeplan A/S</p>
 		</Card>
@@ -151,22 +146,8 @@ const language = ref('dansk');
 			border-color: $primary-color;
 		}
 	}
-
-	&__logout {
-		width: 100%;
-		padding: 16px;
-		background: $warning-color;
-		color: $card-color;
-		border: none;
-		border-radius: 16px;
-		font-size: $font-size-lg;
-		font-weight: $font-weight-semibold;
-		cursor: pointer;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		gap: 8px;
-		margin-bottom: 12px;
+	&__logout{
+		margin-bottom: 15px;
 	}
 
 	&__version {
