@@ -4,7 +4,6 @@ import { useRoute } from 'vue-router';
 import { useBuilderStore } from '@/stores/builderStore';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
-import { useAuthStore } from '@/stores/authStore';
 import MessageCard from '@/components/cards/MessageCard.vue';
 import MessageInput from '@/components/MessageInput.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
@@ -13,7 +12,7 @@ const route = useRoute();
 const builderStore = useBuilderStore();
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
-const authStore = useAuthStore();
+
 
 const builderName = computed(() => `${builderStore.builder?.firstName} ${builderStore.builder?.lastName}`);
 const builderImage = computed(() => builderStore.builder?.profileImage);

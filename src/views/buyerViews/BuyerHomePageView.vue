@@ -1,23 +1,11 @@
 <script setup>
-import { onMounted } from 'vue';
-
 import { useBuyerStore } from '@/stores/buyerStore';
-import { useProjectStore } from '@/stores/projectStore';
-import { useBuilderStore } from '@/stores/builderStore';
-import { useAuthStore } from '@/stores/authStore'
-
 import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
-
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import Header from '@/components/BuilderHeader.vue';
-
 import BuyerFooter from '@/components/navigation/BuyerFooter.vue';
 
 const buyerStore = useBuyerStore();
-const projectStore = useProjectStore();
-const builderStore = useBuilderStore();
-const authStore = useAuthStore()
-
 </script>
 
 <template>

@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue';
 import { Camera, FileText } from '@lucide/vue';
 import { useStorage } from '@/composables/useStorage';
 import { useBuilderStore } from '@/stores/builderStore';
-import { useProjectStore } from '@/stores/projectStore';
 import { useTaskStore } from '@/stores/taskStore';
 
 const props = defineProps({
@@ -12,7 +11,6 @@ const props = defineProps({
 
 const { uploading, uploadProgress, uploadDocument, uploadImage } = useStorage();
 const builderStore = useBuilderStore();
-const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 
 const selectedFile = ref(null);

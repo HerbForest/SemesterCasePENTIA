@@ -29,7 +29,7 @@ const handleLogin = async () => {
 		} else {
 			router.push('/buyer/home');
 		}
-	} catch (err) {
+	} catch {
 		error.value = 'Forkert email eller adgangskode';
 	} finally {
 		loading.value = false;

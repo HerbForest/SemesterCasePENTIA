@@ -1,18 +1,11 @@
 <script setup>
-import { onMounted } from 'vue';
-
 import { useBuilderStore } from '@/stores/builderStore';
-import { useProjectStore } from '@/stores/projectStore';
-import { useBuyerStore } from '@/stores/buyerStore';
-
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import Card from '@/components/cards/TextCard.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { Phone, Mail, MessageCircle } from '@lucide/vue';
 
 const builderStore = useBuilderStore();
-const projectStore = useProjectStore();
-const buyerStore = useBuyerStore();
 </script>
 
 <template>
