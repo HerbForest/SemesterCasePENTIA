@@ -120,8 +120,6 @@ export const useProgressStore = defineStore("progress", () => {
 	};
 
 	const syncParentProgress = async (projectId) => {
-		const parentTasksList = taskStore.tasks.filter((task) => task.isParent);
-		console.log("parent tasks found:", parentTasksList);
 		const updates = taskStore.tasks
 			.filter((task) => task.isParent)
 			.map((parentTask) => ({
@@ -130,12 +128,8 @@ export const useProgressStore = defineStore("progress", () => {
 			}))
 			.filter((updatedTask) => {
 				const originalTask = taskStore.tasks.find((task) => task.id === updatedTask.id);
-				console.log(
-					`parent ${updatedTask.id}: calculated=${updatedTask.progress}, stored=${originalTask?.progress}`,
-				);
 				return updatedTask.progress !== originalTask?.progress;
 			});
-		console.log("updates to write:", updates);
 		await persistTaskUpdates(projectId, updates);
 	};
 
