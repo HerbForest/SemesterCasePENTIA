@@ -6,6 +6,7 @@ import { useBuilderStore } from '@/stores/builderStore';
 import { Mail, CircleHelp, Globe, Moon, Bell, Shield, LogOut } from '@lucide/vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import Card from '@/components/cards/TextCard.vue';
+import LogoutButton from '@/components/buttons/LogoutButton.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -49,10 +50,7 @@ const handleLogout = async () => {
         <ButtonCard buttonTitle="Sikkerhed" buttonText="Adgangskode & login" :icon="Shield" :arrow="true" />
     </div>
 
-		 <button class="bl-settings__logout" @click="handleLogout">
-        <LogOut :size="18" />
-        Log ud
-    </button>
+		<LogoutButton variant="outline" />
 	</div>
 </template>
 
@@ -101,45 +99,28 @@ const handleLogout = async () => {
         margin: 16px 0 8px;
     }
 
-    &__logout {
-        width: 100%;
-        padding: 16px;
-        background: $card-color;
-        color: $destructive-color;
-        border: solid;
-        border-radius: 16px;
-				border-color: $border-color;
-        font-size: $font-size-lg;
-        font-weight: $font-weight-semibold;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        margin-top: 12px;
-    		margin-bottom: 80px; 
-    }
-				&__group {
-				background: $card-color;
-				border-radius: 16px;
-				border: 1px solid $border-color;
-				margin-bottom: 12px;
+   
+	&__group {
+	    background: $card-color;
+	    border-radius: 16px;
+		border: 1px solid $border-color;
+		margin-bottom: 12px;
 
-				:deep(.card) {
-						border: none;
-						border-radius: 0;
-						margin-bottom: 0;
-						border-bottom: 1px solid $border-color;
+		:deep(.card) {
+		    border: none;
+		    border-radius: 0;
+		    margin-bottom: 0;
+		    border-bottom: 1px solid $border-color;
 
-						&:last-child {
-								border-bottom: none;
-								border-radius: 0 0 16px 16px;
-						}
-
-						&:first-child {
-								border-radius: 16px 16px 0 0;
-						}
-				}
+		&:last-child {
+		    border-bottom: none;
+			border-radius: 0 0 16px 16px;
 		}
+
+		&:first-child {
+			border-radius: 16px 16px 0 0;
+	    }
+		}
+	}
 }
 </style>
