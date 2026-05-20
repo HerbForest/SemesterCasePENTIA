@@ -24,10 +24,7 @@ onMounted(async () => {
 				const snap = await getDoc(doc(db, 'users', user.uid));
 				const role = snap.data()?.role;
 
-				if (role === 'byggeleder') {
-                    
-				} else {
-                    
+				if (role !== 'byggeleder') {
 					await buyerStore.fetchBuyer(user.uid);
 					await projectStore.fetchProject(buyerStore.buyer.projectId);
 					await builderStore.fetchBuilder(projectStore.project.builderId);
