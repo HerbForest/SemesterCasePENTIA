@@ -6,7 +6,7 @@ import { LogOut } from '@lucide/vue'
 defineProps({
     variant: {
         type: String,
-        default: 'outline' // 'outline' eller 'filled'
+        default: 'outline' 
     }
 })
 
@@ -18,3 +18,12 @@ const handleLogout = async () => {
     router.push('/login')
 }
 </script>
+<template>
+    <button 
+        :class="['logout-btn', `logout-btn--${variant}`]"
+        @click="handleLogout"
+    >
+        <LogOut :size="18" />
+        Log ud
+    </button>
+</template>
