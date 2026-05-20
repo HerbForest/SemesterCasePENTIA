@@ -28,7 +28,12 @@ const cleanTask = (task) =>
 	Object.fromEntries(Object.entries(task).filter(([, v]) => v !== undefined));
 
 const handleTaskAdded = async (newTask) => {
-	await taskStore.addTask(props.projectId, cleanTask(newTask.task));
+	const task = cleanTask(newTask.task);
+	const transformedTask = {
+		...task,
+		isParent: task.type === "story",
+	};
+	await taskStore.addTask(props.projectId, transformedTask);
 };
 
 const handleTaskUpdated = async ({ task }) => {
