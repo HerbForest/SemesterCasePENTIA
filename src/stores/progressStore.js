@@ -18,7 +18,10 @@ export const useProgressStore = defineStore("progress", () => {
 	};
 
 	const tasksWithDateProgress = computed(() =>
-		taskStore.tasks.map((task) => ({ ...task, progress: calcProgress(task) })),
+		taskStore.tasks.map((task) => ({
+			...task,
+			progress: task.isParent ? calcParentProgressFromChildren(task) : calcProgress(task),
+		})),
 	);
 
 	const tasksAsTree = computed(() => {
@@ -41,11 +44,22 @@ export const useProgressStore = defineStore("progress", () => {
 		return allTasks.filter((task) => !task.isParent && task.progress < 100).length;
 	});
 
+	const calcCompletionPercentage = (taskWithProgress) => {
+		if (!taskWithProgress.length) return 0;
+		const completed = taskWithProgress.filter((task) => task.progress === 100).length;
+		return Math.round((completed / taskWithProgress.length) * 100);
+	};
+
+	const calcParentProgressFromChildren = (parentTask) => {
+		const children = taskStore.tasks.filter((task) => task.parentId === parentTask.id);
+		if (!children.length) return calcProgress(parentTask);
+		const totalProgress = children.reduce((sum, child) => sum + (child.progress ?? 0), 0);
+		return Math.round(totalProgress / children.length);
+	};
+
 	const overallProgress = computed(() => {
-		const childTasks = tasksWithDateProgress.value.filter((t) => !t.isParent);
-		if (!childTasks.length) return 0;
-		const done = childTasks.filter((t) => t.progress === 100).length;
-		return Math.round((done / childTasks.length) * 100);
+		const childTasks = tasksWithDateProgress.value.filter((task) => !task.isParent);
+		return calcCompletionPercentage(childTasks);
 	});
 
 	const parentTasks = computed(() => tasksWithDateProgress.value.filter((task) => task.isParent));
@@ -60,29 +74,70 @@ export const useProgressStore = defineStore("progress", () => {
 
 	const getActivePhaseForProject = (projectId) => {
 		const tasks = taskStore.allProjectsTasks[projectId] ?? [];
-		const parentTasksForProject = tasks
-			.filter((task) => task.isParent)
-			.map((task) => ({ ...task, progress: calcProgress(task) }));
+		const parentTasksForProject = tasks.filter((task) => task.isParent);
 		return findActivePhase(parentTasksForProject);
 	};
+	const activePhaseTasksCount = computed(() => {
+		return Object.entries(taskStore.allProjectsTasks).reduce((total, [projectId, tasks]) => {
+			const parentTasksForProject = tasks.filter((task) => task.isParent);
+			const activePhase = findActivePhase(parentTasksForProject);
+			if (!activePhase) return total;
+
+			const activePhaseChildTasks = tasks.filter(
+				(task) => task.parentId === activePhase.id && task.progress < 100,
+			);
+			return total + activePhaseChildTasks.length;
+		}, 0);
+	});
 
 	const currentPhaseProgress = computed(() => findActivePhase(parentTasks.value));
 
-	const buildProgressUpdates = () =>
-		tasksWithDateProgress.value.filter(
-			(updatedTask) =>
-				updatedTask.progress !==
-				taskStore.tasks.find((originalTask) => originalTask.id === updatedTask.id)?.progress,
-		);
+	const buildProgressUpdates = () => {
+		return tasksWithDateProgress.value.filter((updatedTask) => {
+			const originalTask = taskStore.tasks.find((original) => original.id === updatedTask.id);
+			return updatedTask.progress !== originalTask?.progress;
+		});
+	};
 
-	const syncTaskProgress = async (projectId) => {
-		const updates = buildProgressUpdates();
+	const persistTaskUpdates = async (projectId, updates) => {
+		const applyUpdates = (taskList) =>
+			taskList.map((task) => updates.find((updated) => updated.id === task.id) ?? task);
+
 		for (const task of updates) {
 			await setDoc(doc(db, "projects", projectId, "tasks", String(task.id)), task);
 		}
-		taskStore.tasks = taskStore.tasks.map((task) => updates.find((u) => u.id === task.id) ?? task);
+
+		taskStore.tasks = applyUpdates(taskStore.tasks);
+
+		if (taskStore.allProjectsTasks[projectId]) {
+			taskStore.allProjectsTasks[projectId] = applyUpdates(taskStore.allProjectsTasks[projectId]);
+		}
 	};
-	//?? betyder er ikke null eller undefined, så returneres det som det er
+
+	const syncTaskProgress = async (projectId) => {
+		await persistTaskUpdates(projectId, buildProgressUpdates());
+		//?? betyder er ikke null eller undefined, så returneres det som det er
+	};
+
+	const syncParentProgress = async (projectId) => {
+		const parentTasksList = taskStore.tasks.filter((task) => task.isParent);
+		console.log("parent tasks found:", parentTasksList);
+		const updates = taskStore.tasks
+			.filter((task) => task.isParent)
+			.map((parentTask) => ({
+				...parentTask,
+				progress: calcParentProgressFromChildren(parentTask),
+			}))
+			.filter((updatedTask) => {
+				const originalTask = taskStore.tasks.find((task) => task.id === updatedTask.id);
+				console.log(
+					`parent ${updatedTask.id}: calculated=${updatedTask.progress}, stored=${originalTask?.progress}`,
+				);
+				return updatedTask.progress !== originalTask?.progress;
+			});
+		console.log("updates to write:", updates);
+		await persistTaskUpdates(projectId, updates);
+	};
 
 	return {
 		tasksWithDateProgress,
@@ -94,5 +149,8 @@ export const useProgressStore = defineStore("progress", () => {
 		parentTasks,
 		calcProgress,
 		getActivePhaseForProject,
+		calcParentProgressFromChildren,
+		syncParentProgress,
+		activePhaseTasksCount,
 	};
 });

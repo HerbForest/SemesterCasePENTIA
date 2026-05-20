@@ -40,14 +40,26 @@ const projectsByPhase = computed(() => {
 
 <template>
 	<div class="build-plan">
+		<nav class="build-plan__stepper">
+			<div v-for="(phase, index) in phaseOrder" :key="phase" class="build-plan__step">
+				<div v-if="index > 0" class="build-plan__step-line"></div>
+				<div
+					class="build-plan__step-dot"
+					:class="{ 'build-plan__step-dot--active': projectsByPhase[phase]?.length > 0 }"
+				></div>
+				<span class="build-plan__step-name">{{ phase }}</span>
+				<span class="build-plan__step-count">{{ projectsByPhase[phase]?.length ?? 0 }}</span>
+			</div>
+		</nav>
+
 		<div class="build-plan__stats">
 			<div class="build-plan__stat">
 				<span class="build-plan__stat-value">{{ projectStore.builderProjects.length }}</span>
 				<span class="build-plan__stat-label">Projekter</span>
 			</div>
 			<div class="build-plan__stat">
-				<span class="build-plan__stat-value">{{ progressStore.activeTasks }}</span>
-				<span class="build-plan__stat-label">Aktive tasks</span>
+				<span class="build-plan__stat-value">{{ progressStore.activePhaseTasksCount }}</span>
+				<span class="build-plan__stat-label">Aktive opgaver</span>
 			</div>
 		</div>
 
@@ -69,3 +81,91 @@ const projectsByPhase = computed(() => {
 		</div>
 	</div>
 </template>
+
+<style lang="scss">
+.build-plan {
+	&__stepper {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		padding: 16px 0 24px;
+	}
+
+	&__step {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		flex: 1;
+		position: relative;
+
+		&-line {
+			position: absolute;
+			top: 7px;
+			right: 50%;
+			width: 100%;
+			height: 2px;
+			background: $primary-color;
+		}
+
+		&-dot {
+			width: 16px;
+			height: 16px;
+			border-radius: 50%;
+			background: $border-color;
+			z-index: 1;
+			margin-bottom: 8px;
+
+			&--active {
+				background: $primary-color;
+			}
+		}
+
+		&-name {
+			font-size: $font-size-xs;
+			color: $muted-foreground-color;
+			text-align: center;
+		}
+
+		&-count {
+			font-size: $font-size-lg;
+			font-weight: $font-weight-bold;
+			color: $primary-color;
+		}
+	}
+
+	&__stats {
+		display: flex;
+		gap: 12px;
+		margin-bottom: 24px;
+	}
+
+	&__stat {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: 16px;
+		background: $card-color;
+		border: 1px solid $border-color;
+		border-radius: 12px;
+
+		&-value {
+			font-size: $font-size-2xl;
+			font-weight: $font-weight-bold;
+			color: $foreground-color;
+		}
+
+		&-label {
+			font-size: $font-size-sm;
+			color: $muted-foreground-color;
+		}
+	}
+
+	&__phase-title {
+		font-size: $font-size-lg;
+		font-weight: $font-weight-semi;
+		color: $foreground-color;
+		margin: 0 0 12px;
+	}
+}
+</style>
