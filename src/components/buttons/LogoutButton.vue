@@ -9,4 +9,7 @@ defineProps({
         default: 'outline' // 'outline' eller 'filled'
     }
 })
+
+const router = useRouter()
+const authStore = useAuthStore()
 </script>
