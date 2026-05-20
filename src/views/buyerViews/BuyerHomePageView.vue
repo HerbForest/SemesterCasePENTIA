@@ -1,11 +1,22 @@
 <script setup>
+import { computed } from 'vue'
 import { useBuyerStore } from '@/stores/buyerStore';
+import { useProjectStore } from '@/stores/projectStore'
+import { useImageStore } from '@/stores/imageStore'
 import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
-import Header from '@/components/BuilderHeader.vue';
-import BuyerFooter from '@/components/navigation/BuyerFooter.vue';
+import BuyerHeroCard from '@/components/BuyerHeroCard.vue';
+
 
 const buyerStore = useBuyerStore();
+const projectStore = useProjectStore()
+const imageStore = useImageStore()
+
+const projectImages = computed(() =>
+    Object.values(imageStore.imagesByPhase)
+        .flat()
+        .map(img => img.downloadUrl)
+)
 </script>
 
 <template>
@@ -15,7 +26,11 @@ const buyerStore = useBuyerStore();
 			<h2 class="buyer-hero__welcome">Velkommen, {{ buyerStore.buyer?.firstName }}!</h2>
 		</div>
 
-		<Header />
+		<BuyerHeroCard
+    :images="projectImages"
+    :address="projectStore.project?.address"
+    :progress="projectStore.project?.progress"
+/>
 
 		<ButtonCard buttonTitle="Byggeplan" :arrow="true" :icon="Calendar" to="/buyer/byggeplan">
 		</ButtonCard>
@@ -26,7 +41,6 @@ const buyerStore = useBuyerStore();
 		<ButtonCard buttonTitle="Kontakt din byggeleder" :icon="Phone" :arrow="true" to="/buyer/kontakt">
 		</ButtonCard>
 	</div>
-	<BuyerFooter />
 </template>
 
 <style scoped lang="scss">
