@@ -9,7 +9,7 @@ import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebas
  */
 export const useAuthStore = defineStore('auth', () => {
 
-/**
+	/**
  * Den aktuelt indloggede Firebase bruger (Vue Ref indeholdende User eller null)
  * @type {Object}
  */

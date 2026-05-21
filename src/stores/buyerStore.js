@@ -15,7 +15,7 @@ export const useBuyerStore = defineStore('buyer', () => {
  */
 	const buyer = ref(null);
 
-/**
+	/**
  * True mens bygherre data hentes fra Firestore (Vue Ref indeholdende boolean)
  * @type {boolean}
  */

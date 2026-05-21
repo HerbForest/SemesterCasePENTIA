@@ -15,7 +15,7 @@ export const useDocumentStore = defineStore('documents', () => {
  */
 	const documents = ref([]);
 
-/**
+	/**
  * True mens dokumenter hentes fra Firestore (Vue Ref indeholdende boolean)
  * @type {boolean}
  */
