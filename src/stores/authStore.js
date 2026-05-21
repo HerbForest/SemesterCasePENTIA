@@ -56,5 +56,9 @@ export const useAuthStore = defineStore('auth', () => {
 		return onAuthStateChanged(auth, callback);
 	};
 
-	return { user, loading, login, logout, onAuthReady };
+	const onAuthChange = (callback) => {
+    return onAuthStateChanged(auth, callback)
+}
+
+	return { user, loading, login, logout, onAuthReady, onAuthChange };
 });
