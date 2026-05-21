@@ -36,12 +36,23 @@ describe('groupImagesByPhase', () => {
         const result = groupImagesByPhase(images)
         expect(result[1]).toHaveLength(3)
     })
-		
+
 	it('håndterer billeder med forskellige phaseIds', () => {
         const images = [
             { id: '1', downloadUrl: 'url1.jpg', phaseId: 1 },
             { id: '2', downloadUrl: 'url2.jpg', phaseId: 2 },
             { id: '3', downloadUrl: 'url3.jpg', phaseId: 3 },
+        ]
+        const result = groupImagesByPhase(images)
+        expect(Object.keys(result)).toHaveLength(3)
+    })
+
+	it('opretter korrekt antal faser', () => {
+        const images = [
+            { id: '1', downloadUrl: 'url1.jpg', phaseId: 1 },
+            { id: '2', downloadUrl: 'url2.jpg', phaseId: 1 },
+            { id: '3', downloadUrl: 'url3.jpg', phaseId: 2 },
+            { id: '4', downloadUrl: 'url4.jpg', phaseId: 3 },
         ]
         const result = groupImagesByPhase(images)
         expect(Object.keys(result)).toHaveLength(3)
