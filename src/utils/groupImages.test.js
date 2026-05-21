@@ -10,3 +10,16 @@ const groupImagesByPhase = (images) => {
     })
     return grouped
 }
+describe('groupImagesByPhase', () => {
+    it('grupperer billeder korrekt efter phaseId', () => {
+        const images = [
+            { id: '1', downloadUrl: 'url1.jpg', phaseId: 1 },
+            { id: '2', downloadUrl: 'url2.jpg', phaseId: 1 },
+            { id: '3', downloadUrl: 'url3.jpg', phaseId: 2 },
+        ]
+        const result = groupImagesByPhase(images)
+        expect(result[1]).toHaveLength(2)
+        expect(result[2]).toHaveLength(1)
+    })
+
+})
