@@ -10,8 +10,8 @@ import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebas
 export const useAuthStore = defineStore('auth', () => {
 
 /**
- * Den aktuelt indloggede Firebase bruger
- * @type {import('vue').Ref<import('firebase/auth').User | null>}
+ * Den aktuelt indloggede Firebase bruger (Vue Ref indeholdende User eller null)
+ * @type {Object}
  */
 	const user = ref(null);
 
