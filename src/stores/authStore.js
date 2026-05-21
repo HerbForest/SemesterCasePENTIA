@@ -9,7 +9,10 @@ import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebas
  */
 export const useAuthStore = defineStore('auth', () => {
 
-	/** @type {import('vue').Ref<import('firebase/auth').User|null>} Den aktuelt indloggede Firebase bruger */
+/**
+ * Den aktuelt indloggede Firebase bruger
+ * @type {import('vue').Ref<import('firebase/auth').User | null>}
+ */
 	const user = ref(null);
 
 	/** @type {import('vue').Ref<boolean>} True mens Firebase checker login status ved app start */
