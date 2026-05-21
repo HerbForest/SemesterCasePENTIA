@@ -22,4 +22,10 @@ describe('groupImagesByPhase', () => {
         expect(result[2]).toHaveLength(1)
     })
 
+	it('returnerer tomt objekt hvis ingen billeder', () => {
+        const result = groupImagesByPhase([])
+        expect(result).toEqual({})
+    })
+
+	
 })
