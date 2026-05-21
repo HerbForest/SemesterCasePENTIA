@@ -15,7 +15,10 @@ export const useAuthStore = defineStore('auth', () => {
  */
 	const user = ref(null);
 
-	/** @type {import('vue').Ref<boolean>} True mens Firebase checker login status ved app start */
+	/**
+	 * True mens Firebase checker login status ved app start (Vue Ref indeholdende boolean)
+	 * @type {boolean}
+	 */
 	const loading = ref(true);
 
 	onAuthStateChanged(auth, (firebaseUser) => {
