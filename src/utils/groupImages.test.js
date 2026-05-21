@@ -27,5 +27,13 @@ describe('groupImagesByPhase', () => {
         expect(result).toEqual({})
     })
 
-	
+	it('håndterer billeder med samme phaseId korrekt', () => {
+        const images = [
+            { id: '1', downloadUrl: 'url1.jpg', phaseId: 1 },
+            { id: '2', downloadUrl: 'url2.jpg', phaseId: 1 },
+            { id: '3', downloadUrl: 'url3.jpg', phaseId: 1 },
+        ]
+        const result = groupImagesByPhase(images)
+        expect(result[1]).toHaveLength(3)
+    })
 })
