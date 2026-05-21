@@ -9,7 +9,9 @@
     "preview": "vite preview",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint .",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "@lucide/vue": "^1.11.0",
@@ -23,17 +25,20 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@vitejs/plugin-vue": "^6.0.4",
+    "@vitejs/plugin-vue": "^6.0.7",
+    "@vue/test-utils": "^2.4.10",
     "docdash": "^2.0.2",
     "eslint": "^9.39.2",
     "eslint-plugin-vue": "~10.8.0",
     "globals": "^17.3.0",
     "jsdoc": "^4.0.5",
+    "jsdom": "^29.1.1",
     "npm-run-all2": "^8.0.4",
     "sass": "^1.98.0",
     "sass-embedded": "^1.98.0",
     "vite": "^7.3.1",
-    "vite-plugin-vue-devtools": "^8.0.6"
+    "vite-plugin-vue-devtools": "^8.0.6",
+    "vitest": "^4.1.7"
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
