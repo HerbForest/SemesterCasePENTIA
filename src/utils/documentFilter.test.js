@@ -23,5 +23,10 @@ describe('filterDocumentsByCategory', () => {
         expect(result).toHaveLength(3)
     })
 
+	it('returnerer tom array hvis ingen dokumenter matcher kategori', () => {
+        const result = filterDocumentsByCategory(documents, 'Tegning')
+        expect(result).toHaveLength(0)
+    })
+
 
 })
