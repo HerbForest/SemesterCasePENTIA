@@ -17,5 +17,11 @@ describe('filterDocumentsByCategory', () => {
         const result = filterDocumentsByCategory(documents, 'Kontrakt')
         expect(result).toHaveLength(2)
     })
+	
+	it('returnerer kun tillægsaftaler', () => {
+        const result = filterDocumentsByCategory(documents, 'Tillægsaftale')
+        expect(result).toHaveLength(3)
+    })
+
 
 })
