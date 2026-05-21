@@ -9,10 +9,16 @@ import { doc, getDoc, updateDoc, collection, query, where, getDocs } from 'fireb
  */
 export const useBuyerStore = defineStore('buyer', () => {
 
-	/** @type {import('vue').Ref<Object|null>} Den aktuelle bygherre med alle felter fra Firestore */
+	/**
+ * Den aktuelle bygherre med alle felter fra Firestore (Vue Ref indeholdende Object eller null)
+ * @type {Object}
+ */
 	const buyer = ref(null);
 
-	/** @type {import('vue').Ref<boolean>} True mens bygherre data hentes fra Firestore */
+/**
+ * True mens bygherre data hentes fra Firestore (Vue Ref indeholdende boolean)
+ * @type {boolean}
+ */
 	const loading = ref(false);
 
 

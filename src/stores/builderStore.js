@@ -9,10 +9,16 @@ import { doc, getDoc } from 'firebase/firestore';
  */
 export const useBuilderStore = defineStore('builder', () => {
 
-	 /** @type {import('vue').Ref<Object|null>} Den aktuelle byggeleder med alle felter fra Firestore */
+	/**
+ * Den aktuelle byggeleder med alle felter fra Firestore (Vue Ref indeholdende Object eller null)
+ * @type {Object}
+ */
 	const builder = ref(null);
 	
-	/** @type {import('vue').Ref<boolean>} True mens byggeleder data hentes fra Firestore */
+	/**
+ * True mens byggeleder data hentes fra Firestore (Vue Ref indeholdende boolean)
+ * @type {boolean}
+ */
 	const loading = ref(false);
 
 	/**
@@ -37,26 +43,3 @@ export const useBuilderStore = defineStore('builder', () => {
 
 	return { builder, loading, fetchBuilder };
 });
-
-
-
-// for at bruge data fra stores 
-// import { useUserStore } from '@/stores/userStore'
-// import { useProjectStore } from '@/stores/projectStore'
-// import { useBuilderStore } from '@/stores/builderStore'
-// import { onMounted } from 'vue'
-
-// const userStore = useUserStore()
-// const projectStore = useProjectStore()
-// const builderStore = useBuilderStore()
-
-// onMounted(async () => {
-//     // Hent bruger – hardcodet ID indtil login er sat op
-//     await userStore.fetchUser('dit-bruger-id')
-    
-//     // Hent projekt via brugerens projectId
-//     await projectStore.fetchProject(userStore.user.projectId)
-    
-//     // Hent byggeleder via projektets builderId
-//     await builderStore.fetchBuilder(projectStore.project.builderId)
-// })
