@@ -27,6 +27,12 @@ describe('filterDocumentsByCategory', () => {
         const result = filterDocumentsByCategory(documents, 'Tegning')
         expect(result).toHaveLength(0)
     })
+		
+	it('returnerer korrekte dokument navne for kontrakter', () => {
+        const result = filterDocumentsByCategory(documents, 'Kontrakt')
+        expect(result[0].name).toBe('Kontrakt1.pdf')
+        expect(result[1].name).toBe('Kontrakt2.pdf')
+    })
 
 
 })
