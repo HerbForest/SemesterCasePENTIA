@@ -12,3 +12,10 @@ describe('filterDocumentsByCategory', () => {
         { id: '4', name: 'Tillæg2.pdf', category: 'Tillægsaftale' },
         { id: '5', name: 'Tillæg3.pdf', category: 'Tillægsaftale' },
     ]
+
+	it('returnerer kun kontrakter', () => {
+        const result = filterDocumentsByCategory(documents, 'Kontrakt')
+        expect(result).toHaveLength(2)
+    })
+
+})
