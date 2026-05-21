@@ -1,6 +1,6 @@
 <script setup>
-import { useImageStore } from '@/stores/imageStore'
-import { computed } from 'vue'
+import { useImageStore } from '@/stores/imageStore';
+import { computed } from 'vue';
 import ProgressCircle from '@/components/library/ProgressCircle.vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import GanttDiagram from '@/components/library/GanttDiagram.vue';
@@ -22,7 +22,7 @@ import {
 const projectStore = useProjectStore();
 const taskStore = useTaskStore();
 const progressStore = useProgressStore();
-const imageStore = useImageStore()
+const imageStore = useImageStore();
 
 const route = useRoute();
 
@@ -30,7 +30,7 @@ onMounted(async () => {
 	await projectStore.fetchProject(route.params.id);
 	await taskStore.fetchTasks(route.params.id);
 	await progressStore.syncTaskProgress(route.params.id);
-	await imageStore.fetchImagesByProject(route.params.id)
+	await imageStore.fetchImagesByProject(route.params.id);
 	console.log('tasks:', taskStore.tasks);
 });
 
@@ -44,14 +44,14 @@ const cards = [
 ];
 
 const photoFolders = computed(() => {
-    return taskStore.tasks
-        .filter(task => task.isParent && imageStore.imagesByPhase[task.id]?.length > 0)
-        .map(task => ({
-            id: task.id,
-            name: task.name,
-            count: imageStore.imagesByPhase[task.id]?.length || 0
-        }))
-})
+	return taskStore.tasks
+		.filter(task => task.isParent && imageStore.imagesByPhase[task.id]?.length > 0)
+		.map(task => ({
+			id: task.id,
+			name: task.name,
+			count: imageStore.imagesByPhase[task.id]?.length || 0
+		}));
+});
 </script>
 
 <template>

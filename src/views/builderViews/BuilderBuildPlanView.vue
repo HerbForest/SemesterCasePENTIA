@@ -1,12 +1,12 @@
 <script setup>
-import { computed, onMounted } from "vue";
-import { useAuthStore } from "@/stores/authStore";
-import { useProjectStore } from "@/stores/projectStore";
-import { useTaskStore } from "@/stores/taskStore";
-import { useProgressStore } from "@/stores/progressStore";
-import ButtonCard from "@/components/cards/ButtonCard.vue";
-import ProgressCircle from "@/components/library/ProgressCircle.vue";
-import { Calendar } from "@lucide/vue";
+import { computed, onMounted } from 'vue';
+import { useAuthStore } from '@/stores/authStore';
+import { useProjectStore } from '@/stores/projectStore';
+import { useTaskStore } from '@/stores/taskStore';
+import { useProgressStore } from '@/stores/progressStore';
+import ButtonCard from '@/components/cards/ButtonCard.vue';
+import ProgressCircle from '@/components/library/ProgressCircle.vue';
+import { Calendar } from '@lucide/vue';
 
 const authStore = useAuthStore();
 const projectStore = useProjectStore();
@@ -15,26 +15,26 @@ const progressStore = useProgressStore();
 console.log(progressStore.activeTasks);
 
 onMounted(async () => {
-  await projectStore.fetchProjectsByBuilder(authStore.user.uid);
-  await taskStore.fetchTasksForAllProjects(projectStore.builderProjects);
+	await projectStore.fetchProjectsByBuilder(authStore.user.uid);
+	await taskStore.fetchTasksForAllProjects(projectStore.builderProjects);
 });
 
 const phaseOrder = computed(() => {
-  const seen = new Set();
-  return taskStore.allParentTasks
-    .filter((task) => !seen.has(task.name) && seen.add(task.name))
-    .map((task) => task.name);
+	const seen = new Set();
+	return taskStore.allParentTasks
+		.filter((task) => !seen.has(task.name) && seen.add(task.name))
+		.map((task) => task.name);
 });
 
 const projectsByPhase = computed(() => {
-  const groups = {};
-  for (const project of projectStore.builderProjects) {
-    const activePhase = progressStore.getActivePhaseForProject(project.id);
-    const phaseName = activePhase?.name ?? "Ukendt";
-    if (!groups[phaseName]) groups[phaseName] = [];
-    groups[phaseName].push(project);
-  }
-  return groups;
+	const groups = {};
+	for (const project of projectStore.builderProjects) {
+		const activePhase = progressStore.getActivePhaseForProject(project.id);
+		const phaseName = activePhase?.name ?? 'Ukendt';
+		if (!groups[phaseName]) groups[phaseName] = [];
+		groups[phaseName].push(project);
+	}
+	return groups;
 });
 </script>
 

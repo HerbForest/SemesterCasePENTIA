@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue';
 import { RouterView } from 'vue-router';
 //import SeederButton from '@/components/buttons/SeederButton.vue';
 import { useRouter } from 'vue-router';
@@ -17,9 +17,9 @@ const authStore = useAuthStore();
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
-const imageStore = useImageStore()
+const imageStore = useImageStore();
 
-let unsubscribeAuth = null
+let unsubscribeAuth = null;
 
 onMounted(async () => {
 	await new Promise((resolve) => {
@@ -32,25 +32,25 @@ onMounted(async () => {
 					await buyerStore.fetchBuyer(user.uid);
 					await projectStore.fetchProject(buyerStore.buyer.projectId);
 					await builderStore.fetchBuilder(projectStore.project.builderId);
-					await imageStore.fetchImagesByProject(projectStore.project.id)
+					await imageStore.fetchImagesByProject(projectStore.project.id);
 				}
 			} else {
 				router.push('/login');
 			}
-		   unsubscribe()
-            resolve()
-        })
-    })
-    unsubscribeAuth = authStore.onAuthChange((user) => {
-        if (!user && router.currentRoute.value.path !== '/login') {
-            router.push('/login')
-        }
-    })
-})
+		   unsubscribe();
+			resolve();
+		});
+	});
+	unsubscribeAuth = authStore.onAuthChange((user) => {
+		if (!user && router.currentRoute.value.path !== '/login') {
+			router.push('/login');
+		}
+	});
+});
 
 onUnmounted(() => {
-    if (unsubscribeAuth) unsubscribeAuth()
-})
+	if (unsubscribeAuth) unsubscribeAuth();
+});
 </script>
 
 <template>

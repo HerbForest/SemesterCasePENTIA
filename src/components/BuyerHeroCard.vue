@@ -1,24 +1,22 @@
 <script setup>
 import { ref, onUnmounted } from 'vue';
-import { useRouter } from 'vue-router';
 import {  House, MapPin, Calendar } from '@lucide/vue';
 
 const props = defineProps({
-    images: { type: Array, default: () => [] },
-    address: { type: String, default: '' },
-    progress: { type: Number, default: 0 }
-})
+	images: { type: Array, default: () => [] },
+	address: { type: String, default: '' },
+	progress: { type: Number, default: 0 }
+});
 
-const router = useRouter();
 const currentIndex = ref(0);
 
 const interval = setInterval(() => {
 	if (props.images.length > 0) {
-        currentIndex.value = (currentIndex.value + 1) % props.images.length
-    }
-}, 3000)
+		currentIndex.value = (currentIndex.value + 1) % props.images.length;
+	}
+}, 3000);
 
-onUnmounted(() => clearInterval(interval))
+onUnmounted(() => clearInterval(interval));
 </script>
 
 <template>

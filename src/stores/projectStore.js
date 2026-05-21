@@ -5,7 +5,6 @@ import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firesto
 
 export const useProjectStore = defineStore('project', () => {
 	const project = ref(null);
-	const projects = ref([]);
 	const loading = ref(false);
 
 	const fetchProject = async (projectId) => {

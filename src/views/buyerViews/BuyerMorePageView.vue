@@ -1,7 +1,7 @@
 <script setup>
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import LogoutButton from '@/components/buttons/LogoutButton.vue';
-import { FileText, HardHat, UserRound, Settings, LogOut } from '@lucide/vue';
+import { FileText, HardHat, UserRound, Settings } from '@lucide/vue';
 </script>
 <template>
 	<div class="layout-bb">

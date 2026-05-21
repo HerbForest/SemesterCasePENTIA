@@ -1,22 +1,22 @@
 <script setup>
-import { computed } from 'vue'
+import { computed } from 'vue';
 import { useBuyerStore } from '@/stores/buyerStore';
-import { useProjectStore } from '@/stores/projectStore'
-import { useImageStore } from '@/stores/imageStore'
+import { useProjectStore } from '@/stores/projectStore';
+import { useImageStore } from '@/stores/imageStore';
 import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import BuyerHeroCard from '@/components/BuyerHeroCard.vue';
 
 
 const buyerStore = useBuyerStore();
-const projectStore = useProjectStore()
-const imageStore = useImageStore()
+const projectStore = useProjectStore();
+const imageStore = useImageStore();
 
 const projectImages = computed(() =>
-    Object.values(imageStore.imagesByPhase)
-        .flat()
-        .map(img => img.downloadUrl)
-)
+	Object.values(imageStore.imagesByPhase)
+		.flat()
+		.map(img => img.downloadUrl)
+);
 </script>
 
 <template>

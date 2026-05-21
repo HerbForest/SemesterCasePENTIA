@@ -1,10 +1,10 @@
-import { defineStore } from "pinia";
-import { computed } from "vue";
-import { db } from "@/config/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { useTaskStore } from "./taskStore";
+import { defineStore } from 'pinia';
+import { computed } from 'vue';
+import { db } from '@/config/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { useTaskStore } from './taskStore';
 
-export const useProgressStore = defineStore("progress", () => {
+export const useProgressStore = defineStore('progress', () => {
 	const taskStore = useTaskStore();
 
 	const calcProgress = (task) => {
@@ -78,7 +78,7 @@ export const useProgressStore = defineStore("progress", () => {
 		return findActivePhase(parentTasksForProject);
 	};
 	const activePhaseTasksCount = computed(() => {
-		return Object.entries(taskStore.allProjectsTasks).reduce((total, [projectId, tasks]) => {
+		return Object.entries(taskStore.allProjectsTasks).reduce((total, [tasks]) => {
 			const parentTasksForProject = tasks.filter((task) => task.isParent);
 			const activePhase = findActivePhase(parentTasksForProject);
 			if (!activePhase) return total;
@@ -104,7 +104,7 @@ export const useProgressStore = defineStore("progress", () => {
 			taskList.map((task) => updates.find((updated) => updated.id === task.id) ?? task);
 
 		for (const task of updates) {
-			await setDoc(doc(db, "projects", projectId, "tasks", String(task.id)), task);
+			await setDoc(doc(db, 'projects', projectId, 'tasks', String(task.id)), task);
 		}
 
 		taskStore.tasks = applyUpdates(taskStore.tasks);
