@@ -44,6 +44,7 @@ coverage
 # Cypress
 /cypress/videos/
 /cypress/screenshots/
+cypress
 
 # Vitest
 __screenshots__/
@@ -52,3 +53,5 @@ __screenshots__/
 *.timestamp-*-*.mjs
 #prettierc
 .prettierrc
+
+package-lock.json

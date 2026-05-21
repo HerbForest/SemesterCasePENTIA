@@ -78,7 +78,7 @@ export const useProgressStore = defineStore('progress', () => {
 		return findActivePhase(parentTasksForProject);
 	};
 	const activePhaseTasksCount = computed(() => {
-		return Object.entries(taskStore.allProjectsTasks).reduce((total, [tasks]) => {
+		return Object.entries(taskStore.allProjectsTasks).reduce((total, [, tasks]) => {
 			const parentTasksForProject = tasks.filter((task) => task.isParent);
 			const activePhase = findActivePhase(parentTasksForProject);
 			if (!activePhase) return total;
