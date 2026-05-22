@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+import { getInitials } from './initials.js'
 
 const getInitials = (firstName, lastName) => {
     if (!firstName || !lastName) return ''
