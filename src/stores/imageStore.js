@@ -9,22 +9,19 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
  */
 export const useImageStore = defineStore('images', () => {
 
-	/**
+/**
  * Liste af billeder for en specifik fase (Vue Ref indeholdende Array)
  * @type {Array}
  */
 	const images = ref([]);
 
-	/**
+/**
  * Billeder grupperet efter fase ID { phaseId: [billede1, billede2] } (Vue Ref indeholdende Object)
  * @type {Object}
  */
 	const imagesByPhase = ref({}); 
 
-	/**
- * True mens billeder hentes fra Firestore (Vue Ref indeholdende boolean)
- * @type {boolean}
- */
+	/** @type {import('vue').Ref<boolean>} True mens billeder hentes fra Firestore */
 	const loading = ref(false);
 
 	/**
