@@ -4,6 +4,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuyerStore } from '@/stores/buyerStore';
 import ConversationCard from '@/components/cards/ConversationCard.vue';
+import { getInitials } from '@/utils/initials';
 
 const authStore = useAuthStore();
 const projectStore = useProjectStore();
@@ -18,7 +19,7 @@ onMounted(async () => {
 		const buyer = await buyerStore.fetchBuyerByProjectId(project.id);
 		if (buyer) {
 			conversations.value.push({
-				initials: `${buyer.firstName[0]}${buyer.lastName[0]}`,
+				initials: getInitials(buyer.firstName, buyer.lastName),
 				name: `${buyer.firstName} ${buyer.lastName}`,
 				address: project.address,
 				lastMessage: 'Tryk for at se samtalen',

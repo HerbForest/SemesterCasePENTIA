@@ -6,6 +6,7 @@ import { Mail, CircleHelp, Globe, Moon, Bell, Shield } from '@lucide/vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import Card from '@/components/cards/TextCard.vue';
 import LogoutButton from '@/components/buttons/LogoutButton.vue';
+import { getInitials } from '@/utils/initials';
 
 const authStore = useAuthStore();
 const builderStore = useBuilderStore();
@@ -16,10 +17,9 @@ onMounted(async () => {
 	}
 });
 
-const initials = computed(() => {
-	if (!builderStore.builder) return '';
-	return `${builderStore.builder.firstName[0]}${builderStore.builder.lastName[0]}`;
-});
+const initials = computed(() => 
+    getInitials(builderStore.builder?.firstName, builderStore.builder?.lastName)
+);
 
 </script>
 
