@@ -13,5 +13,14 @@
   },
    "branching": {
     "title": "Branching"
+  },
+   "gitCommit": {
+    "title": "Git Commit"
+  },
+   "unitTest": {
+    "title": "Unit test"
+  },
+   "actions": {
+    "title": "Actions"
   }
 }
