@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { useImageStore } from '@/stores/imageStore';
 import { useTaskStore } from '@/stores/taskStore';
-import { getPhasesWithImages } from '@/utils/phasesWithImages'
+import { getPhasesWithImages } from '@/utils/phasesWithImages';
 
 const route = useRoute();
 const imageStore = useImageStore();
@@ -18,8 +18,8 @@ onMounted(async () => {
 });
 
 const phasesWithImages = computed(() => 
-    getPhasesWithImages(taskStore.tasks, imageStore.imagesByPhase)
-)
+	getPhasesWithImages(taskStore.tasks, imageStore.imagesByPhase)
+);
 
 const filteredImages = computed(() => {
 	if (selectedPhase.value === 'alle') {

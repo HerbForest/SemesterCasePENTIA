@@ -4,5 +4,8 @@
   },
   "database": {
     "title": "Database"
+  },
+   "linting": {
+    "title": "Linting"
   }
 }

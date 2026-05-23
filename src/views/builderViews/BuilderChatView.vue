@@ -37,11 +37,11 @@ onMounted(async () => {
 });
 
 const builderInitials = computed(() => 
-    getInitials(builderStore.builder?.firstName, builderStore.builder?.lastName)
-)
+	getInitials(builderStore.builder?.firstName, builderStore.builder?.lastName)
+);
 const buyerInitials = computed(() => 
-    getInitials(buyerStore.buyer?.firstName, buyerStore.buyer?.lastName)
-)
+	getInitials(buyerStore.buyer?.firstName, buyerStore.buyer?.lastName)
+);
 </script>
 <template>
 	<div class="builder-chat">

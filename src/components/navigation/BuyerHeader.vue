@@ -1,13 +1,13 @@
 <script setup>
 import { computed } from 'vue';
 import { useBuyerStore } from '@/stores/buyerStore';
-import { getInitials } from '@/utils/initials'
+import { getInitials } from '@/utils/initials';
 
 const buyerStore = useBuyerStore();
 
 const initials = computed(() => 
-    getInitials(buyerStore.buyer?.firstName, buyerStore.buyer?.lastName)
-)
+	getInitials(buyerStore.buyer?.firstName, buyerStore.buyer?.lastName)
+);
 </script>
 
 <template>

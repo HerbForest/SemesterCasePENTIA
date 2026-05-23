@@ -15,13 +15,13 @@ const conversations = ref([]);
 onMounted(async () => {
 	await projectStore.fetchProjectsByBuilder(authStore.user.uid);
 
-for (const project of projectStore.builderProjects) {
-    const buyer = await buyerStore.fetchBuyerByProjectId(project.id)
-    if (buyer) {
-        conversations.value.push(buildConversation(buyer, project))
-    }
+	for (const project of projectStore.builderProjects) {
+		const buyer = await buyerStore.fetchBuyerByProjectId(project.id);
+		if (buyer) {
+			conversations.value.push(buildConversation(buyer, project));
+		}
 	}
-})	
+});	
 </script>
 <template>
   <div class="builder-messages">

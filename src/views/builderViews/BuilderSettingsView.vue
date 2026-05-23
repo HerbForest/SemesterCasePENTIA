@@ -18,7 +18,7 @@ onMounted(async () => {
 });
 
 const initials = computed(() => 
-    getInitials(builderStore.builder?.firstName, builderStore.builder?.lastName)
+	getInitials(builderStore.builder?.firstName, builderStore.builder?.lastName)
 );
 
 </script>

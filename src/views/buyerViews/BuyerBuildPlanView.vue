@@ -8,7 +8,7 @@ import { useBuilderStore } from '@/stores/builderStore';
 import { useAuthStore } from '@/stores/authStore';
 import { useImageStore } from '@/stores/imageStore';
 import { useTaskStore } from '@/stores/taskStore';
-import { getPhaseStatus } from '@/utils/phaseStatus'
+import { getPhaseStatus } from '@/utils/phaseStatus';
 
 
 
@@ -32,7 +32,7 @@ onMounted(async () => {
 	console.log('tasks:', taskStore.tasks);
 });
 
-const phases = computed(() => getPhaseStatus(taskStore.tasks))
+const phases = computed(() => getPhaseStatus(taskStore.tasks));
 </script>
 
 <template>
