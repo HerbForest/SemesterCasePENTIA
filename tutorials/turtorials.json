@@ -10,5 +10,8 @@
   },
    "refactoring": {
     "title": "Refactoring"
+  },
+   "branching": {
+    "title": "Branching"
   }
 }
