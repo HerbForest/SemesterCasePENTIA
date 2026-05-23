@@ -12,7 +12,7 @@ Viser hvilke filer der er ændret siden sidste commit.
 ```bash
 git add .
 ```
-Tilføjer alle ændrede filer til staging area – dvs. de filer der skal med i næste commit.
+Tilføjer alle ændrede filer til staging area, dvs. de filer der skal med i næste commit.
 
 ### 3. Lav commit
 ```bash
