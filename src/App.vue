@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, onUnmounted } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import { RouterView } from 'vue-router';
 //import SeederButton from '@/components/buttons/SeederButton.vue';
 import { useRouter } from 'vue-router';
@@ -20,6 +20,7 @@ const builderStore = useBuilderStore();
 const imageStore = useImageStore();
 
 let unsubscribeAuth = null;
+const dataReady = ref(false)
 
 onMounted(async () => {
 	await new Promise((resolve) => {
@@ -41,6 +42,7 @@ onMounted(async () => {
 			resolve();
 		});
 	});
+	dataReady.value = true
 	unsubscribeAuth = authStore.onAuthChange((user) => {
 		if (!user && router.currentRoute.value.path !== '/login') {
 			router.push('/login');
@@ -54,7 +56,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-	<div v-if="authStore.loading">
+	<div v-if="!dataReady">
     </div>
     <RouterView v-else />
 </template>
