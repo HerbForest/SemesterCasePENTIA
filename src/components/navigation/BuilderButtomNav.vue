@@ -34,6 +34,9 @@ const navItems = [
 	left: 0;
 	right: 0;
 	z-index: 50;
+	border: solid;
+	border-width: 1px;
+	border-color: $border-color;
 	background-color: $primary-foreground-color;
 	padding-bottom: env(safe-area-inset-bottom);
 

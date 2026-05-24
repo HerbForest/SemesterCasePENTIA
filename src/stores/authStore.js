@@ -9,10 +9,16 @@ import { signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebas
  */
 export const useAuthStore = defineStore('auth', () => {
 
-	/** @type {import('vue').Ref<import('firebase/auth').User|null>} Den aktuelt indloggede Firebase bruger */
+	/**
+ * Den aktuelt indloggede Firebase bruger (Vue Ref indeholdende User eller null)
+ * @type {Object}
+ */
 	const user = ref(null);
 
-	/** @type {import('vue').Ref<boolean>} True mens Firebase checker login status ved app start */
+	/**
+	 * True mens Firebase checker login status ved app start (Vue Ref indeholdende boolean)
+	 * @type {boolean}
+	 */
 	const loading = ref(true);
 
 	onAuthStateChanged(auth, (firebaseUser) => {
@@ -56,5 +62,9 @@ export const useAuthStore = defineStore('auth', () => {
 		return onAuthStateChanged(auth, callback);
 	};
 
-	return { user, loading, login, logout, onAuthReady };
+	const onAuthChange = (callback) => {
+		return onAuthStateChanged(auth, callback);
+	};
+
+	return { user, loading, login, logout, onAuthReady, onAuthChange };
 });

@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import { useImageStore } from '@/stores/imageStore';
 import { useTaskStore } from '@/stores/taskStore';
+import { getPhasesWithImages } from '@/utils/phasesWithImages';
 
 const route = useRoute();
 const imageStore = useImageStore();
@@ -16,11 +17,9 @@ onMounted(async () => {
 	await taskStore.fetchTasks(route.params.projectId);
 });
 
-const phasesWithImages = computed(() => {
-	return taskStore.tasks
-		.filter(task => task.isParent && imageStore.imagesByPhase[task.id]?.length > 0)
-		.sort((a, b) => a.id - b.id);
-});
+const phasesWithImages = computed(() => 
+	getPhasesWithImages(taskStore.tasks, imageStore.imagesByPhase)
+);
 
 const filteredImages = computed(() => {
 	if (selectedPhase.value === 'alle') {

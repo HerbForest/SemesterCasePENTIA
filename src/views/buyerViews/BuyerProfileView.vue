@@ -6,15 +6,15 @@ import { useBuilderStore } from '@/stores/builderStore';
 import ProfileCard from '@/components/cards/ProfileCard.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
 import Card from '@/components/cards/TextCard.vue';
+import { getInitials } from '@/utils/initials';
 
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
 
-const initials = computed(() => {
-	if (!buyerStore.buyer) return '';
-	return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`;
-});
+const initials = computed(() => 
+	getInitials(buyerStore.buyer?.firstName, buyerStore.buyer?.lastName)
+);
 
 const handleSave = async (updatedData) => {
 	await buyerStore.updateBuyer(updatedData);

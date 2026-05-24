@@ -7,6 +7,7 @@ import { useProjectStore } from '@/stores/projectStore';
 import MessageCard from '@/components/cards/MessageCard.vue';
 import MessageInput from '@/components/MessageInput.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';
+import { getInitials } from '@/utils/initials';
 
 const route = useRoute();
 const builderStore = useBuilderStore();
@@ -35,15 +36,12 @@ onMounted(async () => {
 	}
 });
 
-const builderInitials = computed(() => {
-	if (!builderStore.builder) return '';
-	return `${builderStore.builder.firstName[0]}${builderStore.builder.lastName[0]}`;
-});
-
-const buyerInitials = computed(() => {
-	if (!buyerStore.buyer) return '';
-	return `${buyerStore.buyer.firstName[0]}${buyerStore.buyer.lastName[0]}`;
-});
+const builderInitials = computed(() => 
+	getInitials(builderStore.builder?.firstName, builderStore.builder?.lastName)
+);
+const buyerInitials = computed(() => 
+	getInitials(buyerStore.buyer?.firstName, buyerStore.buyer?.lastName)
+);
 </script>
 <template>
 	<div class="builder-chat">

@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { Bell, Moon, Globe, Shield, LogOut } from '@lucide/vue';
+import { Bell, Moon, Globe, Shield } from '@lucide/vue';
 import SlideButtons from '@/components/buttons/SlideButtons.vue';
 import LogoutButton from '@/components/buttons/LogoutButton.vue';
 import ReturnButton from '@/components/buttons/ReturnButton.vue';

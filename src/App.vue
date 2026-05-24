@@ -1,7 +1,7 @@
 <script setup>
+import { onMounted, onUnmounted, ref } from 'vue';
 import { RouterView } from 'vue-router';
 //import SeederButton from '@/components/buttons/SeederButton.vue';
-import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useBuyerStore } from '@/stores/buyerStore';
@@ -17,7 +17,10 @@ const authStore = useAuthStore();
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const builderStore = useBuilderStore();
-const imageStore = useImageStore()
+const imageStore = useImageStore();
+
+let unsubscribeAuth = null;
+const dataReady = ref(false);
 
 onMounted(async () => {
 	await new Promise((resolve) => {
@@ -30,21 +33,30 @@ onMounted(async () => {
 					await buyerStore.fetchBuyer(user.uid);
 					await projectStore.fetchProject(buyerStore.buyer.projectId);
 					await builderStore.fetchBuilder(projectStore.project.builderId);
-					await imageStore.fetchImagesByProject(projectStore.project.id)
+					await imageStore.fetchImagesByProject(projectStore.project.id);
 				}
 			} else {
 				router.push('/login');
 			}
-			unsubscribe();
+		   unsubscribe();
 			resolve();
 		});
 	});
+	dataReady.value = true;
+	unsubscribeAuth = authStore.onAuthChange((user) => {
+		if (!user && router.currentRoute.value.path !== '/login') {
+			router.push('/login');
+		}
+	});
+});
+
+onUnmounted(() => {
+	if (unsubscribeAuth) unsubscribeAuth();
 });
 </script>
 
 <template>
-	<div v-if="authStore.loading">
-        <!-- Ingenting vises mens Firebase checker login -->
+	<div v-if="!dataReady">
     </div>
     <RouterView v-else />
 </template>

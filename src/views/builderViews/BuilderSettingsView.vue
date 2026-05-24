@@ -1,32 +1,26 @@
 <script setup>
 import { computed, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useBuilderStore } from '@/stores/builderStore';
-import { Mail, CircleHelp, Globe, Moon, Bell, Shield, LogOut } from '@lucide/vue';
+import { Mail, CircleHelp, Globe, Moon, Bell, Shield } from '@lucide/vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import Card from '@/components/cards/TextCard.vue';
 import LogoutButton from '@/components/buttons/LogoutButton.vue';
+import { getInitials } from '@/utils/initials';
 
-const router = useRouter();
 const authStore = useAuthStore();
 const builderStore = useBuilderStore();
 
 onMounted(async () => {
-    if (!builderStore.builder) {
-        await builderStore.fetchBuilder(authStore.user.uid)
-    }
-})
-
-const initials = computed(() => {
-	if (!builderStore.builder) return '';
-	return `${builderStore.builder.firstName[0]}${builderStore.builder.lastName[0]}`;
+	if (!builderStore.builder) {
+		await builderStore.fetchBuilder(authStore.user.uid);
+	}
 });
 
-const handleLogout = async () => {
-	await authStore.logout();
-	router.push('/login');
-};
+const initials = computed(() => 
+	getInitials(builderStore.builder?.firstName, builderStore.builder?.lastName)
+);
+
 </script>
 
 <template>

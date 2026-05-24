@@ -4,5 +4,23 @@
   },
   "database": {
     "title": "Database"
+  },
+   "linting": {
+    "title": "Linting"
+  },
+   "refactoring": {
+    "title": "Refactoring"
+  },
+   "branching": {
+    "title": "Branching"
+  },
+   "gitCommit": {
+    "title": "Git Commit"
+  },
+   "unitTest": {
+    "title": "Unit test"
+  },
+   "actions": {
+    "title": "Actions"
   }
 }

@@ -9,10 +9,16 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
  */
 export const useDocumentStore = defineStore('documents', () => {
 
-	/** @type {import('vue').Ref<Array>} Liste af dokumenter tilknyttet det aktuelle projekt */
+	/**
+ * Liste af dokumenter tilknyttet det aktuelle projekt (Vue Ref indeholdende Array)
+ * @type {Array}
+ */
 	const documents = ref([]);
 
-	/** @type {import('vue').Ref<boolean>} True mens dokumenter hentes fra Firestore */
+	/**
+ * True mens dokumenter hentes fra Firestore (Vue Ref indeholdende boolean)
+ * @type {boolean}
+ */
 	const loading = ref(false);
 
 	/**

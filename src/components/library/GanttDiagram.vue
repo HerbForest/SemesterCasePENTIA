@@ -1,8 +1,7 @@
 <script setup>
-import { GanttChart } from "jordium-gantt-vue3";
-import { useProjectStore } from "@/stores/projectStore";
-import { useTaskStore } from "@/stores/taskStore";
-import { useProgressStore } from "@/stores/progressStore";
+import { GanttChart } from 'jordium-gantt-vue3';
+import { useTaskStore } from '@/stores/taskStore';
+import { useProgressStore } from '@/stores/progressStore';
 
 const props = defineProps({
 	projectId: {
@@ -11,7 +10,6 @@ const props = defineProps({
 	},
 });
 
-const projektStore = useProjectStore();
 const taskStore = useTaskStore();
 const progressStore = useProgressStore();
 
@@ -31,23 +29,23 @@ const handleTaskAdded = async (newTask) => {
 	const task = cleanTask(newTask.task);
 	const transformedTask = {
 		...task,
-		isParent: task.type === "story",
+		isParent: task.type === 'story',
 	};
 	await taskStore.addTask(props.projectId, transformedTask);
 };
 
 const handleTaskUpdated = async ({ task }) => {
-	console.log("task-updated:", task);
+	console.log('task-updated:', task);
 	await taskStore.updateTask(props.projectId, task);
 	await progressStore.syncParentProgress(props.projectId);
 };
 
 const handleTaskRowMoved = async ({ draggedTask }) => {
-	console.log("task-row-moved:", draggedTask);
+	console.log('task-row-moved:', draggedTask);
 	await taskStore.updateTask(props.projectId, draggedTask);
 };
 const handleTaskbarDragEnd = async (task) => {
-	console.log("taskbar-drag-end:", task);
+	console.log('taskbar-drag-end:', task);
 	await taskStore.updateTask(props.projectId, task);
 	await progressStore.syncParentProgress(props.projectId);
 };
@@ -58,7 +56,7 @@ const handleTaskbarResizeEnd = async (task) => {
 };
 
 const handlePredecessorAdded = async ({ newTask }) => {
-	console.log("predecessor-added:", newTask);
+	console.log('predecessor-added:', newTask);
 	await taskStore.updateTask(props.projectId, newTask);
 };
 const handleTaskDeleted = async ({ task }) => {
