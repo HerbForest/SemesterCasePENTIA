@@ -1,6 +1,6 @@
 # CI/CD Pipeline
 
-CI/CD står for Continuous Integration og Continuous Deployment. Det er en automatiseret proces der sikrer at kode der pushes til GitHub automatisk gennemgår en række tjek og til sidst deployes til produktion – uden manuel indgriben.
+CI/CD står for Continuous Integration og Continuous Deployment. Det er en automatiseret proces der sikrer at kode der pushes til GitHub automatisk gennemgår en række tjek og til sidst deployes til produktion.
 
 I projektet er pipelinen sat op med GitHub Actions og konfigureret i `.github/workflows/ci.yml`.
 
@@ -167,10 +167,10 @@ e2e:
 ```
 
 ### 5. Deploy
-Deployer applikationen til Firebase Hosting. Jobbet kører kun ved push til `main` – ikke ved pull requests. Det bruger to secrets der er gemt i GitHub repository settings:
+Deployer applikationen til Firebase Hosting. Jobbet kører kun ved push til `main` ikke ved pull requests. Det bruger to secrets der er gemt i GitHub repository settings:
 
 - `GITHUB_TOKEN` – automatisk tilgængeligt i GitHub Actions
-- `FIREBASE_SERVICE_ACCOUNT` – Firebase service account nøgle
+- `FIREBASE_SERVICE_ACCOUNT` - Firebase service account nøgle
 
 ```yaml
 deploy:
