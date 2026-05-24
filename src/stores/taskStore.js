@@ -3,11 +3,34 @@ import { ref, computed } from "vue";
 import { db } from "@/config/firebase";
 import { doc, getDocs, collection, setDoc, deleteDoc } from "firebase/firestore";
 
+/**
+ * Store til håndtering af opgaver (tasks) fra Firestore.
+ * Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.
+ */
 export const useTaskStore = defineStore("task", () => {
+	/** @type {import('vue').Ref<Array>} Tasks tilknyttet det aktuelt valgte projekt */
 	const tasks = ref([]);
+
+	/** @type {import('vue').Ref<boolean>} True mens data hentes fra Firestore */
 	const loading = ref(false);
+
+	/** @type {import('vue').Ref<Object.<string, Array>>} Tasks grupperet efter projekt-id */
 	const allProjectsTasks = ref({});
 
+	/**
+	 * Alle parent tasks (faser) på tværs af alle projekter.
+	 * @type {import('vue').ComputedRef<Array>}
+	 */
+	const allParentTasks = computed(() => {
+		return Object.values(allProjectsTasks.value)
+			.flat()
+			.filter((task) => task.isParent);
+	});
+
+	/**
+	 * Henter alle tasks for ét projekt fra Firestore.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 */
 	const fetchTasks = async (projectId) => {
 		loading.value = true;
 		try {
@@ -20,6 +43,10 @@ export const useTaskStore = defineStore("task", () => {
 		}
 	};
 
+	/**
+	 * Henter tasks for en liste af projekter og gemmer dem i {@link allProjectsTasks}.
+	 * @param {Array<{id: string}>} projects - Liste af projekter med id
+	 */
 	const fetchTasksForAllProjects = async (projects) => {
 		for (const project of projects) {
 			const snap = await getDocs(collection(db, "projects", project.id, "tasks"));
@@ -27,12 +54,11 @@ export const useTaskStore = defineStore("task", () => {
 		}
 	};
 
-	const allParentTasks = computed(() => {
-		return Object.values(allProjectsTasks.value)
-			.flat()
-			.filter((task) => task.isParent);
-	});
-
+	/**
+	 * Opretter en ny task i Firestore og tilføjer den til den lokale tasks-liste.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @param {Object} task - Task-objekt der skal oprettes
+	 */
 	const addTask = async (projectId, task) => {
 		try {
 			await setDoc(doc(collection(db, "projects", projectId, "tasks"), String(task.id)), task);
@@ -42,6 +68,11 @@ export const useTaskStore = defineStore("task", () => {
 		}
 	};
 
+	/**
+	 * Opdaterer en eksisterende task i Firestore og lokalt.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @param {Object} task - Task-objekt med opdaterede værdier
+	 */
 	const updateTask = async (projectId, task) => {
 		try {
 			await setDoc(doc(db, "projects", projectId, "tasks", String(task.id)), task);
@@ -52,6 +83,11 @@ export const useTaskStore = defineStore("task", () => {
 		}
 	};
 
+	/**
+	 * Sletter en task fra Firestore og fjerner den fra den lokale tasks-liste.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @param {string|number} taskId - Id på den task der skal slettes
+	 */
 	const deleteTask = async (projectId, taskId) => {
 		try {
 			await deleteDoc(doc(db, "projects", projectId, "tasks", String(taskId)));

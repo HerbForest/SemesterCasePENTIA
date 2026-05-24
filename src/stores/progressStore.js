@@ -4,9 +4,19 @@ import { db } from "@/config/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { useTaskStore } from "./taskStore";
 
+/**
+ * Store til beregning og synkronisering af fremgang på tasks og faser.
+ * Beregner fremgang baseret på datoer og children, og skriver opdateringer til Firestore.
+ */
 export const useProgressStore = defineStore("progress", () => {
 	const taskStore = useTaskStore();
 
+	/**
+	 * Beregner datodrevet fremgang for en enkelt task i procent.
+	 * Returnerer 0 hvis i dag er før startdato, 100 hvis efter slutdato.
+	 * @param {Object} task - Task med startDate og endDate som datostrenge
+	 * @returns {number} Fremgang fra 0–100
+	 */
 	const calcProgress = (task) => {
 		const today = new Date();
 		today.setHours(0, 0, 0, 0);
@@ -17,39 +27,12 @@ export const useProgressStore = defineStore("progress", () => {
 		return Math.round(((today - start) / (end - start)) * 100);
 	};
 
-	const tasksWithDateProgress = computed(() =>
-		taskStore.tasks.map((task) => ({
-			...task,
-			progress: task.isParent ? calcParentProgressFromChildren(task) : calcProgress(task),
-		})),
-	);
-
-	const tasksAsTree = computed(() => {
-		const withProgress = tasksWithDateProgress.value.map((task) => ({ ...task, children: [] }));
-
-		const taskMap = Object.fromEntries(withProgress.map((task) => [task.id, task]));
-		const rootTasks = [];
-		withProgress.forEach((task) => {
-			if (task.isParent) {
-				rootTasks.push(task);
-			} else if (taskMap[task.parentId]) {
-				taskMap[task.parentId].children.push(task);
-			}
-		});
-		return rootTasks;
-	});
-
-	const activeTasks = computed(() => {
-		const allTasks = Object.values(taskStore.allProjectsTasks).flat();
-		return allTasks.filter((task) => !task.isParent && task.progress < 100).length;
-	});
-
-	const calcCompletionPercentage = (taskWithProgress) => {
-		if (!taskWithProgress.length) return 0;
-		const completed = taskWithProgress.filter((task) => task.progress === 100).length;
-		return Math.round((completed / taskWithProgress.length) * 100);
-	};
-
+	/**
+	 * Beregner fremgang for en parent task som gennemsnit af dens children.
+	 * Falder tilbage på datodrevet beregning hvis der ingen children er.
+	 * @param {Object} parentTask - Parent task med id
+	 * @returns {number} Fremgang fra 0–100
+	 */
 	const calcParentProgressFromChildren = (parentTask) => {
 		const children = taskStore.tasks.filter((task) => task.parentId === parentTask.id);
 		if (!children.length) return calcProgress(parentTask);
@@ -57,13 +40,23 @@ export const useProgressStore = defineStore("progress", () => {
 		return Math.round(totalProgress / children.length);
 	};
 
-	const overallProgress = computed(() => {
-		const childTasks = tasksWithDateProgress.value.filter((task) => !task.isParent);
-		return calcCompletionPercentage(childTasks);
-	});
+	/**
+	 * Beregner færdiggørelsesprocent ud fra en liste af tasks med progress-felt.
+	 * @param {Array<{progress: number}>} taskWithProgress - Liste af tasks
+	 * @returns {number} Andel af tasks med progress === 100, i procent
+	 */
+	const calcCompletionPercentage = (taskWithProgress) => {
+		if (!taskWithProgress.length) return 0;
+		const completed = taskWithProgress.filter((task) => task.progress === 100).length;
+		return Math.round((completed / taskWithProgress.length) * 100);
+	};
 
-	const parentTasks = computed(() => tasksWithDateProgress.value.filter((task) => task.isParent));
-
+	/**
+	 * Finder den aktive fase i en liste af parent tasks.
+	 * Prioriterer: igangværende → ikke startet → seneste.
+	 * @param {Array} parentTaskArray - Liste af parent tasks med progress-felt
+	 * @returns {Object|undefined} Den aktive parent task
+	 */
 	const findActivePhase = (parentTaskArray) => {
 		return (
 			parentTaskArray.find((task) => task.progress > 0 && task.progress < 100) ??
@@ -72,17 +65,84 @@ export const useProgressStore = defineStore("progress", () => {
 		);
 	};
 
+	/**
+	 * Alle tasks beriget med beregnet fremgang.
+	 * Parent tasks bruger gennemsnit af children, øvrige bruger datodrevet beregning.
+	 * @type {import('vue').ComputedRef<Array>}
+	 */
+	const tasksWithDateProgress = computed(() =>
+		taskStore.tasks.map((task) => ({
+			...task,
+			progress: task.isParent ? calcParentProgressFromChildren(task) : calcProgress(task),
+		})),
+	);
+
+	/**
+	 * Tasks struktureret som et træ med children indlejret under deres parent.
+	 * Bruges af Gantt-diagrammet.
+	 * @type {import('vue').ComputedRef<Array>}
+	 */
+	const tasksAsTree = computed(() => {
+		const withProgress = tasksWithDateProgress.value.map((task) => ({ ...task, children: [] }));
+		const taskMap = Object.fromEntries(withProgress.map((task) => [task.id, task]));
+		const rootTasks = [];
+		withProgress.forEach((task) => {
+			if (task.isParent) rootTasks.push(task);
+			else if (taskMap[task.parentId]) taskMap[task.parentId].children.push(task);
+		});
+		return rootTasks;
+	});
+
+	/**
+	 * Antal aktive (ikke-fuldførte) child tasks på tværs af alle projekter.
+	 * @type {import('vue').ComputedRef<number>}
+	 */
+	const activeTasks = computed(() => {
+		const allTasks = Object.values(taskStore.allProjectsTasks).flat();
+		return allTasks.filter((task) => !task.isParent && task.progress < 100).length;
+	});
+
+	/**
+	 * Samlet fremgang for det aktuelle projekt baseret på alle child tasks.
+	 * @type {import('vue').ComputedRef<number>}
+	 */
+	const overallProgress = computed(() => {
+		const childTasks = tasksWithDateProgress.value.filter((task) => !task.isParent);
+		return calcCompletionPercentage(childTasks);
+	});
+
+	/**
+	 * Alle parent tasks (faser) for det aktuelle projekt med beregnet fremgang.
+	 * @type {import('vue').ComputedRef<Array>}
+	 */
+	const parentTasks = computed(() => tasksWithDateProgress.value.filter((task) => task.isParent));
+
+	/**
+	 * Den aktive fase for det aktuelle projekt.
+	 * @type {import('vue').ComputedRef<Object|undefined>}
+	 */
+	const currentPhaseProgress = computed(() => findActivePhase(parentTasks.value));
+
+	/**
+	 * Finder den aktive fase for et specifikt projekt baseret på gemte progress-værdier.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @returns {Object|undefined} Den aktive parent task for projektet
+	 */
 	const getActivePhaseForProject = (projectId) => {
 		const tasks = taskStore.allProjectsTasks[projectId] ?? [];
 		const parentTasksForProject = tasks.filter((task) => task.isParent);
 		return findActivePhase(parentTasksForProject);
 	};
+
+	/**
+	 * Samlet antal aktive child tasks i den aktive fase på tværs af alle projekter.
+	 * @type {import('vue').ComputedRef<number>}
+	 */
 	const activePhaseTasksCount = computed(() => {
 		return Object.entries(taskStore.allProjectsTasks).reduce((total, [projectId, tasks]) => {
 			const parentTasksForProject = tasks.filter((task) => task.isParent);
 			const activePhase = findActivePhase(parentTasksForProject);
 			if (!activePhase) return total;
-
 			const activePhaseChildTasks = tasks.filter(
 				(task) => task.parentId === activePhase.id && task.progress < 100,
 			);
@@ -90,8 +150,10 @@ export const useProgressStore = defineStore("progress", () => {
 		}, 0);
 	});
 
-	const currentPhaseProgress = computed(() => findActivePhase(parentTasks.value));
-
+	/**
+	 * Finder tasks hvis beregnede fremgang afviger fra den gemte fremgang i Firestore.
+	 * @returns {Array} Liste af tasks der skal opdateres
+	 */
 	const buildProgressUpdates = () => {
 		return tasksWithDateProgress.value.filter((updatedTask) => {
 			const originalTask = taskStore.tasks.find((original) => original.id === updatedTask.id);
@@ -99,26 +161,36 @@ export const useProgressStore = defineStore("progress", () => {
 		});
 	};
 
+	/**
+	 * Skriver en liste af opdaterede tasks til Firestore og opdaterer lokale stores.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @param {Array} updates - Liste af tasks med opdaterede værdier
+	 */
 	const persistTaskUpdates = async (projectId, updates) => {
 		const applyUpdates = (taskList) =>
 			taskList.map((task) => updates.find((updated) => updated.id === task.id) ?? task);
-
 		for (const task of updates) {
 			await setDoc(doc(db, "projects", projectId, "tasks", String(task.id)), task);
 		}
-
 		taskStore.tasks = applyUpdates(taskStore.tasks);
-
 		if (taskStore.allProjectsTasks[projectId]) {
 			taskStore.allProjectsTasks[projectId] = applyUpdates(taskStore.allProjectsTasks[projectId]);
 		}
 	};
 
+	/**
+	 * Synkroniserer datodrevet fremgang for child tasks til Firestore.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 */
 	const syncTaskProgress = async (projectId) => {
 		await persistTaskUpdates(projectId, buildProgressUpdates());
-		//?? betyder er ikke null eller undefined, så returneres det som det er
 	};
 
+	/**
+	 * Synkroniserer fremgang for parent tasks (faser) til Firestore
+	 * baseret på gennemsnittet af deres children.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 */
 	const syncParentProgress = async (projectId) => {
 		const updates = taskStore.tasks
 			.filter((task) => task.isParent)
