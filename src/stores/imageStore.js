@@ -21,7 +21,10 @@ export const useImageStore = defineStore('images', () => {
  */
 	const imagesByPhase = ref({}); 
 
-	/** @type {import('vue').Ref<boolean>} True mens billeder hentes fra Firestore */
+/**
+ * True mens billeder hentes fra Firestore
+ * @type {boolean}
+ */
 	const loading = ref(false);
 
 	/**
