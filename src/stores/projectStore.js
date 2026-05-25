@@ -1,3 +1,5 @@
+/** @module projectStore */
+
 ﻿import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
@@ -11,24 +13,28 @@ export const useProjectStore = defineStore('project', () => {
 	/**
 	 * Det aktuelt valgte projekt
 	 * @type {Object|null}
+	 * @memberof module:projectStore
 	 */
 	const project = ref(null);
 
 	/**
 	 * True mens data hentes fra Firestore
 	 * @type {boolean}
+	 * @memberof module:projectStore
 	 */
 	const loading = ref(false);
 
 	/**
 	 * Liste af projekter tilknyttet den indloggede byggeleder
 	 * @type {Array}
+	 * @memberof module:projectStore
 	 */
 	const builderProjects = ref([]);
 
 	/**
 	 * Henter ét projekt fra Firestore baseret på projekt-id.
 	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @memberof module:projectStore
 	 */
 	const fetchProject = async (projectId) => {
 		loading.value = true;
@@ -48,6 +54,7 @@ export const useProjectStore = defineStore('project', () => {
 	 * Henter alle projekter tilknyttet en bestemt byggeleder.
 	 * Resultatet gemmes i {@link builderProjects}.
 	 * @param {string} builderId - Firebase Auth UID for byggeleder
+	 * @memberof module:projectStore
 	 */
 	const fetchProjectsByBuilder = async (builderId) => {
 		loading.value = true;
