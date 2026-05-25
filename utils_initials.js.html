@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>stores/projectStore.js - Documentation</title>
+    <title>utils/initials.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,7 +35,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">stores/projectStore.js</h1>
+    <h1 class="page-title">utils/initials.js</h1>
     
 
     
@@ -45,73 +45,16 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>﻿import { defineStore } from 'pinia';
-import { ref } from 'vue';
-import { db } from '@/config/firebase';
-import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
-
-/**
- * Store til håndtering af projekter fra Firestore.
- * Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
+            <pre class="prettyprint source linenums"><code>/**
+ * Genererer initialer fra et for- og efternavn.
+ * @param {string} firstName - Fornavn
+ * @param {string} lastName - Efternavn
+ * @returns {string} To bogstavers initialer, eller tom streng hvis input mangler
  */
-export const useProjectStore = defineStore('project', () => {
-	/**
-	 * Det aktuelt valgte projekt
-	 * @type {Object|null}
-	 */
-	const project = ref(null);
-
-	/**
-	 * True mens data hentes fra Firestore
-	 * @type {boolean}
-	 */
-	const loading = ref(false);
-
-	/**
-	 * Liste af projekter tilknyttet den indloggede byggeleder
-	 * @type {Array}
-	 */
-	const builderProjects = ref([]);
-
-	/**
-	 * Henter ét projekt fra Firestore baseret på projekt-id.
-	 * @param {string} projectId - Firestore dokument-id for projektet
-	 */
-	const fetchProject = async (projectId) => {
-		loading.value = true;
-		try {
-			const snap = await getDoc(doc(db, 'projects', projectId));
-			if (snap.exists()) {
-				project.value = { id: snap.id, ...snap.data() };
-			}
-		} catch (error) {
-			console.error('Fejl ved hentning af projekt:', error);
-		} finally {
-			loading.value = false;
-		}
-	};
-
-	/**
-	 * Henter alle projekter tilknyttet en bestemt byggeleder.
-	 * Resultatet gemmes i {@link builderProjects}.
-	 * @param {string} builderId - Firebase Auth UID for byggeleder
-	 */
-	const fetchProjectsByBuilder = async (builderId) => {
-		loading.value = true;
-		try {
-			const q = query(collection(db, 'projects'), where('builderId', '==', builderId));
-			const snap = await getDocs(q);
-			builderProjects.value = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-		} catch (error) {
-			console.error('Fejl ved hentning af byggeleder projekter:', error);
-		} finally {
-			loading.value = false;
-		}
-	};
-
-	return { project, loading, fetchProject, builderProjects, fetchProjectsByBuilder };
-});
-</code></pre>
+export const getInitials = (firstName, lastName) => {
+	if (!firstName || !lastName) return '';
+	return `${firstName[0]}${lastName[0]}`;
+};</code></pre>
         </article>
     </section>
 
