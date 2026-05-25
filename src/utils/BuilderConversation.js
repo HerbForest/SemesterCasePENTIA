@@ -2,6 +2,7 @@ import { getInitials } from '@/utils/initials';
 
 /**
  * Bygger et samtale objekt til ConversationCard komponenten
+ * @function
  * @param {Object} buyer - Bygherre objekt med firstName, lastName
  * @param {Object} project - Projekt objekt med id, address
  * @returns {Object} Samtale objekt klar til ConversationCard
