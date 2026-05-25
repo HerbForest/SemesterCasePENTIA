@@ -25,5 +25,8 @@
   },
   "auth": {
     "title": "Auth"
+  },
+  "e2eTest": {
+    "title": "E2E Test"
   }
 }
