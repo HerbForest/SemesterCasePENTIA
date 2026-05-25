@@ -59,8 +59,12 @@ export const useAuthStore = defineStore('auth', () => {
      * @returns {function} Unsubscribe funktion der stopper lytteren
      */
 	const onAuthReady = (callback) => {
-		return onAuthStateChanged(auth, callback);
-	};
+    if (!loading.value) {
+        callback(user.value)
+        return () => {}
+    }
+    return onAuthStateChanged(auth, callback)
+}
 
 	const onAuthChange = (callback) => {
 		return onAuthStateChanged(auth, callback);
