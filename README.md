@@ -1,44 +1,48 @@
-# .
+# SemesterCasePENTIA
 
-This template should help get you started developing with Vue 3 in Vite.
+En Vue 3 + Firebase applikation til byggestyring med to portaler: en til byggeledere og en til boligkøbere.
 
-## Recommended IDE Setup
+## Dokumentation
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+API-dokumentationen er genereret med JSDoc og kan ses på GitHub Pages:
+[https://herbforest.github.io/SemesterCasePENTIA/](https://herbforest.github.io/SemesterCasePENTIA/)
 
-## Recommended Browser Setup
+### Hvorfor ser store-dokumentationen anderledes ud?
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+Projektets stores er skrevet med **Pinia setup stores** — en funktion der returnerer reactive state og actions via en callback:
 
-## Customize configuration
+```js
+export const useTaskStore = defineStore('task', () => {
+  const tasks = ref([]);
+  const fetchTasks = async (projectId) => { ... };
+  return { tasks, fetchTasks };
+});
+```
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+JSDoc er et statisk analyseværktøj — det kan kun se kode der er skrevet direkte på modul-niveau. Fordi `tasks`, `fetchTasks` og de andre members er defineret **inde i en callback-funktion**, kan JSDoc ikke finde eller dokumentere dem enkeltvist.
 
-## Project Setup
+Det betyder at JSDoc kun viser selve store-konstanten (`useTaskStore`), men ikke de individuelle refs og funktioner der returneres fra den.
+
+Utilities og andre funktioner der er skrevet direkte på modul-niveau dokumenteres korrekt med JSDoc.
+
+## Kom i gang
 
 ```sh
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+## Tilgængelige scripts
 
-```sh
-npm run build
-```
+| Script | Beskrivelse |
+|--------|-------------|
+| `npm run dev` | Start udviklingsserver |
+| `npm run build` | Byg til produktion |
+| `npm run lint` | Kør ESLint |
+| `npm run docs` | Generer JSDoc dokumentation |
+| `npm run test:unit` | Kør unit tests |
+| `npx cypress open` | Åbn Cypress E2E test UI |
 
-### Lint with [ESLint](https://eslint.org/)
+## E2E Tests
 
-```sh
-npm run lint
-```
+Se [tutorials/e2eTest.md](tutorials/e2eTest.md) for vejledning til at køre end-to-end tests.

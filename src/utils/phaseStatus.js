@@ -1,3 +1,8 @@
+/**
+ * Mapper en liste af tasks til fase-status objekter til brug i stepper-komponenten.
+ * @param {Array} tasks - Array af tasks fra Firestore med isParent og progress felter
+ * @returns {Array} Array af fase-status objekter med status: 'completed' | 'active' | 'upcoming'
+ */
 export const getPhaseStatus = (tasks) => {
 	if (!tasks?.length) return [];
 
