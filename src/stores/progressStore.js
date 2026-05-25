@@ -1,14 +1,14 @@
-import { defineStore } from "pinia";
-import { computed } from "vue";
-import { db } from "@/config/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { useTaskStore } from "./taskStore";
+import { defineStore } from 'pinia';
+import { computed } from 'vue';
+import { db } from '@/config/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { useTaskStore } from './taskStore';
 
 /**
  * Store til beregning og synkronisering af fremgang på tasks og faser.
  * Beregner fremgang baseret på datoer og children, og skriver opdateringer til Firestore.
  */
-export const useProgressStore = defineStore("progress", () => {
+export const useProgressStore = defineStore('progress', () => {
 	const taskStore = useTaskStore();
 
 	/**
@@ -139,7 +139,7 @@ export const useProgressStore = defineStore("progress", () => {
 	 * @type {import('vue').ComputedRef<number>}
 	 */
 	const activePhaseTasksCount = computed(() => {
-		return Object.entries(taskStore.allProjectsTasks).reduce((total, [projectId, tasks]) => {
+		return Object.entries(taskStore.allProjectsTasks).reduce((total, [, tasks]) => {
 			const parentTasksForProject = tasks.filter((task) => task.isParent);
 			const activePhase = findActivePhase(parentTasksForProject);
 			if (!activePhase) return total;
@@ -170,7 +170,7 @@ export const useProgressStore = defineStore("progress", () => {
 		const applyUpdates = (taskList) =>
 			taskList.map((task) => updates.find((updated) => updated.id === task.id) ?? task);
 		for (const task of updates) {
-			await setDoc(doc(db, "projects", projectId, "tasks", String(task.id)), task);
+			await setDoc(doc(db, 'projects', projectId, 'tasks', String(task.id)), task);
 		}
 		taskStore.tasks = applyUpdates(taskStore.tasks);
 		if (taskStore.allProjectsTasks[projectId]) {
