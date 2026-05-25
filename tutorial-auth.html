@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Tutorial: auth - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Tutorials</h3><ul><li><a href="tutorial-actions.html">Actions</a></li><li><a href="tutorial-architecture.html">Architecture</a></li><li><a href="tutorial-auth.html">auth</a></li><li><a href="tutorial-branching.html">Branching</a></li><li><a href="tutorial-database.html">Database</a></li><li><a href="tutorial-e2eTest.html">e2eTest</a></li><li><a href="tutorial-gitCommit.html">Git Commit</a></li><li><a href="tutorial-linting.html">Linting</a></li><li><a href="tutorial-refactoring.html">Refactoring</a></li><li><a href="tutorial-unitTest.html">Unit test</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildConversation">buildConversation</a></li><li><a href="global.html#getInitials">getInitials</a></li><li><a href="global.html#getPhaseStatus">getPhaseStatus</a></li><li><a href="global.html#getPhasesWithImages">getPhasesWithImages</a></li><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useBuyerStore">useBuyerStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li><li><a href="global.html#useProgressStore">useProgressStore</a></li><li><a href="global.html#useProjectStore">useProjectStore</a></li><li><a href="global.html#useTaskStore">useTaskStore</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Tutorial: auth</h1>
+    
+
+    <section>
+
+<header>
+    
+
+    <h2>auth</h2>
+</header>
+
+<article>
+    <h1>Authentication og adgangskontrol</h1>
+<p>Applikationen bruger Firebase Authentication til login og Firebase Firestore Security Rules til at styre hvad de to brugerroller må læse og skrive.</p>
+<h2>De to roller</h2>
+<table>
+<thead>
+<tr>
+<th>Rolle</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Byggeleder</strong></td>
+<td>Har et dokument i <code>/builders</code> collectionen. Kan uploade filer, oprette og redigere tasks</td>
+</tr>
+<tr>
+<td><strong>Køber</strong></td>
+<td>Har et dokument i <code>/users</code> collectionen med <code>role: 'buyer'</code>. Kan se data men ikke ændre det</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Login flow</h2>
+<p>Login sker i <code>LoginView.vue</code> via <code>authStore.login()</code>. Efter succesfuldt login slår applikationen op i <code>/users/{uid}</code> for at finde brugerens rolle og sender dem til den rigtige portal:</p>
+<pre class="prettyprint source lang-js"><code>// LoginView.vue
+await authStore.login(email.value, password.value)
+
+const uid = authStore.user.uid
+const snap = await getDoc(doc(db, 'users', uid))
+
+if (snap.exists() && snap.data().role === 'byggeleder') {
+    router.push('/builder/homepage')
+} else {
+    router.push('/buyer/home')
+}
+</code></pre>
+<p><code>authStore</code> bruger Firebase <code>onAuthStateChanged</code> til at holde <code>user</code> opdateret på tværs af hele applikationen — også ved genindlæsning af siden:</p>
+<pre class="prettyprint source lang-js"><code>// authStore.js
+onAuthStateChanged(auth, (firebaseUser) => {
+    user.value = firebaseUser
+    loading.value = false
+})
+</code></pre>
+<p><code>loading</code> er <code>true</code> indtil Firebase har bekræftet login-status. Det bruges i <code>App.vue</code> til at undgå at vise indhold før auth er klar.</p>
+<hr>
+<h2>Firestore Security Rules</h2>
+<p>Reglerne definerer hvad der må læses og skrives i databasen — uanset hvad klientkoden gør.</p>
+<pre class="prettyprint source lang-js"><code>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isUser(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isBuilder() {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/builders/$(request.auth.uid));
+    }
+
+    match /users/{userId} {
+      allow read: if isUser(userId) || isBuilder();
+      allow write: if isUser(userId);
+    }
+
+    match /builders/{builderId} {
+      allow read: if isSignedIn();
+      allow write: if isUser(builderId);
+    }
+
+    match /projects/{projectId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+
+      match /tasks/{taskId} {
+        allow read: if isSignedIn();
+        allow write: if isBuilder();
+      }
+    }
+
+    match /documents/{documentId} {
+      allow read: if isSignedIn();
+      allow write: if isBuilder();
+    }
+
+    match /images/{imageId} {
+      allow read: if isSignedIn();
+      allow write: if isBuilder();
+    }
+  }
+}
+</code></pre>
+<h3>Hjælpefunktioner</h3>
+<p><strong><code>isSignedIn()</code></strong> — tjekker at der er en aktiv Firebase session. Alle regler kræver minimum dette.</p>
+<p><strong><code>isUser(userId)</code></strong> — tjekker at den indloggede bruger er den samme som den der forsøger at læse/skrive. Bruges til at sikre at brugere kun kan redigere deres egne data.</p>
+<p><strong><code>isBuilder()</code></strong> — tjekker at der eksisterer et dokument i <code>/builders</code> collectionen med den indloggede brugers UID. Det er selve tilstedeværelsen af dokumentet der giver byggelederrettigheder — ikke et felt i dokumentet.</p>
+<hr>
+<h3>Rettigheder per collection</h3>
+<table>
+<thead>
+<tr>
+<th>Collection</th>
+<th>Læse</th>
+<th>Skrive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/users/{userId}</code></td>
+<td>Kun egen bruger, eller byggeleder</td>
+<td>Kun egen bruger</td>
+</tr>
+<tr>
+<td><code>/builders/{builderId}</code></td>
+<td>Alle indloggede</td>
+<td>Kun sig selv</td>
+</tr>
+<tr>
+<td><code>/projects/{projectId}</code></td>
+<td>Alle indloggede</td>
+<td>Ingen (kun via Admin SDK)</td>
+</tr>
+<tr>
+<td><code>/projects/{id}/tasks/{taskId}</code></td>
+<td>Alle indloggede</td>
+<td>Kun byggeledere</td>
+</tr>
+<tr>
+<td><code>/documents/{documentId}</code></td>
+<td>Alle indloggede</td>
+<td>Kun byggeledere</td>
+</tr>
+<tr>
+<td><code>/images/{imageId}</code></td>
+<td>Alle indloggede</td>
+<td>Kun byggeledere</td>
+</tr>
+</tbody>
+</table>
+<h3>Vigtige designbeslutninger</h3>
+<p><strong>Projekter kan ikke skrives fra klienten</strong> (<code>write: if false</code>) — projekter oprettes og administreres kun via Firebase Admin SDK eller Firestore-konsollen. Det forhindrer at nogen kan oprette, ændre eller slette projekter direkte fra appen.</p>
+<p><strong>Byggeleder-rollen styres af databasen, ikke klientkoden</strong> — <code>isBuilder()</code> tjekker om et dokument eksisterer i <code>/builders</code>. Det betyder at man ikke kan give sig selv byggelederrettigheder ved at manipulere klientkoden, da reglen kører på Firebases servere.</p>
+<p><strong>Køber kan se alt men ændre ingenting</strong> — en indlogget køber kan læse projekter, tasks, dokumenter og billeder, men har ikke skriveadgang til nogen af disse collections.</p>
+</article>
+
+</section>
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 11:31:54 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
