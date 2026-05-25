@@ -6,14 +6,17 @@ import { Calendar } from '@lucide/vue';
 import { onMounted } from 'vue';
 import { useProjectStore } from '@/stores/projectStore';
 import { useAuthStore } from '@/stores/authStore';
+import { useTaskStore } from '@/stores/taskStore';
+import { useProgressStore } from '@/stores/progressStore';
 
-// dynamisk side ændring til to card :to="{ name: 'BuildLeaderBuildPage', params: { id: build.id } }";
 const projectStore = useProjectStore();
 const authStore = useAuthStore();
+const taskStore = useTaskStore();
+const progressStore = useProgressStore();
 
 onMounted(async () => {
 	await projectStore.fetchProjectsByBuilder(authStore.user.uid);
-	console.log(projectStore.builderProjects);
+	await taskStore.fetchTasksForAllProjects(projectStore.builderProjects);
 });
 </script>
 <template>
@@ -29,7 +32,7 @@ onMounted(async () => {
 			:buttonText="project.name" :to="{ name: 'buildLeaderBuildPage', params: { id: project.id } }"
 			:buttonDate="project.expectedDelivery" :icon="Calendar">
 			<template #progress>
-				<ProgressCircle :value="project.progress" />
+				<ProgressCircle :value="progressStore.getOverallProgressForProject(project.id)" />
 			</template>
 		</ButtonCard>
 	</div>

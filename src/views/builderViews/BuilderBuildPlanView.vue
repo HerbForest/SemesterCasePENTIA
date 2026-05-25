@@ -91,7 +91,7 @@ const projectsByPhase = computed(() => {
         :icon="Calendar"
       >
         <template #progress>
-          <ProgressCircle :value="project.progress" />
+          <ProgressCircle :value="progressStore.getOverallProgressForProject(project.id)" />
         </template>
       </ButtonCard>
     </div>

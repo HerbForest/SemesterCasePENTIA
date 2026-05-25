@@ -135,6 +135,17 @@ export const useProgressStore = defineStore('progress', () => {
 	};
 
 	/**
+	 * Beregner samlet fremgang for et specifikt projekt baseret på allProjectsTasks.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @returns {number} Fremgang fra 0–100
+	 */
+	const getOverallProgressForProject = (projectId) => {
+		const tasks = taskStore.allProjectsTasks[projectId] ?? [];
+		const childTasks = tasks.filter((task) => !task.isParent);
+		return calcCompletionPercentage(childTasks.map((task) => ({ ...task, progress: calcProgress(task) })));
+	};
+
+	/**
 	 * Samlet antal aktive child tasks i den aktive fase på tværs af alle projekter.
 	 * @type {number}
 	 */
@@ -215,6 +226,7 @@ export const useProgressStore = defineStore('progress', () => {
 		parentTasks,
 		calcProgress,
 		getActivePhaseForProject,
+		getOverallProgressForProject,
 		calcParentProgressFromChildren,
 		syncParentProgress,
 		activePhaseTasksCount,
