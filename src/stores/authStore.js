@@ -22,12 +22,12 @@ export const useAuthStore = defineStore('auth', () => {
 	const loading = ref(true);
 
 	/**
-     * Logger en bruger ind med email og password.
-     * @param {string} email - Brugerens email adresse
-     * @param {string} password - Brugerens adgangskode
-     * @throws {Error} Kaster en fejl hvis login mislykkes
-     */
-		  const login = async (email, password) => {
+		 * Logger en bruger ind med email og password.
+		 * @param {string} email - Brugerens email adresse
+		 * @param {string} password - Brugerens adgangskode
+		 * @throws {Error} Kaster en fejl hvis login mislykkes
+		 */
+	const login = async (email, password) => {
 		try {
 			await signInWithEmailAndPassword(auth, email, password);
 		} catch (error) {
@@ -37,9 +37,9 @@ export const useAuthStore = defineStore('auth', () => {
 	};
 
 	/**
-    * Logger den aktuelle bruger ud.
-    */
-		  const logout = async () => {
+		* Logger den aktuelle bruger ud.
+		*/
+	const logout = async () => {
 		try {
 			await signOut(auth);
 		} catch (error) {
@@ -48,15 +48,15 @@ export const useAuthStore = defineStore('auth', () => {
 	};
 
 	const authReady = new Promise((resolve) => {
-    onAuthStateChanged(auth, (firebaseUser) => {
-        user.value = firebaseUser
-        loading.value = false
-        resolve(firebaseUser)
-    })
-})
+		onAuthStateChanged(auth, (firebaseUser) => {
+			user.value = firebaseUser
+			loading.value = false
+			resolve(firebaseUser)
+		})
+	})
 
-const onAuthChange = (callback) => {
-    return onAuthStateChanged(auth, callback)
-}
+	const onAuthChange = (callback) => {
+		return onAuthStateChanged(auth, callback)
+	}
 	return { user, loading, login, logout, authReady, onAuthChange };
 });
