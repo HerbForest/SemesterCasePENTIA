@@ -1,25 +1,11 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore';
 
 /**
- * @typedef {Object} TaskStore
- * @property {Array} tasks - Tasks tilknyttet det aktuelt valgte projekt
- * @property {boolean} loading - True mens data hentes fra Firestore
- * @property {Object} allProjectsTasks - Tasks grupperet efter projekt-id
- * @property {Array} allParentTasks - Alle parent tasks på tværs af projekter
- * @property {Function} fetchTasks - Henter tasks for ét projekt
- * @property {Function} fetchTasksForAllProjects - Henter tasks for en liste af projekter
- * @property {Function} addTask - Opretter en ny task i Firestore
- * @property {Function} updateTask - Opdaterer en eksisterende task
- * @property {Function} deleteTask - Sletter en task fra Firestore
- */
-
-/**
  * Store til håndtering af opgaver (tasks) fra Firestore.
  * Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.
- * @returns {TaskStore}
  */
 export const useTaskStore = defineStore('task', () => {
 	/**
