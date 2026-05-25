@@ -6,11 +6,14 @@ import { useImageStore } from '@/stores/imageStore';
 import { Calendar, FileText, MessageCircle, Phone } from '@lucide/vue';
 import ButtonCard from '@/components/cards/ButtonCard.vue';
 import BuyerHeroCard from '@/components/BuyerHeroCard.vue';
+import { useProgressStore } from '@/stores/progressStore';
 
 
 const buyerStore = useBuyerStore();
 const projectStore = useProjectStore();
 const imageStore = useImageStore();
+const progressStore = useProgressStore();
+
 
 const projectImages = computed(() =>
 	Object.values(imageStore.imagesByPhase)
@@ -26,11 +29,8 @@ const projectImages = computed(() =>
 			<h2 class="buyer-hero__welcome">Velkommen, {{ buyerStore.buyer?.firstName }}!</h2>
 		</div>
 
-		<BuyerHeroCard
-    :images="projectImages"
-    :address="projectStore.project?.address"
-    :progress="projectStore.project?.progress"
-/>
+		<BuyerHeroCard :images="projectImages" :address="projectStore.project?.address"
+			:progress="progressStore.overallProgress" />
 
 		<ButtonCard buttonTitle="Byggeplan" :arrow="true" :icon="Calendar" to="/buyer/byggeplan">
 		</ButtonCard>

@@ -32,7 +32,6 @@ onMounted(async () => {
 	}
 	await taskStore.fetchTasks(projectStore.project.id);
 	await imageStore.fetchImagesByProject(projectStore.project.id);
-	console.log('tasks:', taskStore.tasks);
 });
 
 const phases = computed(() => getPhaseStatus(taskStore.tasks));
