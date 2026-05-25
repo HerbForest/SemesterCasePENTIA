@@ -10,7 +10,8 @@ export default defineConfig([
 		'dist-ssr/**',
 		'coverage/**',
 		'themes/**',
-		 'vite.config.js',
+		'vite.config.js',
+		'cypress/**',
 	]),
 
 	{
