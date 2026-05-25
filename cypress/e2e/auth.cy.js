@@ -15,9 +15,5 @@ describe('Login flow', () => {
 		cy.get('input[type="password"]').type(Cypress.env('BUYER_PASSWORD'))
 		cy.get('button.login__btn').click()
 		cy.url().should('include', '/buyer/home')
-	});
-});
-
-it('login', function () { });
-
-it('login builder', function () { });
+	})
+})
