@@ -1,13 +1,11 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
-import { RouterView } from 'vue-router';
-//import SeederButton from '@/components/buttons/SeederButton.vue';
-import { useRouter } from 'vue-router';
+import { RouterView, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 import { useBuyerStore } from '@/stores/buyerStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuilderStore } from '@/stores/builderStore';
-import { useImageStore } from './stores/imageStore';
+import { useImageStore } from '@/stores/imageStore';
 
 import { db } from '@/config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
@@ -23,8 +21,8 @@ let unsubscribeAuth = null;
 const dataReady = ref(false);
 
 onMounted(async () => {
-	await new Promise((resolve) => {
-		const unsubscribe = authStore.onAuthReady(async (user) => {
+	const user = await authStore.authReady
+
 			if (user) {
 				const snap = await getDoc(doc(db, 'users', user.uid));
 				const role = snap.data()?.role;
@@ -38,17 +36,14 @@ onMounted(async () => {
 			} else {
 				router.push('/login');
 			}
-		   unsubscribe();
-			resolve();
-		});
-	});
-	dataReady.value = true;
-	unsubscribeAuth = authStore.onAuthChange((user) => {
-		if (!user && router.currentRoute.value.path !== '/login') {
-			router.push('/login');
-		}
-	});
-});
+		   dataReady.value = true
+
+    unsubscribeAuth = authStore.onAuthChange((user) => {
+        if (!user && router.currentRoute.value.path !== '/login') {
+            router.push('/login')
+        }
+    })
+})
 
 onUnmounted(() => {
 	if (unsubscribeAuth) unsubscribeAuth();

@@ -21,11 +21,6 @@ export const useAuthStore = defineStore('auth', () => {
 	 */
 	const loading = ref(true);
 
-	onAuthStateChanged(auth, (firebaseUser) => {
-		user.value = firebaseUser;
-		loading.value = false;
-	});
-
 	/**
      * Logger en bruger ind med email og password.
      * @param {string} email - Brugerens email adresse
@@ -52,23 +47,16 @@ export const useAuthStore = defineStore('auth', () => {
 		}
 	};
 
-	/**
-     * Registrerer en callback der kaldes når Firebase Auth er klar.
-     * Bruges til at vente på at Firebase har bekræftet login status ved app start.
-     * @param {function} callback - Funktion der kaldes med den aktuelle bruger som argument
-     * @returns {function} Unsubscribe funktion der stopper lytteren
-     */
-	const onAuthReady = (callback) => {
-		if (!loading.value) {
-			Promise.resolve(callback(user.value))
-			return () => {};
-		}
-		return onAuthStateChanged(auth, callback);
-	};
+	const authReady = new Promise((resolve) => {
+    onAuthStateChanged(auth, (firebaseUser) => {
+        user.value = firebaseUser
+        loading.value = false
+        resolve(firebaseUser)
+    })
+})
 
-	const onAuthChange = (callback) => {
-		return onAuthStateChanged(auth, callback);
-	};
-
-	return { user, loading, login, logout, onAuthReady, onAuthChange };
+const onAuthChange = (callback) => {
+    return onAuthStateChanged(auth, callback)
+}
+	return { user, loading, login, logout, authReady, onAuthChange };
 });
