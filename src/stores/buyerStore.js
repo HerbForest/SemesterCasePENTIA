@@ -60,6 +60,7 @@ export const useBuyerStore = defineStore('buyer', () => {
 	/**
      * Henter en bygherre fra Firestore baseret på et projekt ID.
      * Bruges af byggeleder flowet til at finde bygherren tilknyttet et specifikt projekt.
+		 * @function fetchBuyerByProjectId
      * @param {string} projectId - Projektets dokument ID i Firestore projects collection
      * @returns {Promise<Object|undefined>} Bygherrens data eller undefined hvis ikke fundet
      */
