@@ -25,6 +25,7 @@ export const useBuyerStore = defineStore('buyer', () => {
 	/**
      * Henter en bygherre fra Firestore baseret på brugerens ID.
      * @memberof useBuyerStore
+		 * @function fetchBuyer
      * @param {string} buyerId - Bygherrens dokument ID i Firestore users collection
      * @returns {Promise<void>}
      */
