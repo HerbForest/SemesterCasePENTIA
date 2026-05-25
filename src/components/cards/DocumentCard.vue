@@ -71,6 +71,9 @@ const downloadDocument = (url, name) => {
     padding: 14px 16px;
     margin-bottom: 8px;
     cursor: pointer;
+    width: 100%;       
+    overflow: hidden;   
+    box-sizing: border-box;
 
     &__icon {
         display: flex;
@@ -89,6 +92,7 @@ const downloadDocument = (url, name) => {
         display: flex;
         flex-direction: column;
         gap: 2px;
+        min-width: 0;
     }
 
     &__name {
@@ -96,6 +100,8 @@ const downloadDocument = (url, name) => {
         font-size: $font-size-sm;
         font-weight: $font-weight-semibold;
         margin: 0;
+        word-break: break-word;
+        overflow-wrap: break-word;
     }
 
     &__meta {
