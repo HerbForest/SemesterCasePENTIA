@@ -4,7 +4,7 @@ import { useAuthStore } from '@/stores/authStore';
 import { useProjectStore } from '@/stores/projectStore';
 import { useBuyerStore } from '@/stores/buyerStore';
 import ConversationCard from '@/components/cards/ConversationCard.vue';
-import { buildConversation } from '@/utils/builderConversation';
+import { buildConversation } from '@/utils/BuilderConversation';
 
 const authStore = useAuthStore();
 const projectStore = useProjectStore();
