@@ -5,22 +5,25 @@
   "database": {
     "title": "Database"
   },
-   "linting": {
+  "linting": {
     "title": "Linting"
   },
-   "refactoring": {
+  "refactoring": {
     "title": "Refactoring"
   },
-   "branching": {
+  "branching": {
     "title": "Branching"
   },
-   "gitCommit": {
+  "gitCommit": {
     "title": "Git Commit"
   },
-   "unitTest": {
+  "unitTest": {
     "title": "Unit test"
   },
-   "actions": {
+  "actions": {
     "title": "Actions"
+  },
+  "auth": {
+    "title": "Auth"
   }
 }
