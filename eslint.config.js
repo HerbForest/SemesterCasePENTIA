@@ -13,6 +13,7 @@ export default defineConfig([
 		'vite.config.js',
 		'cypress/**',
 		'cypress.config.js',
+		'docs/**',
 	]),
 
 	{

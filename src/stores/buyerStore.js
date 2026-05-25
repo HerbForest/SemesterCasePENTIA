@@ -9,7 +9,7 @@ import { doc, getDoc, updateDoc, collection, query, where, getDocs } from 'fireb
  */
 export const useBuyerStore = defineStore('buyer', () => {
 
-/**
+	/**
  * Den aktuelle bygherre med alle felter fra Firestore (Vue Ref indeholdende Object eller null)
  * @type {Object}
  */

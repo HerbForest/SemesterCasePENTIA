@@ -21,7 +21,7 @@ export const useImageStore = defineStore('images', () => {
  */
 	const imagesByPhase = ref({}); 
 
-/**
+	/**
  * True mens billeder hentes fra Firestore
  * @type {boolean}
  */
