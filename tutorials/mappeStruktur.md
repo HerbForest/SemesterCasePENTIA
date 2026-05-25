@@ -1,3 +1,7 @@
+
+## Mappestruktur
+
+```
 src/
 ├── App.vue                          # Rod komponent – håndterer auth og data hentning
 ├── main.js                          # Applikationens entry point
@@ -6,7 +10,8 @@ src/
 │   ├── scss/
 │   │   ├── _variables.scss          # Globale SCSS variabler
 │   │   └── main.scss                # Global styling
-│   └── *.jpg                        # Statiske billeder
+│   ├── hero-construction.jpg
+│   └── profile-picture.jpg
 │
 ├── components/
 │   ├── BuyerHeroCard.vue            # Hero slideshow komponent til bygherre forsiden
@@ -15,6 +20,7 @@ src/
 │   │   ├── LogoutButton.vue         # Log ud knap med variant prop (outline/filled)
 │   │   ├── ReturnButton.vue         # Tilbage knap
 │   │   ├── RoundButtons.vue
+│   │   ├── SeederButton.vue
 │   │   ├── SlideButtons.vue
 │   │   └── SqaureButtons.vue
 │   ├── cards/
@@ -50,7 +56,9 @@ src/
 │
 ├── services/
 │   ├── firestore.js                 # Firestore hjælpefunktioner
-│   └── seed*.js                     # Seed scripts til testdata
+│   ├── seedData.js                  # Seed script til testdata
+│   ├── seedTask.js                  # Seed script til tasks
+│   └── seedUsers.js                 # Seed script til brugere
 │
 ├── stores/
 │   ├── authStore.js                 # Firebase Auth – login, logout, auth state
@@ -92,3 +100,7 @@ src/
         ├── BuyerMorePageView.vue         # Mere side
         ├── BuyerProfileView.vue          # Profil side
         └── BuyerSettingsView.vue         # Indstillinger
+```
+```
+
+😊
