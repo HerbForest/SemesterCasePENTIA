@@ -1,5 +1,6 @@
 /**
  * Genererer initialer fra et for- og efternavn.
+ * @function
  * @param {string} firstName - Fornavn
  * @param {string} lastName - Efternavn
  * @returns {string} To bogstavers initialer, eller tom streng hvis input mangler
