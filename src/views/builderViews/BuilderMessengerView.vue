@@ -11,19 +11,19 @@ const projectStore = useProjectStore();
 const buyerStore = useBuyerStore();
 
 const conversations = ref([]);
-const loading = ref(true)
+const loading = ref(true);
 
 onMounted(async () => {
 	await projectStore.fetchProjectsByBuilder(authStore.user.uid);
 
 	const results = await Promise.all(
-        projectStore.builderProjects.map(project =>
-            buyerStore.fetchBuyerByProjectId(project.id)
-                .then(buyer => buyer ? buildConversation(buyer, project) : null)
-        )
-    )
-  conversations.value = results.filter(Boolean)
-  loading.value = false
+		projectStore.builderProjects.map(project =>
+			buyerStore.fetchBuyerByProjectId(project.id)
+				.then(buyer => buyer ? buildConversation(buyer, project) : null)
+		)
+	);
+	conversations.value = results.filter(Boolean);
+	loading.value = false;
 });	
 </script>
 <template>
