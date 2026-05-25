@@ -11,7 +11,7 @@ const initials = computed(() =>
 </script>
 
 <template>
-    <header class="buyer-header">
+    <header class="buyer-header layout-bb">
         <div class="buyer-header__logo">
             <span class="buyer-header__logo-title">MILTON</span>
             <span class="buyer-header__logo-sub">HUSE</span>

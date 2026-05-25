@@ -11,7 +11,7 @@ const navItems = [
 </script>
 
 <template>
-    <footer class="buyer-footer">
+    <footer class="buyer-footer layout-bb">
         <RouterLink
             v-for="item in navItems"
             :key="item.label"
