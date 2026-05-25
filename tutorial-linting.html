@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>Tutorial: Linting - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,34 +35,53 @@
 
 <div id="main">
     
-
+    <h1 class="page-title">Tutorial: Linting</h1>
     
 
+    <section>
 
-
+<header>
     
 
+    <h2>Linting</h2>
+</header>
 
-    <section class="package">
-        <h3> </h3>		
-    </section>
+<article>
+    <h2>Linting</h2>
+<p>Linting er en statisk kodeanalyse der automatisk gennemgår koden og markerer fejl, uhensigtsmæssige mønstre og stilmæssige afvigelser uden at koden behøver at blive kørt. Det sikrer en ensartet kodekvalitet på tværs af projektet og hjælper med at opdage fejl tidligt i udviklingsprocessen.</p>
+<p>I dette projekt anvendes ESLint som linting værktøj, konfigureret til at analysere JavaScript og Vue filer i <code>src</code> mappen. ESLint er integreret direkte i editoren, hvilket betyder at fejl og advarsler vises løbende mens der kodes. Som en del af den personlige arbejdsgang køres linting manuelt efter færdiggjorte komponenter eller views.</p>
+<h3>Konfigurerede regler</h3>
+<table>
+<thead>
+<tr>
+<th>Regel</th>
+<th>Beskrivelse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>vue/no-unused-vars</code></td>
+<td>Markerer en fejl hvis variabler er defineret men ikke anvendt i Vue komponenter</td>
+</tr>
+<tr>
+<td><code>quotes</code></td>
+<td>Kræver at der anvendes enkelt anførselstegn konsekvent i hele kodebasen</td>
+</tr>
+<tr>
+<td><code>indent</code></td>
+<td>Advarer hvis der ikke er anvendt tab-indrykning</td>
+</tr>
+<tr>
+<td><code>semi</code></td>
+<td>Kræver at alle sætninger afsluttes med semikolon</td>
+</tr>
+</tbody>
+</table>
+<h3>CI/CD integration</h3>
+<p>Udover den manuelle linting er ESLint integreret i projektets CI/CD pipeline. Ved et deployment til Firebase Hosting køres linting automatisk, og hvis koden indeholder fejl der bryder de definerede regler, blokeres deploymentet. Dette sikrer at kode der ikke overholder projektets standarder aldrig når produktionsmiljøet.</p>
+</article>
 
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
+</section>
 
     
     

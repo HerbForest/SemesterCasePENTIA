@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>utils/phasesWithImages.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,31 +35,29 @@
 
 <div id="main">
     
+    <h1 class="page-title">utils/phasesWithImages.js</h1>
+    
 
     
 
 
 
     
-
-
-    <section class="package">
-        <h3> </h3>		
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Filtrerer faser der har billeder tilknyttet og sorterer dem efter ID
+ * @param {Array} tasks - Array af tasks fra Firestore
+ * @param {Object} imagesByPhase - Billeder grupperet efter fase ID
+ * @returns {Array} Sorteret array af faser der har billeder
+ */
+export const getPhasesWithImages = (tasks, imagesByPhase) => {
+	return tasks
+		.filter(task => task.isParent &amp;&amp; imagesByPhase[task.id]?.length > 0)
+		.sort((taskA, taskB) => taskA.id - taskB.id);
+};</code></pre>
+        </article>
     </section>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
 
 
 

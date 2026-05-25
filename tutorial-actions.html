@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Tutorial: Actions - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Tutorials</h3><ul><li><a href="tutorial-actions.html">Actions</a></li><li><a href="tutorial-architecture.html">Architecture</a></li><li><a href="tutorial-branching.html">Branching</a></li><li><a href="tutorial-database.html">Database</a></li><li><a href="tutorial-gitCommit.html">Git Commit</a></li><li><a href="tutorial-linting.html">Linting</a></li><li><a href="tutorial-refactoring.html">Refactoring</a></li><li><a href="tutorial-unitTest.html">Unit test</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildConversation">buildConversation</a></li><li><a href="global.html#getPhasesWithImages">getPhasesWithImages</a></li><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useBuyerStore">useBuyerStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li><li><a href="global.html#useProgressStore">useProgressStore</a></li><li><a href="global.html#useProjectStore">useProjectStore</a></li><li><a href="global.html#useTaskStore">useTaskStore</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Tutorial: Actions</h1>
+    
+
+    <section>
+
+<header>
+    
+
+    <h2>Actions</h2>
+</header>
+
+<article>
+    <h1>CI/CD Pipeline</h1>
+<p>CI/CD står for Continuous Integration og Continuous Deployment. Det er en automatiseret proces der sikrer at kode der pushes til GitHub automatisk gennemgår en række tjek og til sidst deployes til produktion.</p>
+<p>I projektet er pipelinen sat op med GitHub Actions og konfigureret i <code>.github/workflows/ci.yml</code>.</p>
+<hr>
+<h2>Hvornår kører pipelinen?</h2>
+<p>Pipelinen trigges automatisk ved:</p>
+<ul>
+<li><code>push</code> til <code>main</code> branchen</li>
+<li><code>pull_request</code> mod <code>main</code> branchen</li>
+</ul>
+<pre class="prettyprint source lang-yaml"><code>on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+</code></pre>
+<hr>
+<h2>Pipeline flow</h2>
+<svg width="100%" viewBox="0 0 680 280" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>CI/CD pipeline flow</title>
+  <desc>Flowchart der viser lint, test, build, e2e og deploy jobs i rækkefølge</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </marker>
+  </defs>
+  <!-- Push / PR -->
+  <rect x="20" y="100" width="90" height="56" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
+  <text x="65" y="122" text-anchor="middle" font-size="14" font-weight="500" fill="#2C2C2A">Push / PR</text>
+  <text x="65" y="140" text-anchor="middle" font-size="12" fill="#5F5E5A">main branch</text>
+  <!-- Arrow -->
+  <line x1="110" y1="128" x2="128" y2="128" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Lint -->
+  <rect x="130" y="100" width="90" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="175" y="122" text-anchor="middle" font-size="14" font-weight="500" fill="#085041">Lint</text>
+  <text x="175" y="140" text-anchor="middle" font-size="12" fill="#0F6E56">ESLint check</text>
+  <!-- Arrow -->
+  <line x1="220" y1="128" x2="238" y2="128" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Test -->
+  <rect x="240" y="100" width="90" height="56" rx="8" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.5"/>
+  <text x="285" y="122" text-anchor="middle" font-size="14" font-weight="500" fill="#085041">Test</text>
+  <text x="285" y="140" text-anchor="middle" font-size="12" fill="#0F6E56">Vitest units</text>
+  <!-- Arrow -->
+  <line x1="330" y1="128" x2="348" y2="128" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Build -->
+  <rect x="350" y="100" width="90" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="395" y="122" text-anchor="middle" font-size="14" font-weight="500" fill="#26215C">Build</text>
+  <text x="395" y="140" text-anchor="middle" font-size="12" fill="#534AB7">Vite produktion</text>
+  <!-- Arrow -->
+  <line x1="440" y1="128" x2="458" y2="128" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- E2E -->
+  <rect x="460" y="100" width="90" height="56" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="505" y="122" text-anchor="middle" font-size="14" font-weight="500" fill="#26215C">E2E</text>
+  <text x="505" y="140" text-anchor="middle" font-size="12" fill="#534AB7">Cypress tests</text>
+  <!-- Arrow -->
+  <line x1="550" y1="128" x2="568" y2="128" stroke="#888780" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <!-- Deploy -->
+  <rect x="570" y="100" width="90" height="56" rx="8" fill="#FAECE7" stroke="#993C1D" stroke-width="0.5"/>
+  <text x="615" y="122" text-anchor="middle" font-size="14" font-weight="500" fill="#4A1B0C">Deploy</text>
+  <text x="615" y="140" text-anchor="middle" font-size="12" fill="#993C1D">Firebase Hosting</text>
+  <!-- Kun main label -->
+<p><text x="615" y="85" text-anchor="middle" font-size="12" fill="#993C1D">kun main</text>
+<line x1="615" y1="90" x2="615" y2="100" stroke="#993C1D" stroke-width="0.5" stroke-dasharray="3 2"/></p>
+  <!-- Kræver lint + test label -->
+<p><text x="395" y="175" text-anchor="middle" font-size="12" fill="#534AB7">kræver lint + test</text>
+</svg></p>
+<p>Hvert job er afhængigt af det forrige – hvis et job fejler, stoppes resten af pipelinen. Deploy køres kun ved push til <code>main</code>, ikke ved pull requests.</p>
+<hr>
+<h2>Jobs</h2>
+<h3>1. Lint</h3>
+<p>Kører ESLint på alle JavaScript og Vue filer i <code>src</code> mappen. Hvis koden indeholder fejl der bryder de definerede regler, stoppes pipelinen her og der deployes ikke.</p>
+<pre class="prettyprint source lang-yaml"><code>lint:
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: &quot;npm&quot;
+    - run: npm ci
+    - run: npm run lint
+</code></pre>
+<h3>2. Test</h3>
+<p>Kører unit tests med Vitest. Jobbet venter på at <code>lint</code> er gennemført. Hvis en test fejler stoppes pipelinen.</p>
+<pre class="prettyprint source lang-yaml"><code>test:
+  needs: lint
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: &quot;npm&quot;
+    - run: npm ci
+    - run: npm run test
+</code></pre>
+<h3>3. Build</h3>
+<p>Bygger applikationen med Vite til produktion. Jobbet venter på at både <code>lint</code> og <code>test</code> er gennemført. Den færdige <code>dist</code> mappe uploades som et artifact så efterfølgende jobs kan bruge den.</p>
+<pre class="prettyprint source lang-yaml"><code>build:
+  needs: [lint, test]
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: &quot;npm&quot;
+    - run: npm ci
+    - run: npm run build
+    - uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist
+</code></pre>
+<h3>4. E2E</h3>
+<p>Kører end-to-end tests med Cypress mod den byggede applikation. Jobbet downloader <code>dist</code> artifactet og starter en preview server.</p>
+<pre class="prettyprint source lang-yaml"><code>e2e:
+  needs: build
+  runs-on: ubuntu-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist
+    - uses: cypress-io/github-action@v6
+      with:
+        start: npm run preview
+        wait-on: &quot;http://localhost:4173&quot;
+</code></pre>
+<h3>5. Deploy</h3>
+<p>Deployer applikationen til Firebase Hosting. Jobbet kører kun ved push til <code>main</code> ikke ved pull requests. Det bruger to secrets der er gemt i GitHub repository settings:</p>
+<ul>
+<li><code>GITHUB_TOKEN</code> – automatisk tilgængeligt i GitHub Actions</li>
+<li><code>FIREBASE_SERVICE_ACCOUNT</code> - Firebase service account nøgle</li>
+</ul>
+<pre class="prettyprint source lang-yaml"><code>deploy:
+  needs: e2e
+  runs-on: ubuntu-latest
+  if: github.ref == 'refs/heads/main'
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist
+    - uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: ${{ secrets.GITHUB_TOKEN }}
+        firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        channelId: live
+        projectId: pentiacase-9d786
+</code></pre>
+<hr>
+<h2>Afhængigheder mellem jobs</h2>
+<table>
+<thead>
+<tr>
+<th>Job</th>
+<th>Venter på</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lint</code></td>
+<td>–</td>
+</tr>
+<tr>
+<td><code>test</code></td>
+<td><code>lint</code></td>
+</tr>
+<tr>
+<td><code>build</code></td>
+<td><code>lint</code> + <code>test</code></td>
+</tr>
+<tr>
+<td><code>e2e</code></td>
+<td><code>build</code></td>
+</tr>
+<tr>
+<td><code>deploy</code></td>
+<td><code>e2e</code> (kun main)</td>
+</tr>
+</tbody>
+</table>
+</article>
+
+</section>
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 06:48:09 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

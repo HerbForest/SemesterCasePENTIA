@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>Tutorial: Database - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,34 +35,65 @@
 
 <div id="main">
     
-
+    <h1 class="page-title">Tutorial: Database</h1>
     
 
+    <section>
 
-
+<header>
     
 
+    <h2>Database</h2>
+</header>
 
-    <section class="package">
-        <h3> </h3>		
-    </section>
+<article>
+    <h1>Database</h1>
+<p>Projektet bruger <strong>Firebase Firestore</strong> som database — en NoSQL dokument-database organiseret i collections og documents.</p>
+<h2>Struktur</h2>
+<pre class="prettyprint source"><code>projects/
+  {projectId}/
+    address          string   — projektadresse
+    name             string   — projektnavn / kundenavn
+    builderId        string   — ref til users/{userId}
+    expectedDelivery string   — forventet afleveringsdato
+    progress         number   — samlet fremgang i procent
 
+    tasks/
+      {taskId}/
+        id           number   — unikt task ID
+        name         string   — task navn
+        startDate    string   — startdato (YYYY-MM-DD)
+        endDate      string   — slutdato (YYYY-MM-DD)
+        progress     number   — fremgang i procent (0-100)
+        isParent     boolean  — true hvis task er en fase
+        parentId     number   — ID på parent task (kun child tasks)
+        predecessor  number[] — array af task IDs der skal være færdige først
+        collapsed    boolean  — om fasen er foldet sammen i Gantt diagrammet
 
+users/
+  {userId}/
+    role             string   — &quot;buyer&quot; eller &quot;builder&quot;
+    firstName        string
+    lastName         string
+</code></pre>
+<h2>Relationer</h2>
+<ul>
+<li><strong>Tasks er en subcollection</strong> under projects — de har ikke et <code>projectId</code> felt, men tilgås via stien <code>projects/{projectId}/tasks</code></li>
+<li><strong><code>builderId</code></strong> på et project dokument peger på et dokument i <code>users</code> collections</li>
+<li><strong><code>isParent: true</code></strong> markerer en fase (overordnet task) — child tasks har <code>parentId</code> der peger på deres fase</li>
+</ul>
+<h2>Task-træ struktur</h2>
+<p>Tasks gemmes fladt i Firestore med <code>parentId</code> til at definere hierarkiet. I applikationen bygges de om til et træ med <code>children</code> arrays til brug i Gantt diagrammet:</p>
+<pre class="prettyprint source"><code>Fase 1 (isParent: true)
+├── Task A (parentId: 1)
+└── Task B (parentId: 1, predecessor: [TaskA.id])
 
+Fase 2 (isParent: true, predecessor: [1])
+└── Task C (parentId: 2)
+</code></pre>
+</article>
 
-
-
-
-
-
-    
-
-
-
-
-
-
-
+</section>
 
     
     

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Tutorial: Unit test - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Tutorials</h3><ul><li><a href="tutorial-actions.html">Actions</a></li><li><a href="tutorial-architecture.html">Architecture</a></li><li><a href="tutorial-branching.html">Branching</a></li><li><a href="tutorial-database.html">Database</a></li><li><a href="tutorial-gitCommit.html">Git Commit</a></li><li><a href="tutorial-linting.html">Linting</a></li><li><a href="tutorial-refactoring.html">Refactoring</a></li><li><a href="tutorial-unitTest.html">Unit test</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildConversation">buildConversation</a></li><li><a href="global.html#getPhasesWithImages">getPhasesWithImages</a></li><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useBuyerStore">useBuyerStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li><li><a href="global.html#useProgressStore">useProgressStore</a></li><li><a href="global.html#useProjectStore">useProjectStore</a></li><li><a href="global.html#useTaskStore">useTaskStore</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Tutorial: Unit test</h1>
+    
+
+    <section>
+
+<header>
+    
+
+    <h2>Unit test</h2>
+</header>
+
+<article>
+    <h1>Unit Tests</h1>
+<h2>Hvad er unit tests?</h2>
+<p>Unit tests er automatiserede tests der tester en enkelt, isoleret funktion eller et stykke logik. Formålet er at sikre at funktionen opfører sig korrekt under forskellige betingelser både de forventede og de uventede. En god unit test er hurtig at køre, nem at forstå og uafhængig af eksterne systemer som databaser eller netværk.</p>
+<h2>Overvejelser</h2>
+<p>I dette projekt er unit tests skrevet til rene JavaScript funktioner der er udtrukket fra Vue komponenter og stores til en dedikeret <code>utils</code> mappe. Disse funktioner er valgt fordi de:</p>
+<ul>
+<li>Er uafhængige af Firebase og Vue</li>
+<li>Tager et input og returnerer et output</li>
+<li>Indeholder logik der er værd at isolere og teste</li>
+</ul>
+<h2>Testværktøj</h2>
+<p>Projektet anvender <strong>Vitest</strong> som testframework, konfigureret med <code>jsdom</code> environment så tests kan køres i et browserlignende miljø. Tests køres med følgende kommando:</p>
+<pre class="prettyprint source lang-bash"><code>npm run test
+</code></pre>
+<h2>Eksempel: <code>getInitials</code></h2>
+<h3>Funktion</h3>
+<p><code>getInitials</code> beregner initialer fra et for- og efternavn. Funktionen bruges flere steder i applikationen bl.a. i <code>BuyerHeader.vue</code>, <code>BuilderSettingsView.vue</code> og <code>BuilderChatView.vue</code>. Da den samme logik var gentaget i fem filer, blev den udtrukket til <code>src/utils/initials.js</code> i overensstemmelse med DRY princippet.</p>
+<pre class="prettyprint source lang-js"><code>export const getInitials = (firstName, lastName) => {
+    if (!firstName || !lastName) return ''
+    return `${firstName[0]}${lastName[0]}`
+}
+</code></pre>
+<h3>Overvejelser bag tests</h3>
+<p>Der er skrevet fem tests der dækker:</p>
+<ul>
+<li><strong>Happy path</strong> – at funktionen returnerer korrekte initialer når begge navne er gyldige</li>
+<li><strong>Edge cases</strong> – at funktionen håndterer manglende fornavn, manglende efternavn og begge mangler</li>
+</ul>
+<p>Edge cases er vigtige fordi data fra Firebase ikke altid er komplet – hvis en bruger mangler et navn bør funktionen ikke kaste en fejl men returnere en tom streng.</p>
+<h3>Tests</h3>
+<pre class="prettyprint source lang-js"><code>import { describe, it, expect } from 'vitest'
+import { getInitials } from './initials.js'
+
+describe('getInitials', () => {
+    it('returnerer korrekte initialer for et fuldt navn', () => {
+        expect(getInitials('Thomas', 'Nørregaard')).toBe('TN')
+    })
+
+    it('returnerer korrekte initialer for et andet navn', () => {
+        expect(getInitials('Anna', 'Sørensen')).toBe('AS')
+    })
+
+    it('returnerer tom streng hvis firstName mangler', () => {
+        expect(getInitials('', 'Sørensen')).toBe('')
+    })
+
+    it('returnerer tom streng hvis lastName mangler', () => {
+        expect(getInitials('Anna', '')).toBe('')
+    })
+
+    it('returnerer tom streng hvis begge mangler', () => {
+        expect(getInitials('', '')).toBe('')
+    })
+})
+</code></pre>
+<h3>Teststruktur</h3>
+<p>Hver test følger samme mønster:</p>
+<ul>
+<li><strong><code>describe</code></strong>  grupperer alle tests der hører til <code>getInitials</code></li>
+<li><strong><code>it</code></strong>  beskriver hvad der testes i et læsbart format</li>
+<li><strong><code>expect</code></strong> kalder funktionen med testdata og sammenligner med det forventede resultat via <code>toBe</code></li>
+</ul>
+<p>Testdata er hårdkodet direkte i testen der er ingen afhængighed af Firebase eller Vue stores. Dette gør testene hurtige og pålidelige.</p>
+</article>
+
+</section>
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 06:48:09 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

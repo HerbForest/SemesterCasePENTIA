@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>stores/projectStore.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,31 +35,76 @@
 
 <div id="main">
     
+    <h1 class="page-title">stores/projectStore.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>﻿import { defineStore } from 'pinia';
+import { ref } from 'vue';
+import { db } from '@/config/firebase';
+import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
 
+/**
+ * Store til håndtering af projekter fra Firestore.
+ * Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
+ */
+export const useProjectStore = defineStore('project', () => {
+	/** @type {Object|null} Det aktuelt valgte projekt */
+	const project = ref(null);
 
-    <section class="package">
-        <h3> </h3>		
+	/** @type {boolean} True mens data hentes fra Firestore */
+	const loading = ref(false);
+
+	/** @type {Array} Liste af projekter tilknyttet den indloggede byggeleder */
+	const builderProjects = ref([]);
+
+	/**
+	 * Henter ét projekt fra Firestore baseret på projekt-id.
+	 * @param {string} projectId - Firestore dokument-id for projektet
+	 */
+	const fetchProject = async (projectId) => {
+		loading.value = true;
+		try {
+			const snap = await getDoc(doc(db, 'projects', projectId));
+			if (snap.exists()) {
+				project.value = { id: snap.id, ...snap.data() };
+			}
+		} catch (error) {
+			console.error('Fejl ved hentning af projekt:', error);
+		} finally {
+			loading.value = false;
+		}
+	};
+
+	/**
+	 * Henter alle projekter tilknyttet en bestemt byggeleder.
+	 * Resultatet gemmes i {@link builderProjects}.
+	 * @param {string} builderId - Firebase Auth UID for byggeleder
+	 */
+	const fetchProjectsByBuilder = async (builderId) => {
+		loading.value = true;
+		try {
+			const q = query(collection(db, 'projects'), where('builderId', '==', builderId));
+			const snap = await getDocs(q);
+			builderProjects.value = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+		} catch (error) {
+			console.error('Fejl ved hentning af byggeleder projekter:', error);
+		} finally {
+			loading.value = false;
+		}
+	};
+
+	return { project, loading, fetchProject, builderProjects, fetchProjectsByBuilder };
+});
+</code></pre>
+        </article>
     </section>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
 
 
 

@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Tutorials</h3><ul><li><a href="tutorial-architecture.html">Architecture</a></li></ul><h3>Global</h3><ul><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useBuyerStore">useBuyerStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Tutorials</h3><ul><li><a href="tutorial-actions.html">Actions</a></li><li><a href="tutorial-architecture.html">Architecture</a></li><li><a href="tutorial-branching.html">Branching</a></li><li><a href="tutorial-database.html">Database</a></li><li><a href="tutorial-gitCommit.html">Git Commit</a></li><li><a href="tutorial-linting.html">Linting</a></li><li><a href="tutorial-refactoring.html">Refactoring</a></li><li><a href="tutorial-unitTest.html">Unit test</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildConversation">buildConversation</a></li><li><a href="global.html#getPhasesWithImages">getPhasesWithImages</a></li><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useBuyerStore">useBuyerStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li><li><a href="global.html#useProgressStore">useProgressStore</a></li><li><a href="global.html#useProjectStore">useProjectStore</a></li><li><a href="global.html#useTaskStore">useTaskStore</a></li></ul>
     
 </nav>
 
@@ -125,6 +125,140 @@
 
         
             
+<h4 class="name" id="buildConversation"><span class="type-signature type-signature-constant">(constant) </span>buildConversation<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Bygger et samtale objekt til ConversationCard komponenten</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_BuilderConversation.js.html">utils/BuilderConversation.js</a>, <a href="utils_BuilderConversation.js.html#line9">line 9</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Bygger et samtale objekt til ConversationCard komponenten
+</div>
+
+
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="getPhasesWithImages"><span class="type-signature type-signature-constant">(constant) </span>getPhasesWithImages<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Filtrerer faser der har billeder tilknyttet og sorterer dem efter ID</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="utils_phasesWithImages.js.html">utils/phasesWithImages.js</a>, <a href="utils_phasesWithImages.js.html#line7">line 7</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Filtrerer faser der har billeder tilknyttet og sorterer dem efter ID
+</div>
+
+
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="useAuthStore"><span class="type-signature type-signature-constant">(constant) </span>useAuthStore<span class="type-signature"></span></h4>
 
 
@@ -141,7 +275,7 @@ Holder styr på den aktuelle bruger og login/logout funktionalitet.</li></ul></d
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="authStore.js.html">authStore.js</a>, <a href="authStore.js.html#line10">line 10</a>
+        <a href="stores_authStore.js.html">stores/authStore.js</a>, <a href="stores_authStore.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -210,7 +344,7 @@ Henter og gemmer data for den byggeleder der er tilknyttet det aktuelle projekt.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="builderStore.js.html">builderStore.js</a>, <a href="builderStore.js.html#line10">line 10</a>
+        <a href="stores_builderStore.js.html">stores/builderStore.js</a>, <a href="stores_builderStore.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -279,7 +413,7 @@ Henter, opdaterer og gemmer data for den indloggede bygherre.</li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="buyerStore.js.html">buyerStore.js</a>, <a href="buyerStore.js.html#line10">line 10</a>
+        <a href="stores_buyerStore.js.html">stores/buyerStore.js</a>, <a href="stores_buyerStore.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -348,7 +482,7 @@ Henter og gemmer dokumenter tilknyttet et specifikt projekt.</li></ul></dd>
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="documentStore.js.html">documentStore.js</a>, <a href="documentStore.js.html#line10">line 10</a>
+        <a href="stores_documentStore.js.html">stores/documentStore.js</a>, <a href="stores_documentStore.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -417,7 +551,7 @@ Henter og gemmer billeder tilknyttet et specifikt projekt og fase.</li></ul></dd
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="imageStore.js.html">imageStore.js</a>, <a href="imageStore.js.html#line10">line 10</a>
+        <a href="stores_imageStore.js.html">stores/imageStore.js</a>, <a href="stores_imageStore.js.html#line10">line 10</a>
     </li></ul></dd>
     
 
@@ -469,6 +603,213 @@ Henter og gemmer billeder tilknyttet et specifikt projekt og fase.
 
 
         
+            
+<h4 class="name" id="useProgressStore"><span class="type-signature type-signature-constant">(constant) </span>useProgressStore<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Store til beregning og synkronisering af fremgang på tasks og faser.
+Beregner fremgang baseret på datoer og children, og skriver opdateringer til Firestore.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="stores_progressStore.js.html">stores/progressStore.js</a>, <a href="stores_progressStore.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Store til beregning og synkronisering af fremgang på tasks og faser.
+Beregner fremgang baseret på datoer og children, og skriver opdateringer til Firestore.
+</div>
+
+
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="useProjectStore"><span class="type-signature type-signature-constant">(constant) </span>useProjectStore<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Store til håndtering af projekter fra Firestore.
+Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="stores_projectStore.js.html">stores/projectStore.js</a>, <a href="stores_projectStore.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Store til håndtering af projekter fra Firestore.
+Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
+</div>
+
+
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="useTaskStore"><span class="type-signature type-signature-constant">(constant) </span>useTaskStore<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Store til håndtering af opgaver (tasks) fra Firestore.
+Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="stores_taskStore.js.html">stores/taskStore.js</a>, <a href="stores_taskStore.js.html#line10">line 10</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Store til håndtering af opgaver (tasks) fra Firestore.
+Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.
+</div>
+
+
+
+
+
+
+
+
+        
     
 
     
@@ -490,7 +831,7 @@ Henter og gemmer billeder tilknyttet et specifikt projekt og fase.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Thu May 21 2026 09:32:13 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 06:48:09 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
