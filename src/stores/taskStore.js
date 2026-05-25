@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore';
@@ -8,18 +8,18 @@ import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore'
  * Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.
  */
 export const useTaskStore = defineStore('task', () => {
-	/** @type {import('vue').Ref<Array>} Tasks tilknyttet det aktuelt valgte projekt */
+	/** @type {Array} Tasks tilknyttet det aktuelt valgte projekt */
 	const tasks = ref([]);
 
-	/** @type {import('vue').Ref<boolean>} True mens data hentes fra Firestore */
+	/** @type {boolean} True mens data hentes fra Firestore */
 	const loading = ref(false);
 
-	/** @type {import('vue').Ref<Object.<string, Array>>} Tasks grupperet efter projekt-id */
+	/** @type {Object.<string, Array>} Tasks grupperet efter projekt-id */
 	const allProjectsTasks = ref({});
 
 	/**
 	 * Alle parent tasks (faser) på tværs af alle projekter.
-	 * @type {import('vue').ComputedRef<Array>}
+	 * @type {Array}
 	 */
 	const allParentTasks = computed(() => {
 		return Object.values(allProjectsTasks.value)

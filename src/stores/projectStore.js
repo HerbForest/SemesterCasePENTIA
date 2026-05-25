@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
@@ -8,13 +8,13 @@ import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firesto
  * Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
  */
 export const useProjectStore = defineStore('project', () => {
-	/** @type {import('vue').Ref<Object|null>} Det aktuelt valgte projekt */
+	/** @type {Object|null} Det aktuelt valgte projekt */
 	const project = ref(null);
 
-	/** @type {import('vue').Ref<boolean>} True mens data hentes fra Firestore */
+	/** @type {boolean} True mens data hentes fra Firestore */
 	const loading = ref(false);
 
-	/** @type {import('vue').Ref<Array>} Liste af projekter tilknyttet den indloggede byggeleder */
+	/** @type {Array} Liste af projekter tilknyttet den indloggede byggeleder */
 	const builderProjects = ref([]);
 
 	/**

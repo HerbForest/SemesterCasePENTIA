@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 import { computed } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, setDoc } from 'firebase/firestore';
@@ -68,7 +68,7 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Alle tasks beriget med beregnet fremgang.
 	 * Parent tasks bruger gennemsnit af children, øvrige bruger datodrevet beregning.
-	 * @type {import('vue').ComputedRef<Array>}
+	 * @type {Array}
 	 */
 	const tasksWithDateProgress = computed(() =>
 		taskStore.tasks.map((task) => ({
@@ -80,7 +80,7 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Tasks struktureret som et træ med children indlejret under deres parent.
 	 * Bruges af Gantt-diagrammet.
-	 * @type {import('vue').ComputedRef<Array>}
+	 * @type {Array}
 	 */
 	const tasksAsTree = computed(() => {
 		const withProgress = tasksWithDateProgress.value.map((task) => ({ ...task, children: [] }));
@@ -95,7 +95,7 @@ export const useProgressStore = defineStore('progress', () => {
 
 	/**
 	 * Antal aktive (ikke-fuldførte) child tasks på tværs af alle projekter.
-	 * @type {import('vue').ComputedRef<number>}
+	 * @type {number}
 	 */
 	const activeTasks = computed(() => {
 		const allTasks = Object.values(taskStore.allProjectsTasks).flat();
@@ -104,7 +104,7 @@ export const useProgressStore = defineStore('progress', () => {
 
 	/**
 	 * Samlet fremgang for det aktuelle projekt baseret på alle child tasks.
-	 * @type {import('vue').ComputedRef<number>}
+	 * @type {number}
 	 */
 	const overallProgress = computed(() => {
 		const childTasks = tasksWithDateProgress.value.filter((task) => !task.isParent);
@@ -113,13 +113,13 @@ export const useProgressStore = defineStore('progress', () => {
 
 	/**
 	 * Alle parent tasks (faser) for det aktuelle projekt med beregnet fremgang.
-	 * @type {import('vue').ComputedRef<Array>}
+	 * @type {Array}
 	 */
 	const parentTasks = computed(() => tasksWithDateProgress.value.filter((task) => task.isParent));
 
 	/**
 	 * Den aktive fase for det aktuelle projekt.
-	 * @type {import('vue').ComputedRef<Object|undefined>}
+	 * @type {Object|undefined}
 	 */
 	const currentPhaseProgress = computed(() => findActivePhase(parentTasks.value));
 
@@ -136,7 +136,7 @@ export const useProgressStore = defineStore('progress', () => {
 
 	/**
 	 * Samlet antal aktive child tasks i den aktive fase på tværs af alle projekter.
-	 * @type {import('vue').ComputedRef<number>}
+	 * @type {number}
 	 */
 	const activePhaseTasksCount = computed(() => {
 		return Object.entries(taskStore.allProjectsTasks).reduce((total, [, tasks]) => {

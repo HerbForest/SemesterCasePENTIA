@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+﻿import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
 import { collection, query, where, getDocs } from 'firebase/firestore';
@@ -21,7 +21,7 @@ export const useImageStore = defineStore('images', () => {
  */
 	const imagesByPhase = ref({}); 
 
-	/** @type {import('vue').Ref<boolean>} True mens billeder hentes fra Firestore */
+	/** @type {boolean} True mens billeder hentes fra Firestore */
 	const loading = ref(false);
 
 	/**
