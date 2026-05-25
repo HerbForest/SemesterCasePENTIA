@@ -31,7 +31,6 @@ onMounted(async () => {
 	await taskStore.fetchTasks(route.params.id);
 	await progressStore.syncTaskProgress(route.params.id);
 	await imageStore.fetchImagesByProject(route.params.id);
-	console.log('tasks:', taskStore.tasks);
 });
 
 const cards = [
@@ -73,15 +72,10 @@ const photoFolders = computed(() => {
 	</div>
 	<div class='card__photo-folders'>
 		<p class="card__title">Foto mapper</p>
-    <ButtonCard
-        v-for='folder in photoFolders'
-        :key='folder.id'
-        :buttonTitle='folder.name'
-        :buttonText='`${folder.count} billeder`'
-        :to="{ name: 'builderImages', params: { projectId: route.params.id } }"
-        :arrow="true"
-    />
-</div>
+		<ButtonCard v-for='folder in photoFolders' :key='folder.id' :buttonTitle='folder.name'
+			:buttonText='`${folder.count} billeder`' :to="{ name: 'builderImages', params: { projectId: route.params.id } }"
+			:arrow="true" />
+	</div>
 </template>
 
 <style scoped lang='scss'>
@@ -118,17 +112,17 @@ const photoFolders = computed(() => {
 }
 
 .card__photo-folders {
-		display: flex;
-    flex-direction: column;
-    gap: 10px; 
-    padding: 16px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 16px 0;
 
-	 :deep(.card) {
-        display: flex;
-        flex-direction: row;
-        text-align: left;
-        align-items: center;
-    }
+	:deep(.card) {
+		display: flex;
+		flex-direction: row;
+		text-align: left;
+		align-items: center;
+	}
 
 	&__folder {
 		display: flex;
@@ -136,5 +130,4 @@ const photoFolders = computed(() => {
 		align-items: center;
 	}
 }
-
 </style>

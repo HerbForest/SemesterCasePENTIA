@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onUnmounted } from 'vue';
-import {  House, MapPin, Calendar } from '@lucide/vue';
+import { House, MapPin, Calendar } from '@lucide/vue';
 
 const props = defineProps({
 	images: { type: Array, default: () => [] },
@@ -21,24 +21,30 @@ onUnmounted(() => clearInterval(interval));
 
 <template>
 	<div class="hero-card">
-	
+
 		<div class="hero-card__slideshow">
 			<img v-for="(image, index) in images" :key="index" :src="image"
 				:class="['hero-card__image', { 'hero-card__image--active': index === currentIndex }]" alt="Byggeri billede" />
 		</div>
 
-		<button class="hero-card__info" @click="goToProject">
+		<button class="hero-card__info">
 			<div class="hero-card__identity">
-				<div class="hero-card__icon-box"><House :size="22"/></div>
+				<div class="hero-card__icon-box">
+					<House :size="22" />
+				</div>
 				<div class="hero-card__text">
 					<h2 class="hero-card__title">Mit Byggeri</h2>
 					<span class="hero-card__address">
-						<span class="hero-card__address-icon"><MapPin :size="13" /></span>
+						<span class="hero-card__address-icon">
+							<MapPin :size="13" />
+						</span>
 						{{ address }}
 					</span>
 				</div>
 			</div>
-			<div class="hero-card__progress"><Calendar :size="14"/> Din byggeplan {{ progress }}%</div>
+			<div class="hero-card__progress">
+				<Calendar :size="14" /> Din byggeplan {{ progress }}%
+			</div>
 		</button>
 
 	</div>
@@ -50,8 +56,8 @@ onUnmounted(() => clearInterval(interval));
 	border-radius: 16px;
 	overflow: hidden;
 	margin-bottom: 20px;
-	 overflow: visible; 
-    margin-bottom: 60px; 
+	overflow: visible;
+	margin-bottom: 60px;
 
 	&__slideshow {
 		position: relative;
