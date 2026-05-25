@@ -1,40 +1,44 @@
-/** @module projectStore */
-
-﻿import { defineStore } from 'pinia';
+import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
 
 /**
+ * @typedef {Object} ProjectStore
+ * @property {Object|null} project - Det aktuelt valgte projekt
+ * @property {boolean} loading - True mens data hentes fra Firestore
+ * @property {Array} builderProjects - Liste af projekter tilknyttet byggeleder
+ * @property {Function} fetchProject - Henter ét projekt baseret på projekt-id
+ * @property {Function} fetchProjectsByBuilder - Henter alle projekter for en byggeleder
+ */
+
+/**
  * Store til håndtering af projekter fra Firestore.
  * Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
+ * @returns {ProjectStore}
  */
 export const useProjectStore = defineStore('project', () => {
 	/**
 	 * Det aktuelt valgte projekt
 	 * @type {Object|null}
-	 * @memberof module:projectStore
 	 */
 	const project = ref(null);
 
 	/**
 	 * True mens data hentes fra Firestore
 	 * @type {boolean}
-	 * @memberof module:projectStore
 	 */
 	const loading = ref(false);
 
 	/**
 	 * Liste af projekter tilknyttet den indloggede byggeleder
 	 * @type {Array}
-	 * @memberof module:projectStore
 	 */
 	const builderProjects = ref([]);
 
 	/**
 	 * Henter ét projekt fra Firestore baseret på projekt-id.
 	 * @param {string} projectId - Firestore dokument-id for projektet
-	 * @memberof module:projectStore
 	 */
 	const fetchProject = async (projectId) => {
 		loading.value = true;
@@ -54,7 +58,6 @@ export const useProjectStore = defineStore('project', () => {
 	 * Henter alle projekter tilknyttet en bestemt byggeleder.
 	 * Resultatet gemmes i {@link builderProjects}.
 	 * @param {string} builderId - Firebase Auth UID for byggeleder
-	 * @memberof module:projectStore
 	 */
 	const fetchProjectsByBuilder = async (builderId) => {
 		loading.value = true;

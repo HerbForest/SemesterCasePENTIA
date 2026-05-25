@@ -1,40 +1,48 @@
-/** @module taskStore */
-
-﻿import { defineStore } from 'pinia';
+import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore';
 
 /**
+ * @typedef {Object} TaskStore
+ * @property {Array} tasks - Tasks tilknyttet det aktuelt valgte projekt
+ * @property {boolean} loading - True mens data hentes fra Firestore
+ * @property {Object} allProjectsTasks - Tasks grupperet efter projekt-id
+ * @property {Array} allParentTasks - Alle parent tasks på tværs af projekter
+ * @property {Function} fetchTasks - Henter tasks for ét projekt
+ * @property {Function} fetchTasksForAllProjects - Henter tasks for en liste af projekter
+ * @property {Function} addTask - Opretter en ny task i Firestore
+ * @property {Function} updateTask - Opdaterer en eksisterende task
+ * @property {Function} deleteTask - Sletter en task fra Firestore
+ */
+
+/**
  * Store til håndtering af opgaver (tasks) fra Firestore.
  * Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.
+ * @returns {TaskStore}
  */
 export const useTaskStore = defineStore('task', () => {
 	/**
 	 * Tasks tilknyttet det aktuelt valgte projekt
 	 * @type {Array}
-	 * @memberof module:taskStore
 	 */
 	const tasks = ref([]);
 
 	/**
 	 * True mens data hentes fra Firestore
 	 * @type {boolean}
-	 * @memberof module:taskStore
 	 */
 	const loading = ref(false);
 
 	/**
 	 * Tasks grupperet efter projekt-id
 	 * @type {Object.<string, Array>}
-	 * @memberof module:taskStore
 	 */
 	const allProjectsTasks = ref({});
 
 	/**
 	 * Alle parent tasks (faser) på tværs af alle projekter.
 	 * @type {Array}
-	 * @memberof module:taskStore
 	 */
 	const allParentTasks = computed(() => {
 		return Object.values(allProjectsTasks.value)
@@ -45,7 +53,6 @@ export const useTaskStore = defineStore('task', () => {
 	/**
 	 * Henter alle tasks for ét projekt fra Firestore.
 	 * @param {string} projectId - Firestore dokument-id for projektet
-	 * @memberof module:taskStore
 	 */
 	const fetchTasks = async (projectId) => {
 		loading.value = true;
@@ -62,7 +69,6 @@ export const useTaskStore = defineStore('task', () => {
 	/**
 	 * Henter tasks for en liste af projekter og gemmer dem i {@link allProjectsTasks}.
 	 * @param {Array<{id: string}>} projects - Liste af projekter med id
-	 * @memberof module:taskStore
 	 */
 	const fetchTasksForAllProjects = async (projects) => {
 		for (const project of projects) {
@@ -75,7 +81,6 @@ export const useTaskStore = defineStore('task', () => {
 	 * Opretter en ny task i Firestore og tilføjer den til den lokale tasks-liste.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @param {Object} task - Task-objekt der skal oprettes
-	 * @memberof module:taskStore
 	 */
 	const addTask = async (projectId, task) => {
 		try {
@@ -90,7 +95,6 @@ export const useTaskStore = defineStore('task', () => {
 	 * Opdaterer en eksisterende task i Firestore og lokalt.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @param {Object} task - Task-objekt med opdaterede værdier
-	 * @memberof module:taskStore
 	 */
 	const updateTask = async (projectId, task) => {
 		try {
@@ -106,7 +110,6 @@ export const useTaskStore = defineStore('task', () => {
 	 * Sletter en task fra Firestore og fjerner den fra den lokale tasks-liste.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @param {string|number} taskId - Id på den task der skal slettes
-	 * @memberof module:taskStore
 	 */
 	const deleteTask = async (projectId, taskId) => {
 		try {

@@ -1,5 +1,3 @@
-/** @module progressStore */
-
 import { defineStore } from 'pinia';
 import { computed } from 'vue';
 import { db } from '@/config/firebase';
@@ -7,8 +5,25 @@ import { doc, setDoc } from 'firebase/firestore';
 import { useTaskStore } from './taskStore';
 
 /**
+ * @typedef {Object} ProgressStore
+ * @property {Array} tasksWithDateProgress - Tasks beriget med beregnet fremgang
+ * @property {Array} tasksAsTree - Tasks struktureret som træ til Gantt-diagrammet
+ * @property {number} activeTasks - Antal aktive child tasks på tværs af projekter
+ * @property {number} overallProgress - Samlet fremgang for det aktuelle projekt
+ * @property {Array} parentTasks - Alle parent tasks med beregnet fremgang
+ * @property {Object|undefined} currentPhaseProgress - Den aktive fase for det aktuelle projekt
+ * @property {number} activePhaseTasksCount - Aktive child tasks i den aktive fase
+ * @property {Function} calcProgress - Beregner datodrevet fremgang for en task
+ * @property {Function} calcParentProgressFromChildren - Beregner fremgang for en parent task
+ * @property {Function} getActivePhaseForProject - Finder aktiv fase for et specifikt projekt
+ * @property {Function} syncTaskProgress - Synkroniserer child task fremgang til Firestore
+ * @property {Function} syncParentProgress - Synkroniserer parent task fremgang til Firestore
+ */
+
+/**
  * Store til beregning og synkronisering af fremgang på tasks og faser.
  * Beregner fremgang baseret på datoer og children, og skriver opdateringer til Firestore.
+ * @returns {ProgressStore}
  */
 export const useProgressStore = defineStore('progress', () => {
 	const taskStore = useTaskStore();
@@ -18,7 +33,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Returnerer 0 hvis i dag er før startdato, 100 hvis efter slutdato.
 	 * @param {Object} task - Task med startDate og endDate som datostrenge
 	 * @returns {number} Fremgang fra 0–100
-	 * @memberof module:progressStore
 	 */
 	const calcProgress = (task) => {
 		const today = new Date();
@@ -35,7 +49,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Falder tilbage på datodrevet beregning hvis der ingen children er.
 	 * @param {Object} parentTask - Parent task med id
 	 * @returns {number} Fremgang fra 0–100
-	 * @memberof module:progressStore
 	 */
 	const calcParentProgressFromChildren = (parentTask) => {
 		const children = taskStore.tasks.filter((task) => task.parentId === parentTask.id);
@@ -48,7 +61,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Beregner færdiggørelsesprocent ud fra en liste af tasks med progress-felt.
 	 * @param {Array<{progress: number}>} taskWithProgress - Liste af tasks
 	 * @returns {number} Andel af tasks med progress === 100, i procent
-	 * @memberof module:progressStore
 	 */
 	const calcCompletionPercentage = (taskWithProgress) => {
 		if (!taskWithProgress.length) return 0;
@@ -61,7 +73,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Prioriterer: igangværende → ikke startet → seneste.
 	 * @param {Array} parentTaskArray - Liste af parent tasks med progress-felt
 	 * @returns {Object|undefined} Den aktive parent task
-	 * @memberof module:progressStore
 	 */
 	const findActivePhase = (parentTaskArray) => {
 		return (
@@ -75,7 +86,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Alle tasks beriget med beregnet fremgang.
 	 * Parent tasks bruger gennemsnit af children, øvrige bruger datodrevet beregning.
 	 * @type {Array}
-	 * @memberof module:progressStore
 	 */
 	const tasksWithDateProgress = computed(() =>
 		taskStore.tasks.map((task) => ({
@@ -88,7 +98,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Tasks struktureret som et træ med children indlejret under deres parent.
 	 * Bruges af Gantt-diagrammet.
 	 * @type {Array}
-	 * @memberof module:progressStore
 	 */
 	const tasksAsTree = computed(() => {
 		const withProgress = tasksWithDateProgress.value.map((task) => ({ ...task, children: [] }));
@@ -104,7 +113,6 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Antal aktive (ikke-fuldførte) child tasks på tværs af alle projekter.
 	 * @type {number}
-	 * @memberof module:progressStore
 	 */
 	const activeTasks = computed(() => {
 		const allTasks = Object.values(taskStore.allProjectsTasks).flat();
@@ -114,7 +122,6 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Samlet fremgang for det aktuelle projekt baseret på alle child tasks.
 	 * @type {number}
-	 * @memberof module:progressStore
 	 */
 	const overallProgress = computed(() => {
 		const childTasks = tasksWithDateProgress.value.filter((task) => !task.isParent);
@@ -124,14 +131,12 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Alle parent tasks (faser) for det aktuelle projekt med beregnet fremgang.
 	 * @type {Array}
-	 * @memberof module:progressStore
 	 */
 	const parentTasks = computed(() => tasksWithDateProgress.value.filter((task) => task.isParent));
 
 	/**
 	 * Den aktive fase for det aktuelle projekt.
 	 * @type {Object|undefined}
-	 * @memberof module:progressStore
 	 */
 	const currentPhaseProgress = computed(() => findActivePhase(parentTasks.value));
 
@@ -139,7 +144,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Finder den aktive fase for et specifikt projekt baseret på gemte progress-værdier.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @returns {Object|undefined} Den aktive parent task for projektet
-	 * @memberof module:progressStore
 	 */
 	const getActivePhaseForProject = (projectId) => {
 		const tasks = taskStore.allProjectsTasks[projectId] ?? [];
@@ -150,7 +154,6 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Samlet antal aktive child tasks i den aktive fase på tværs af alle projekter.
 	 * @type {number}
-	 * @memberof module:progressStore
 	 */
 	const activePhaseTasksCount = computed(() => {
 		return Object.entries(taskStore.allProjectsTasks).reduce((total, [, tasks]) => {
@@ -167,7 +170,6 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Finder tasks hvis beregnede fremgang afviger fra den gemte fremgang i Firestore.
 	 * @returns {Array} Liste af tasks der skal opdateres
-	 * @memberof module:progressStore
 	 */
 	const buildProgressUpdates = () => {
 		return tasksWithDateProgress.value.filter((updatedTask) => {
@@ -180,7 +182,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Skriver en liste af opdaterede tasks til Firestore og opdaterer lokale stores.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @param {Array} updates - Liste af tasks med opdaterede værdier
-	 * @memberof module:progressStore
 	 */
 	const persistTaskUpdates = async (projectId, updates) => {
 		const applyUpdates = (taskList) =>
@@ -197,7 +198,6 @@ export const useProgressStore = defineStore('progress', () => {
 	/**
 	 * Synkroniserer datodrevet fremgang for child tasks til Firestore.
 	 * @param {string} projectId - Firestore dokument-id for projektet
-	 * @memberof module:progressStore
 	 */
 	const syncTaskProgress = async (projectId) => {
 		await persistTaskUpdates(projectId, buildProgressUpdates());
@@ -207,7 +207,6 @@ export const useProgressStore = defineStore('progress', () => {
 	 * Synkroniserer fremgang for parent tasks (faser) til Firestore
 	 * baseret på gennemsnittet af deres children.
 	 * @param {string} projectId - Firestore dokument-id for projektet
-	 * @memberof module:progressStore
 	 */
 	const syncParentProgress = async (projectId) => {
 		const updates = taskStore.tasks
