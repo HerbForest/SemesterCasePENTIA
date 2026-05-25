@@ -128,6 +128,7 @@ const router = createRouter({
 		},
 	],
 	scrollBehavior() {
+		window.scrollTo(0, 0)
 		return { top: 0 };
 	}
 });
