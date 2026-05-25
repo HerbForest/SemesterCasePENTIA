@@ -59,7 +59,7 @@ const builderImage = computed(() => builderStore.builder?.profileImage);
         >
             <p>Fundamentet er nu støbt og hærder planmæssigt. Alt ser rigtig fint ud!</p>
         </MessageCard>
-				<MessageInput />
+		<MessageInput :constrained="true" />
     </div>
 </div>
 </template>
@@ -83,8 +83,7 @@ const builderImage = computed(() => builderStore.builder?.profileImage);
 .messages {
     display: flex;
     flex-direction: column;
-    padding: 16px;
-		padding-bottom: 60px;
+	padding-bottom: 60px;
 
     &__date-divider {
         text-align: center;

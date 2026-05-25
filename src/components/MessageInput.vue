@@ -2,11 +2,15 @@
 import { ref } from 'vue';
 import { Paperclip, Send } from '@lucide/vue';
 
+defineProps({
+    constrained: { type: Boolean, default: false }
+})
+
 const message = ref('');
 </script>
 
 <template>
-    <div class="message-input">
+    <div :class="['message-input', { 'message-input--constrained': constrained }]">
         <Paperclip :size="20" class="message-input__attach" />
         <input 
             v-model="message"
@@ -32,6 +36,14 @@ const message = ref('');
     bottom: 80px; 
     left: 16px;
     right: 16px;
+
+    &--constrained {
+    max-width: $max-width-bygherre;
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    width: calc(100% - 32px);
+}
 
     &__attach {
         color: $muted-foreground-color;
