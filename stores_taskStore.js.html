@@ -29,7 +29,7 @@
 <nav >
     
     
-    <h2><a href="index.html">Home</a></h2><h3>Tutorials</h3><ul><li><a href="tutorial-actions.html">Actions</a></li><li><a href="tutorial-architecture.html">Architecture</a></li><li><a href="tutorial-branching.html">Branching</a></li><li><a href="tutorial-database.html">Database</a></li><li><a href="tutorial-e2eTest.html">e2eTest</a></li><li><a href="tutorial-gitCommit.html">Git Commit</a></li><li><a href="tutorial-linting.html">Linting</a></li><li><a href="tutorial-refactoring.html">Refactoring</a></li><li><a href="tutorial-unitTest.html">Unit test</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildConversation">buildConversation</a></li><li><a href="global.html#getPhasesWithImages">getPhasesWithImages</a></li><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li><li><a href="global.html#useProgressStore">useProgressStore</a></li><li><a href="global.html#useProjectStore">useProjectStore</a></li><li><a href="global.html#useTaskStore">useTaskStore</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-progressStore.html">progressStore</a><ul class='methods'><li data-type='method'><a href="module-progressStore.html#.buildProgressUpdates">buildProgressUpdates</a></li><li data-type='method'><a href="module-progressStore.html#.calcCompletionPercentage">calcCompletionPercentage</a></li><li data-type='method'><a href="module-progressStore.html#.calcParentProgressFromChildren">calcParentProgressFromChildren</a></li><li data-type='method'><a href="module-progressStore.html#.calcProgress">calcProgress</a></li><li data-type='method'><a href="module-progressStore.html#.findActivePhase">findActivePhase</a></li><li data-type='method'><a href="module-progressStore.html#.getActivePhaseForProject">getActivePhaseForProject</a></li><li data-type='method'><a href="module-progressStore.html#.persistTaskUpdates">persistTaskUpdates</a></li><li data-type='method'><a href="module-progressStore.html#.syncParentProgress">syncParentProgress</a></li><li data-type='method'><a href="module-progressStore.html#.syncTaskProgress">syncTaskProgress</a></li></ul></li><li><a href="module-projectStore.html">projectStore</a><ul class='methods'><li data-type='method'><a href="module-projectStore.html#.fetchProject">fetchProject</a></li><li data-type='method'><a href="module-projectStore.html#.fetchProjectsByBuilder">fetchProjectsByBuilder</a></li></ul></li><li><a href="module-taskStore.html">taskStore</a><ul class='methods'><li data-type='method'><a href="module-taskStore.html#.addTask">addTask</a></li><li data-type='method'><a href="module-taskStore.html#.deleteTask">deleteTask</a></li><li data-type='method'><a href="module-taskStore.html#.fetchTasks">fetchTasks</a></li><li data-type='method'><a href="module-taskStore.html#.fetchTasksForAllProjects">fetchTasksForAllProjects</a></li><li data-type='method'><a href="module-taskStore.html#.updateTask">updateTask</a></li></ul></li></ul><h3>Tutorials</h3><ul><li><a href="tutorial-actions.html">Actions</a></li><li><a href="tutorial-architecture.html">Architecture</a></li><li><a href="tutorial-branching.html">Branching</a></li><li><a href="tutorial-database.html">Database</a></li><li><a href="tutorial-e2eTest.html">e2eTest</a></li><li><a href="tutorial-gitCommit.html">Git Commit</a></li><li><a href="tutorial-linting.html">Linting</a></li><li><a href="tutorial-refactoring.html">Refactoring</a></li><li><a href="tutorial-unitTest.html">Unit test</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildConversation">buildConversation</a></li><li><a href="global.html#getPhasesWithImages">getPhasesWithImages</a></li><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useBuyerStore">useBuyerStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li></ul>
     
 </nav>
 
@@ -45,7 +45,9 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>﻿import { defineStore } from 'pinia';
+            <pre class="prettyprint source linenums"><code>/** @module taskStore */
+
+﻿import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore';
@@ -58,24 +60,28 @@ export const useTaskStore = defineStore('task', () => {
 	/**
 	 * Tasks tilknyttet det aktuelt valgte projekt
 	 * @type {Array}
+	 * @memberof module:taskStore
 	 */
 	const tasks = ref([]);
 
 	/**
 	 * True mens data hentes fra Firestore
 	 * @type {boolean}
+	 * @memberof module:taskStore
 	 */
 	const loading = ref(false);
 
 	/**
 	 * Tasks grupperet efter projekt-id
 	 * @type {Object.&lt;string, Array>}
+	 * @memberof module:taskStore
 	 */
 	const allProjectsTasks = ref({});
 
 	/**
 	 * Alle parent tasks (faser) på tværs af alle projekter.
 	 * @type {Array}
+	 * @memberof module:taskStore
 	 */
 	const allParentTasks = computed(() => {
 		return Object.values(allProjectsTasks.value)
@@ -86,6 +92,7 @@ export const useTaskStore = defineStore('task', () => {
 	/**
 	 * Henter alle tasks for ét projekt fra Firestore.
 	 * @param {string} projectId - Firestore dokument-id for projektet
+	 * @memberof module:taskStore
 	 */
 	const fetchTasks = async (projectId) => {
 		loading.value = true;
@@ -102,6 +109,7 @@ export const useTaskStore = defineStore('task', () => {
 	/**
 	 * Henter tasks for en liste af projekter og gemmer dem i {@link allProjectsTasks}.
 	 * @param {Array&lt;{id: string}>} projects - Liste af projekter med id
+	 * @memberof module:taskStore
 	 */
 	const fetchTasksForAllProjects = async (projects) => {
 		for (const project of projects) {
@@ -114,6 +122,7 @@ export const useTaskStore = defineStore('task', () => {
 	 * Opretter en ny task i Firestore og tilføjer den til den lokale tasks-liste.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @param {Object} task - Task-objekt der skal oprettes
+	 * @memberof module:taskStore
 	 */
 	const addTask = async (projectId, task) => {
 		try {
@@ -128,6 +137,7 @@ export const useTaskStore = defineStore('task', () => {
 	 * Opdaterer en eksisterende task i Firestore og lokalt.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @param {Object} task - Task-objekt med opdaterede værdier
+	 * @memberof module:taskStore
 	 */
 	const updateTask = async (projectId, task) => {
 		try {
@@ -143,6 +153,7 @@ export const useTaskStore = defineStore('task', () => {
 	 * Sletter en task fra Firestore og fjerner den fra den lokale tasks-liste.
 	 * @param {string} projectId - Firestore dokument-id for projektet
 	 * @param {string|number} taskId - Id på den task der skal slettes
+	 * @memberof module:taskStore
 	 */
 	const deleteTask = async (projectId, taskId) => {
 		try {
@@ -179,7 +190,7 @@ export const useTaskStore = defineStore('task', () => {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 09:00:38 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 09:09:52 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

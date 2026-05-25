@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Global - Documentation</title>
+    <title>projectStore - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,7 +35,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">Global</h1>
+    <h1 class="page-title">projectStore</h1>
     
 
     
@@ -47,11 +47,6 @@
 
 <header>
     
-        <h2>
-        
-            
-        
-        </h2>
         
     
 </header>
@@ -60,47 +55,6 @@
     
         <div class="container-overview">
         
-            
-
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
             
 
             
@@ -125,7 +79,7 @@
 
         
             
-<h4 class="name" id="buildConversation"><span class="type-signature type-signature-constant">(constant) </span>buildConversation<span class="type-signature"></span></h4>
+<h4 class="name" id=".builderProjects"><span class="type-signature type-signature-static, constant">(static, constant) </span>builderProjects<span class="type-signature"> :Array</span></h4>
 
 
 
@@ -134,13 +88,13 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Bygger et samtale objekt til ConversationCard komponenten</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Liste af projekter tilknyttet den indloggede byggeleder</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_BuilderConversation.js.html">utils/BuilderConversation.js</a>, <a href="utils_BuilderConversation.js.html#line9">line 9</a>
+        <a href="stores_projectStore.js.html">stores/projectStore.js</a>, <a href="stores_projectStore.js.html#line32">line 32</a>
     </li></ul></dd>
     
 
@@ -180,8 +134,388 @@
 
 
 <div class="description usertext">
-    Bygger et samtale objekt til ConversationCard komponenten
+    Liste af projekter tilknyttet den indloggede byggeleder
 </div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".loading"><span class="type-signature type-signature-static, constant">(static, constant) </span>loading<span class="type-signature"> :boolean</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>True mens data hentes fra Firestore</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="stores_projectStore.js.html">stores/projectStore.js</a>, <a href="stores_projectStore.js.html#line25">line 25</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    True mens data hentes fra Firestore
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">boolean</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".project"><span class="type-signature type-signature-static, constant">(static, constant) </span>project<span class="type-signature"> :Object|null</span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Det aktuelt valgte projekt</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="stores_projectStore.js.html">stores/projectStore.js</a>, <a href="stores_projectStore.js.html#line18">line 18</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Det aktuelt valgte projekt
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id=".useProjectStore"><span class="type-signature type-signature-static, constant">(static, constant) </span>useProjectStore<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Store til håndtering af projekter fra Firestore.
+Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="stores_projectStore.js.html">stores/projectStore.js</a>, <a href="stores_projectStore.js.html#line12">line 12</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Store til håndtering af projekter fra Firestore.
+Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
+</div>
+
+
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".fetchProject"><span class="type-signature type-signature-async, static">(async, static) </span>fetchProject<span class="signature">(projectId)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Henter ét projekt fra Firestore baseret på projekt-id.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="stores_projectStore.js.html">stores/projectStore.js</a>, <a href="stores_projectStore.js.html#line39">line 39</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>projectId</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Firestore dokument-id for projektet</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -192,8 +526,12 @@
 
         
             
-<h4 class="name" id="getPhasesWithImages"><span class="type-signature type-signature-constant">(constant) </span>getPhasesWithImages<span class="type-signature"></span></h4>
 
+    
+
+    <h4 class="name" id=".fetchProjectsByBuilder"><span class="type-signature type-signature-async, static">(async, static) </span>fetchProjectsByBuilder<span class="signature">(builderId)</span><span class="type-signature"></span></h4>
+
+    
 
 
 
@@ -201,13 +539,14 @@
 <dl class="details">
     
     <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Filtrerer faser der har billeder tilknyttet og sorterer dem efter ID</li></ul></dd>
+    <dd class="tag-description"><ul class="dummy"><li>Henter alle projekter tilknyttet en bestemt byggeleder.
+Resultatet gemmes i builderProjects.</li></ul></dd>
     
 
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="utils_phasesWithImages.js.html">utils/phasesWithImages.js</a>, <a href="utils_phasesWithImages.js.html#line7">line 7</a>
+        <a href="stores_projectStore.js.html">stores/projectStore.js</a>, <a href="stores_projectStore.js.html#line59">line 59</a>
     </li></ul></dd>
     
 
@@ -246,9 +585,6 @@
 
 
 
-<div class="description usertext">
-    Filtrerer faser der har billeder tilknyttet og sorterer dem efter ID
-</div>
 
 
 
@@ -256,344 +592,66 @@
 
 
 
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
 
         
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<h4 class="name" id="useAuthStore"><span class="type-signature type-signature-constant">(constant) </span>useAuthStore<span class="type-signature"></span></h4>
-
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Auth store til håndtering af Firebase Authentication.
-Holder styr på den aktuelle bruger og login/logout funktionalitet.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stores_authStore.js.html">stores/authStore.js</a>, <a href="stores_authStore.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    Auth store til håndtering af Firebase Authentication.
-Holder styr på den aktuelle bruger og login/logout funktionalitet.
-</div>
-
-
-
-
-
-
-
-
-        
+                <td class="name"><code>builderId</code></td>
             
-<h4 class="name" id="useBuilderStore"><span class="type-signature type-signature-constant">(constant) </span>useBuilderStore<span class="type-signature"></span></h4>
 
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Builder store til håndtering af byggeleder data fra Firestore.
-Henter og gemmer data for den byggeleder der er tilknyttet det aktuelle projekt.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stores_builderStore.js.html">stores/builderStore.js</a>, <a href="stores_builderStore.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    Builder store til håndtering af byggeleder data fra Firestore.
-Henter og gemmer data for den byggeleder der er tilknyttet det aktuelle projekt.
-</div>
-
-
-
-
-
-
-
-
-        
+            <td class="type">
             
-<h4 class="name" id="useBuyerStore"><span class="type-signature type-signature-constant">(constant) </span>useBuyerStore<span class="type-signature"></span></h4>
+                
+<span class="param-type">string</span>
 
 
 
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Buyer store til håndtering af bygherre data fra Firestore.
-Henter, opdaterer og gemmer data for den indloggede bygherre.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stores_buyerStore.js.html">stores/buyerStore.js</a>, <a href="stores_buyerStore.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    Buyer store til håndtering af bygherre data fra Firestore.
-Henter, opdaterer og gemmer data for den indloggede bygherre.
-</div>
-
-
-
-
-
-
-
-
-        
             
-<h4 class="name" id="useDocumentStore"><span class="type-signature type-signature-constant">(constant) </span>useDocumentStore<span class="type-signature"></span></h4>
+            </td>
 
-
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Document store til håndtering af dokument data fra Firestore.
-Henter og gemmer dokumenter tilknyttet et specifikt projekt.</li></ul></dd>
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stores_documentStore.js.html">stores/documentStore.js</a>, <a href="stores_documentStore.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    Document store til håndtering af dokument data fra Firestore.
-Henter og gemmer dokumenter tilknyttet et specifikt projekt.
-</div>
-
-
-
-
-
-
-
-
-        
             
-<h4 class="name" id="useImageStore"><span class="type-signature type-signature-constant">(constant) </span>useImageStore<span class="type-signature"></span></h4>
 
+            
 
-
-
-
-<dl class="details">
-    
-    <dt class="tag-description">Description:</dt>
-    <dd class="tag-description"><ul class="dummy"><li>Image store til håndtering af billede data fra Firestore.
-Henter og gemmer billeder tilknyttet et specifikt projekt og fase.</li></ul></dd>
-    
+            <td class="description last">Firebase Auth UID for byggeleder</td>
+        </tr>
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="stores_imageStore.js.html">stores/imageStore.js</a>, <a href="stores_imageStore.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
+    </tbody>
+</table>
 
 
 
 
 
-<div class="description usertext">
-    Image store til håndtering af billede data fra Firestore.
-Henter og gemmer billeder tilknyttet et specifikt projekt og fase.
-</div>
+
+
+
+
+
+
 
 
 
@@ -603,8 +661,6 @@ Henter og gemmer billeder tilknyttet et specifikt projekt og fase.
 
 
         
-    
-
     
 
     
