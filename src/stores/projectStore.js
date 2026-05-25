@@ -8,13 +8,22 @@ import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firesto
  * Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
  */
 export const useProjectStore = defineStore('project', () => {
-	/** @type {Object|null} Det aktuelt valgte projekt */
+	/**
+	 * Det aktuelt valgte projekt
+	 * @type {Object|null}
+	 */
 	const project = ref(null);
 
-	/** @type {boolean} True mens data hentes fra Firestore */
+	/**
+	 * True mens data hentes fra Firestore
+	 * @type {boolean}
+	 */
 	const loading = ref(false);
 
-	/** @type {Array} Liste af projekter tilknyttet den indloggede byggeleder */
+	/**
+	 * Liste af projekter tilknyttet den indloggede byggeleder
+	 * @type {Array}
+	 */
 	const builderProjects = ref([]);
 
 	/**

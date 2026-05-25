@@ -8,13 +8,22 @@ import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore'
  * Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.
  */
 export const useTaskStore = defineStore('task', () => {
-	/** @type {Array} Tasks tilknyttet det aktuelt valgte projekt */
+	/**
+	 * Tasks tilknyttet det aktuelt valgte projekt
+	 * @type {Array}
+	 */
 	const tasks = ref([]);
 
-	/** @type {boolean} True mens data hentes fra Firestore */
+	/**
+	 * True mens data hentes fra Firestore
+	 * @type {boolean}
+	 */
 	const loading = ref(false);
 
-	/** @type {Object.<string, Array>} Tasks grupperet efter projekt-id */
+	/**
+	 * Tasks grupperet efter projekt-id
+	 * @type {Object.<string, Array>}
+	 */
 	const allProjectsTasks = ref({});
 
 	/**
