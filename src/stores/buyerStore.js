@@ -24,7 +24,8 @@ export const useBuyerStore = defineStore('buyer', () => {
 
 	/**
      * Henter en bygherre fra Firestore baseret på brugerens ID.
-     * Bruges typisk med Firebase Auth brugerens UID efter login.
+     * @memberof useBuyerStore
+		 * @function fetchBuyer
      * @param {string} buyerId - Bygherrens dokument ID i Firestore users collection
      * @returns {Promise<void>}
      */
@@ -44,7 +45,8 @@ export const useBuyerStore = defineStore('buyer', () => {
 
 	/**
      * Opdaterer bygherrens data i Firestore og i den lokale store.
-     * Bruges til at gemme ændringer fra profil siden.
+     * @memberof useBuyerStore
+		 * @function updateBuyer
      * @param {Object} updatedData - Objekt med de felter der skal opdateres
      * @returns {Promise<void>}
      */
@@ -60,6 +62,7 @@ export const useBuyerStore = defineStore('buyer', () => {
 	/**
      * Henter en bygherre fra Firestore baseret på et projekt ID.
      * Bruges af byggeleder flowet til at finde bygherren tilknyttet et specifikt projekt.
+		 * @memberof useBuyerStore
 		 * @function fetchBuyerByProjectId
      * @param {string} projectId - Projektets dokument ID i Firestore projects collection
      * @returns {Promise<Object|undefined>} Bygherrens data eller undefined hvis ikke fundet
