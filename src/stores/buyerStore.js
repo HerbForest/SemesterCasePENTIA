@@ -3,23 +3,14 @@ import { ref } from 'vue';
 import { db } from '@/config/firebase';
 import { doc, getDoc, updateDoc, collection, query, where, getDocs } from 'firebase/firestore';
 
-/**
- * Buyer store til håndtering af bygherre data fra Firestore.
- * Henter, opdaterer og gemmer data for den indloggede bygherre.
- */
+
 export const useBuyerStore = defineStore('buyer', () => {
 
-	/**
- * Den aktuelle bygherre med alle felter fra Firestore (Vue Ref indeholdende Object eller null)
- * @type {Object}
- */
-	const buyer = ref(null);
+	
+const buyer = ref(null);
 
-	/**
- * True mens bygherre data hentes fra Firestore (Vue Ref indeholdende boolean)
- * @type {boolean}
- */
-	const loading = ref(false);
+	
+const loading = ref(false);
 
 
 	/**
