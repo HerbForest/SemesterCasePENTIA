@@ -64,6 +64,7 @@
 <pre class="prettyprint source lang-bash"><code>npm run dev
 npx cypress open
 </code></pre>
+<hr>
 <h2>Testfiler</h2>
 <h3>auth.cy.js — Login flow</h3>
 <p>Verificerer at login-siden sender brugere til den rigtige portal baseret på deres rolle.</p>
@@ -81,10 +82,30 @@ npx cypress open
 </tr>
 <tr>
 <td>sender buyer til buyer homepage</td>
-<td>buyer logger ind og landes på <code>/buyer/home</code></td>
+<td>Buyer logger ind og landes på <code>/buyer/home</code></td>
 </tr>
 </tbody>
 </table>
+<pre class="prettyprint source lang-js"><code>describe('Login flow', () => {
+    beforeEach(() => {
+        cy.visit('/login')
+    })
+
+    it('sender builder til builder homepage', () => {
+        cy.get('input[type=&quot;email&quot;]').type(Cypress.env('BUILDER_EMAIL'))
+        cy.get('input[type=&quot;password&quot;]').type(Cypress.env('BUILDER_PASSWORD'))
+        cy.get('button.login__btn').click()
+        cy.url().should('include', '/builder/homepage')
+    })
+
+    it('sender buyer til buyer homepage', () => {
+        cy.get('input[type=&quot;email&quot;]').type(Cypress.env('BUYER_EMAIL'))
+        cy.get('input[type=&quot;password&quot;]').type(Cypress.env('BUYER_PASSWORD'))
+        cy.get('button.login__btn').click()
+        cy.url().should('include', '/buyer/home')
+    })
+})
+</code></pre>
 <hr>
 <h3>builder.cy.js — Byggeleder portal</h3>
 <p>Verificerer at byggelederens arbejdsgange fungerer korrekt.</p>
@@ -130,6 +151,86 @@ npx cypress open
 </tr>
 </tbody>
 </table>
+<pre class="prettyprint source lang-js"><code>describe('Builder funktionalitet', () => {
+    beforeEach(() => {
+        cy.visit('/login')
+        cy.get('input[type=&quot;email&quot;]').type(Cypress.env('BUILDER_EMAIL'))
+        cy.get('input[type=&quot;password&quot;]').type(Cypress.env('BUILDER_PASSWORD'))
+        cy.get('button.login__btn').click()
+        cy.url({ timeout: 10000 }).should('include', '/builder/homepage')
+    })
+
+    it('builder kan se projekter på homepage', () => {
+        cy.get('.card').should('have.length.greaterThan', 0)
+    })
+})
+
+it('see gantt diagram', function () {
+    cy.visit('http://localhost:5173/builder/homepage')
+    cy.get('#app svg.lucide-house').click()
+    cy.get('#app a[href=&quot;/builder/bygger/4saOtXN8KfOpF3XkAy33&quot;] p.card__text').click()
+})
+
+it('se byggeplan', function () {
+    cy.visit('http://localhost:5173/builder/homepage')
+    cy.get('#app a[href=&quot;/builder/byggeplan&quot;]').click()
+})
+
+it('se beskeder', function () {
+    cy.visit('http://localhost:5173/builder/homepage')
+    cy.get('#app a[href=&quot;/builder/beskeder&quot;]').click()
+    cy.get('#app a[href=&quot;/builder/chat/4saOtXN8KfOpF3XkAy33&quot;] p.conversation-card__address').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app a[href=&quot;/builder/chat/GpYIGq4PW2zUg9SL8yEa&quot;] p.conversation-card__name').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app a[href=&quot;/builder/chat/IPBfXR6JaAnIm5weYGvm&quot;] p.conversation-card__address').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app a[href=&quot;/builder/chat/XlB1Qpkao26YsmZHreAK&quot;]').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app a[href=&quot;/builder/chat/lJtciAEwnrI6CE0zB8ys&quot;] p.conversation-card__address').click()
+})
+
+it('see mere', function () {
+    cy.visit('http://localhost:5173/builder/homepage')
+    cy.get('#app a[href=&quot;/builder/menu&quot;] span.bottom-nav__label').click()
+})
+
+it('create task', function () {
+    cy.visit('http://localhost:5173/builder/homepage')
+    cy.get('#app a[href=&quot;/builder/bygger/4saOtXN8KfOpF3XkAy33&quot;] p.card__text').click()
+    cy.get('#app button[title=&quot;Add Requirement/Task&quot;]').click()
+    cy.get('#task-name').click()
+    cy.get('#task-name').type('tesk task')
+    cy.get('#task-parent').select('1')
+    cy.get('#task-start-date input.el-input__inner-input').click()
+    cy.get('div.is-today div.el-date-table__cell-inner').first().click()
+    cy.get('button.el-date-picker-btn').first().click()
+    cy.get('#task-end-date input.el-input__inner-input').click()
+    cy.get('.el-date-table__cell:not(.is-other-month) .el-date-table__cell-inner').last().click()
+    cy.get('button.el-date-picker-btn').first().click()
+    cy.get('button.gantt-btn-primary').click()
+})
+
+it('upload fil', function () {
+    cy.visit('http://localhost:5173/builder/homepage')
+    cy.get('#app a[href=&quot;/builder/bygger/4saOtXN8KfOpF3XkAy33&quot;]').click()
+    cy.get('#app a[href=&quot;/builder/upload/4saOtXN8KfOpF3XkAy33&quot;] div.card__icon').click()
+    cy.get('#app svg.lucide-file-text').click()
+    cy.get('input[accept=&quot;.pdf,.doc,.docx&quot;]').selectFile('cypress/fixtures/test.pdf', { force: true })
+    cy.get('#app div:nth-child(1) > button.upload-card__btn').click()
+})
+
+it('upload billede', function () {
+    cy.visit('http://localhost:5173/builder/homepage')
+    cy.get('#app a[href=&quot;/builder/bygger/4saOtXN8KfOpF3XkAy33&quot;]').click()
+    cy.get('#app a[href=&quot;/builder/upload/4saOtXN8KfOpF3XkAy33&quot;]').click()
+    cy.get('#app div:nth-child(2) > select.upload-card__select').select('1')
+    cy.get('#app input.upload-card__input-text').click()
+    cy.get('#app input.upload-card__input-text').type('det et test billede')
+    cy.get('input[accept=&quot;image/*&quot;]').selectFile('cypress/fixtures/test.png', { force: true })
+    cy.get('#app div:nth-child(2) > button.upload-card__btn').click()
+})
+</code></pre>
 <hr>
 <h3>buyer.cy.js — Køber portal</h3>
 <p>Verificerer at køberens arbejdsgange fungerer korrekt.</p>
@@ -159,6 +260,51 @@ npx cypress open
 </tr>
 </tbody>
 </table>
+<pre class="prettyprint source lang-js"><code>it('homepage', function () {
+    cy.visit('http://localhost:5173/login')
+    cy.get('#app input[type=&quot;email&quot;]').type('maja@mail.dk')
+    cy.get('#app input[type=&quot;password&quot;]').type('majatest')
+    cy.get('#app button.login__btn').click()
+})
+
+it('buildPlan', function () {
+    cy.visit('http://localhost:5173/login')
+    cy.get('#app input[type=&quot;email&quot;]').type('maja@mail.dk')
+    cy.get('#app input[type=&quot;password&quot;]').type('majatest')
+    cy.get('#app button.login__btn').click()
+    cy.get('#app svg.buyer-footer__icon.lucide-calendar').click()
+    cy.get('#app div.phase-card--completed h3.phase-card__title').click()
+})
+
+it('messages', function () {
+    cy.visit('http://localhost:5173/login')
+    cy.get('#app input[type=&quot;email&quot;]').type('maja@mail.dk')
+    cy.get('#app input[type=&quot;password&quot;]').type('majatest')
+    cy.get('#app button.login__btn').click()
+    cy.get('#app svg.buyer-footer__icon.lucide-message-circle').click()
+})
+
+it('more', function () {
+    cy.visit('http://localhost:5173/login')
+    cy.get('#app input[type=&quot;email&quot;]').type('maja@mail.dk')
+    cy.get('#app input[type=&quot;password&quot;]').type('majatest')
+    cy.get('#app button.login__btn').click()
+    cy.get('#app svg.lucide-ellipsis').click()
+    cy.get('#app a[href=&quot;/buyer/dokumenter&quot;] h3.card__title').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app a[href=&quot;/buyer/kontakt&quot;] div.card__content').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app a[href=&quot;/buyer/profil&quot;] h3.card__title').click()
+    cy.get('#app button.profile-card__edit-btn').click()
+    cy.get('#app div:nth-child(2) > input.profile-card__input').click()
+    cy.get('#app div:nth-child(3) > input.profile-card__input').click()
+    cy.get('#app button.profile-card__edit-btn').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app a[href=&quot;/buyer/settings&quot;] p.card__text').click()
+    cy.get('#app button.back-button').click()
+    cy.get('#app button.logout-btn').click()
+})
+</code></pre>
 <hr>
 <h2>Fixtures</h2>
 <p>Testene bruger to fixture-filer til filupload:</p>
@@ -191,7 +337,7 @@ npx cypress open
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 11:13:41 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 11:23:29 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
