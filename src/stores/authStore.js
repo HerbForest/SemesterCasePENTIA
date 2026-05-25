@@ -60,7 +60,7 @@ export const useAuthStore = defineStore('auth', () => {
      */
 	const onAuthReady = (callback) => {
 		if (!loading.value) {
-			callback(user.value);
+			Promise.resolve(callback(user.value))
 			return () => {};
 		}
 		return onAuthStateChanged(auth, callback);
