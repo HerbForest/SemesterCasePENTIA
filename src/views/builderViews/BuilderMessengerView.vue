@@ -11,20 +11,26 @@ const projectStore = useProjectStore();
 const buyerStore = useBuyerStore();
 
 const conversations = ref([]);
+const loading = ref(true)
 
 onMounted(async () => {
 	await projectStore.fetchProjectsByBuilder(authStore.user.uid);
 
-	for (const project of projectStore.builderProjects) {
-		const buyer = await buyerStore.fetchBuyerByProjectId(project.id);
-		if (buyer) {
-			conversations.value.push(buildConversation(buyer, project));
-		}
-	}
+	const results = await Promise.all(
+        projectStore.builderProjects.map(project =>
+            buyerStore.fetchBuyerByProjectId(project.id)
+                .then(buyer => buyer ? buildConversation(buyer, project) : null)
+        )
+    )
+  conversations.value = results.filter(Boolean)
+  loading.value = false
 });	
 </script>
 <template>
   <div class="builder-messages">
+      <div v-if="loading">
+            <!-- Ingenting vises mens samtaler hentes -->
+      </div>
       <ConversationCard
           v-for="conversation in conversations"
           :key="conversation.address"
