@@ -49,14 +49,14 @@ export const useAuthStore = defineStore('auth', () => {
 
 	const authReady = new Promise((resolve) => {
 		onAuthStateChanged(auth, (firebaseUser) => {
-			user.value = firebaseUser
-			loading.value = false
-			resolve(firebaseUser)
-		})
-	})
+			user.value = firebaseUser;
+			loading.value = false;
+			resolve(firebaseUser);
+		});
+	});
 
 	const onAuthChange = (callback) => {
-		return onAuthStateChanged(auth, callback)
-	}
+		return onAuthStateChanged(auth, callback);
+	};
 	return { user, loading, login, logout, authReady, onAuthChange };
 });

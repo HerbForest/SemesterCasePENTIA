@@ -5,15 +5,15 @@ import { useAuthStore } from '@/stores/authStore';
 import { db } from '@/config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { Eye, EyeOff } from '@lucide/vue';
-import { useBuyerStore } from '@/stores/buyerStore'
-import { useProjectStore } from '@/stores/projectStore'
-import { useBuilderStore } from '@/stores/builderStore'
-import { useImageStore } from '@/stores/imageStore'
+import { useBuyerStore } from '@/stores/buyerStore';
+import { useProjectStore } from '@/stores/projectStore';
+import { useBuilderStore } from '@/stores/builderStore';
+import { useImageStore } from '@/stores/imageStore';
 
-const buyerStore = useBuyerStore()
-const projectStore = useProjectStore()
-const builderStore = useBuilderStore()
-const imageStore = useImageStore()
+const buyerStore = useBuyerStore();
+const projectStore = useProjectStore();
+const builderStore = useBuilderStore();
+const imageStore = useImageStore();
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -25,29 +25,29 @@ const loading = ref(false);
 const showPassword = ref(false);
 
 const handleLogin = async () => {
-    error.value = '';
-    loading.value = true;
-    try {
-        await authStore.login(email.value, password.value);
+	error.value = '';
+	loading.value = true;
+	try {
+		await authStore.login(email.value, password.value);
         
-        const uid = authStore.user.uid;
-        const snap = await getDoc(doc(db, 'users', uid));
+		const uid = authStore.user.uid;
+		const snap = await getDoc(doc(db, 'users', uid));
         
-        if (snap.exists() && snap.data().role === 'byggeleder') {
-            router.push('/builder/homepage');
-        } else {
-            await buyerStore.fetchBuyer(uid);
-            await projectStore.fetchProject(buyerStore.buyer.projectId);
-            await builderStore.fetchBuilder(projectStore.project.builderId);
-            await imageStore.fetchImagesByProject(projectStore.project.id);
-            router.push('/buyer/home');
-        }
-    } catch {
-        error.value = 'Forkert email eller adgangskode';
-    } finally {
-        loading.value = false;
-    }
-}
+		if (snap.exists() && snap.data().role === 'byggeleder') {
+			router.push('/builder/homepage');
+		} else {
+			await buyerStore.fetchBuyer(uid);
+			await projectStore.fetchProject(buyerStore.buyer.projectId);
+			await builderStore.fetchBuilder(projectStore.project.builderId);
+			await imageStore.fetchImagesByProject(projectStore.project.id);
+			router.push('/buyer/home');
+		}
+	} catch {
+		error.value = 'Forkert email eller adgangskode';
+	} finally {
+		loading.value = false;
+	}
+};
 </script>
 
 <template>

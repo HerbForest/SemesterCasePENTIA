@@ -3,8 +3,8 @@ import { ref } from 'vue';
 import { Paperclip, Send } from '@lucide/vue';
 
 defineProps({
-    constrained: { type: Boolean, default: false }
-})
+	constrained: { type: Boolean, default: false }
+});
 
 const message = ref('');
 </script>

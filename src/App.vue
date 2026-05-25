@@ -21,29 +21,29 @@ let unsubscribeAuth = null;
 const dataReady = ref(false);
 
 onMounted(async () => {
-	const user = await authStore.authReady
+	const user = await authStore.authReady;
 
-			if (user) {
-				const snap = await getDoc(doc(db, 'users', user.uid));
-				const role = snap.data()?.role;
+	if (user) {
+		const snap = await getDoc(doc(db, 'users', user.uid));
+		const role = snap.data()?.role;
 
-				if (role !== 'byggeleder') {
-					await buyerStore.fetchBuyer(user.uid);
-					await projectStore.fetchProject(buyerStore.buyer.projectId);
-					await builderStore.fetchBuilder(projectStore.project.builderId);
-					await imageStore.fetchImagesByProject(projectStore.project.id);
-				}
-			} else {
-				router.push('/login');
-			}
-		   dataReady.value = true
+		if (role !== 'byggeleder') {
+			await buyerStore.fetchBuyer(user.uid);
+			await projectStore.fetchProject(buyerStore.buyer.projectId);
+			await builderStore.fetchBuilder(projectStore.project.builderId);
+			await imageStore.fetchImagesByProject(projectStore.project.id);
+		}
+	} else {
+		router.push('/login');
+	}
+		   dataReady.value = true;
 
-    unsubscribeAuth = authStore.onAuthChange((user) => {
-        if (!user && router.currentRoute.value.path !== '/login') {
-            router.push('/login')
-        }
-    })
-})
+	unsubscribeAuth = authStore.onAuthChange((user) => {
+		if (!user && router.currentRoute.value.path !== '/login') {
+			router.push('/login');
+		}
+	});
+});
 
 onUnmounted(() => {
 	if (unsubscribeAuth) unsubscribeAuth();
