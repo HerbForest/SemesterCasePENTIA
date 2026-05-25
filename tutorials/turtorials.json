@@ -28,5 +28,8 @@
   },
   "e2eTest": {
     "title": "E2E Test"
+  },
+   "mappeStruktur": {
+    "title": "Mappe Struktur"
   }
 }
