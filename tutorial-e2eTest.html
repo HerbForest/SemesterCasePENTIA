@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Tutorial: e2eTest - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Tutorials</h3><ul><li><a href="tutorial-actions.html">Actions</a></li><li><a href="tutorial-architecture.html">Architecture</a></li><li><a href="tutorial-branching.html">Branching</a></li><li><a href="tutorial-database.html">Database</a></li><li><a href="tutorial-e2eTest.html">e2eTest</a></li><li><a href="tutorial-gitCommit.html">Git Commit</a></li><li><a href="tutorial-linting.html">Linting</a></li><li><a href="tutorial-refactoring.html">Refactoring</a></li><li><a href="tutorial-unitTest.html">Unit test</a></li></ul><h3>Global</h3><ul><li><a href="global.html#buildConversation">buildConversation</a></li><li><a href="global.html#fetchBuyerByProjectId">fetchBuyerByProjectId</a></li><li><a href="global.html#getPhasesWithImages">getPhasesWithImages</a></li><li><a href="global.html#useAuthStore">useAuthStore</a></li><li><a href="global.html#useBuilderStore">useBuilderStore</a></li><li><a href="global.html#useBuyerStore">useBuyerStore</a></li><li><a href="global.html#useDocumentStore">useDocumentStore</a></li><li><a href="global.html#useImageStore">useImageStore</a></li><li><a href="global.html#useProgressStore">useProgressStore</a></li><li><a href="global.html#useProjectStore">useProjectStore</a></li><li><a href="global.html#useTaskStore">useTaskStore</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Tutorial: e2eTest</h1>
+    
+
+    <section>
+
+<header>
+    
+
+    <h2>e2eTest</h2>
+</header>
+
+<article>
+    <h1>End-to-End Tests</h1>
+<p>End-to-end tests verificerer at hele applikationen fungerer korrekt fra brugerens perspektiv — fra login til interaktion med data. Testene kører i en rigtig browser via Cypress og taler med den rigtige Firebase-database.</p>
+<h2>Forudsætninger</h2>
+<p>Testene kræver en <code>cypress.env.json</code> fil i projektets rod med følgende indhold:</p>
+<pre class="prettyprint source lang-json"><code>{
+  &quot;BUILDER_EMAIL&quot;: &quot;morten@mileton.dk&quot;,
+  &quot;BUILDER_PASSWORD&quot;: &quot;mortenmileton&quot;,
+  &quot;BUYER_EMAIL&quot;: &quot;maja@mail.dk&quot;,
+  &quot;BUYER_PASSWORD&quot;: &quot;majatest&quot;
+}
+</code></pre>
+<p>Filen må ikke committes til git — den indeholder følsomme oplysninger.</p>
+<h2>Sådan kører du testene</h2>
+<p>Start dev-serveren i én terminal og Cypress i en anden:</p>
+<pre class="prettyprint source lang-bash"><code>npm run dev
+npx cypress open
+</code></pre>
+<h2>Testfiler</h2>
+<h3>auth.cy.js — Login flow</h3>
+<p>Verificerer at login-siden sender brugere til den rigtige portal baseret på deres rolle.</p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Hvad der testes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sender builder til builder homepage</td>
+<td>Byggeleder logger ind og landes på <code>/builder/homepage</code></td>
+</tr>
+<tr>
+<td>sender buyer til buyer homepage</td>
+<td>buyer logger ind og landes på <code>/buyer/home</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>builder.cy.js — Byggeleder portal</h3>
+<p>Verificerer at byggelederens arbejdsgange fungerer korrekt.</p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Hvad der testes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>builder kan se projekter på homepage</td>
+<td>Projektkort vises på forsiden efter login</td>
+</tr>
+<tr>
+<td>see gantt diagram</td>
+<td>Navigation fra forsiden til et projekt viser Gantt-diagrammet</td>
+</tr>
+<tr>
+<td>se byggeplan</td>
+<td>Navigation til byggeplan-siden fungerer</td>
+</tr>
+<tr>
+<td>se beskeder</td>
+<td>Navigation til beskeder og ind/ud af samtaler fungerer</td>
+</tr>
+<tr>
+<td>see mere</td>
+<td>Navigation til indstillinger fungerer</td>
+</tr>
+<tr>
+<td>create task</td>
+<td>Oprettelse af en ny task i Gantt-diagrammet med navn, startdato og slutdato</td>
+</tr>
+<tr>
+<td>upload fil</td>
+<td>Navigation til upload-siden og upload af en PDF-fil</td>
+</tr>
+<tr>
+<td>upload billede</td>
+<td>Navigation til upload-siden og upload af et billede med beskrivelse</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3>buyer.cy.js — Køber portal</h3>
+<p>Verificerer at køberens arbejdsgange fungerer korrekt.</p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Hvad der testes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>homepage</td>
+<td>Køber logger ind og ser forsiden</td>
+</tr>
+<tr>
+<td>buildPlan</td>
+<td>Navigation til byggeplan og klik på en færdig fase</td>
+</tr>
+<tr>
+<td>messages</td>
+<td>Navigation til beskedoversigten</td>
+</tr>
+<tr>
+<td>more</td>
+<td>Navigation gennem mere-menuen: dokumenter, kontakt, profil (inkl. redigering), indstillinger og logout</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2>Fixtures</h2>
+<p>Testene bruger to fixture-filer til filupload:</p>
+<table>
+<thead>
+<tr>
+<th>Fil</th>
+<th>Bruges til</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cypress/fixtures/test.pdf</code></td>
+<td>Dokument-upload test</td>
+</tr>
+<tr>
+<td><code>cypress/fixtures/test.png</code></td>
+<td>Billede-upload test</td>
+</tr>
+</tbody>
+</table>
+</article>
+
+</section>
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Mon May 25 2026 08:38:29 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
