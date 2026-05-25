@@ -12,6 +12,7 @@ export default defineConfig([
 		'themes/**',
 		'vite.config.js',
 		'cypress/**',
+		'cypress.config.js',
 	]),
 
 	{
