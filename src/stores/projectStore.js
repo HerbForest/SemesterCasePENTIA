@@ -1,13 +1,13 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
-import { db } from "@/config/firebase";
-import { doc, getDoc, getDocs, collection, query, where } from "firebase/firestore";
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
+import { db } from '@/config/firebase';
+import { doc, getDoc, getDocs, collection, query, where } from 'firebase/firestore';
 
 /**
  * Store til håndtering af projekter fra Firestore.
  * Henter og holder styr på projekter for både enkeltvisning og byggeleder-oversigt.
  */
-export const useProjectStore = defineStore("project", () => {
+export const useProjectStore = defineStore('project', () => {
 	/** @type {import('vue').Ref<Object|null>} Det aktuelt valgte projekt */
 	const project = ref(null);
 
@@ -24,12 +24,12 @@ export const useProjectStore = defineStore("project", () => {
 	const fetchProject = async (projectId) => {
 		loading.value = true;
 		try {
-			const snap = await getDoc(doc(db, "projects", projectId));
+			const snap = await getDoc(doc(db, 'projects', projectId));
 			if (snap.exists()) {
 				project.value = { id: snap.id, ...snap.data() };
 			}
 		} catch (error) {
-			console.error("Fejl ved hentning af projekt:", error);
+			console.error('Fejl ved hentning af projekt:', error);
 		} finally {
 			loading.value = false;
 		}
@@ -43,11 +43,11 @@ export const useProjectStore = defineStore("project", () => {
 	const fetchProjectsByBuilder = async (builderId) => {
 		loading.value = true;
 		try {
-			const q = query(collection(db, "projects"), where("builderId", "==", builderId));
+			const q = query(collection(db, 'projects'), where('builderId', '==', builderId));
 			const snap = await getDocs(q);
 			builderProjects.value = snap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 		} catch (error) {
-			console.error("Fejl ved hentning af byggeleder projekter:", error);
+			console.error('Fejl ved hentning af byggeleder projekter:', error);
 		} finally {
 			loading.value = false;
 		}

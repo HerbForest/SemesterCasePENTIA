@@ -1,13 +1,13 @@
-import { defineStore } from "pinia";
-import { ref, computed } from "vue";
-import { db } from "@/config/firebase";
-import { doc, getDocs, collection, setDoc, deleteDoc } from "firebase/firestore";
+import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
+import { db } from '@/config/firebase';
+import { doc, getDocs, collection, setDoc, deleteDoc } from 'firebase/firestore';
 
 /**
  * Store til håndtering af opgaver (tasks) fra Firestore.
  * Understøtter både enkelt-projekt visning og tværgående overblik på tværs af projekter.
  */
-export const useTaskStore = defineStore("task", () => {
+export const useTaskStore = defineStore('task', () => {
 	/** @type {import('vue').Ref<Array>} Tasks tilknyttet det aktuelt valgte projekt */
 	const tasks = ref([]);
 
@@ -34,10 +34,10 @@ export const useTaskStore = defineStore("task", () => {
 	const fetchTasks = async (projectId) => {
 		loading.value = true;
 		try {
-			const snap = await getDocs(collection(db, "projects", projectId, "tasks"));
+			const snap = await getDocs(collection(db, 'projects', projectId, 'tasks'));
 			tasks.value = snap.docs.map((d) => ({ firestoreId: d.id, ...d.data() }));
 		} catch (error) {
-			console.error("Fejl ved hentning af tasks:", error);
+			console.error('Fejl ved hentning af tasks:', error);
 		} finally {
 			loading.value = false;
 		}
@@ -49,7 +49,7 @@ export const useTaskStore = defineStore("task", () => {
 	 */
 	const fetchTasksForAllProjects = async (projects) => {
 		for (const project of projects) {
-			const snap = await getDocs(collection(db, "projects", project.id, "tasks"));
+			const snap = await getDocs(collection(db, 'projects', project.id, 'tasks'));
 			allProjectsTasks.value[project.id] = snap.docs.map((d) => ({ ...d.data() }));
 		}
 	};
@@ -61,10 +61,10 @@ export const useTaskStore = defineStore("task", () => {
 	 */
 	const addTask = async (projectId, task) => {
 		try {
-			await setDoc(doc(collection(db, "projects", projectId, "tasks"), String(task.id)), task);
+			await setDoc(doc(collection(db, 'projects', projectId, 'tasks'), String(task.id)), task);
 			tasks.value.push(task);
 		} catch (error) {
-			console.error("Fejl ved tilføjelse af task:", error);
+			console.error('Fejl ved tilføjelse af task:', error);
 		}
 	};
 
@@ -75,11 +75,11 @@ export const useTaskStore = defineStore("task", () => {
 	 */
 	const updateTask = async (projectId, task) => {
 		try {
-			await setDoc(doc(db, "projects", projectId, "tasks", String(task.id)), task);
+			await setDoc(doc(db, 'projects', projectId, 'tasks', String(task.id)), task);
 			const index = tasks.value.findIndex((t) => t.id === task.id);
 			if (index !== -1) tasks.value[index] = task;
 		} catch (error) {
-			console.error("Fejl ved opdatering af task:", error);
+			console.error('Fejl ved opdatering af task:', error);
 		}
 	};
 
@@ -90,10 +90,10 @@ export const useTaskStore = defineStore("task", () => {
 	 */
 	const deleteTask = async (projectId, taskId) => {
 		try {
-			await deleteDoc(doc(db, "projects", projectId, "tasks", String(taskId)));
+			await deleteDoc(doc(db, 'projects', projectId, 'tasks', String(taskId)));
 			tasks.value = tasks.value.filter((t) => t.id !== taskId);
 		} catch (error) {
-			console.error("Fejl ved sletning af task:", error);
+			console.error('Fejl ved sletning af task:', error);
 		}
 	};
 
