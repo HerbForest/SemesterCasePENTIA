@@ -19,21 +19,18 @@ I projektet anvendes **Trunk-Based Development** som branch strategi. I Trunk-Ba
     </marker>
   </defs>
 
-  <!-- Baggrund -->
-  <rect width="680" height="520" fill="#1C1B19" rx="12"/>
-
   <!-- Main branch line -->
-  <line x1="40" y1="100" x2="640" y2="100" stroke="#C2C0B6" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="40" y1="100" x2="640" y2="100" stroke="#888780" stroke-width="2.5" stroke-linecap="round"/>
 
   <!-- Main label -->
-  <text x="40" y="70" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#FAF9F5">main</text>
-  <text x="40" y="88" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">Enkelt kilde til sandhed</text>
+  <text x="40" y="70" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#1C1B19">main</text>
+  <text x="40" y="88" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Enkelt kilde til sandhed</text>
 
   <!-- Commit dots on main -->
-  <circle cx="100" cy="100" r="7" fill="#C2C0B6" opacity="0.5"/>
-  <circle cx="260" cy="100" r="7" fill="#C2C0B6" opacity="0.5"/>
-  <circle cx="440" cy="100" r="7" fill="#C2C0B6" opacity="0.5"/>
-  <circle cx="600" cy="100" r="7" fill="#C2C0B6" opacity="0.3"/>
+  <circle cx="100" cy="100" r="7" fill="#888780" opacity="0.5"/>
+  <circle cx="260" cy="100" r="7" fill="#888780" opacity="0.5"/>
+  <circle cx="440" cy="100" r="7" fill="#888780" opacity="0.5"/>
+  <circle cx="600" cy="100" r="7" fill="#888780" opacity="0.3"/>
 
   <!-- Merge commit rings -->
   <circle cx="260" cy="100" r="12" fill="none" stroke="#1D9E75" stroke-width="2"/>
@@ -45,9 +42,9 @@ I projektet anvendes **Trunk-Based Development** som branch strategi. I Trunk-Ba
   <path d="M230 220 Q255 220 260 100" fill="none" stroke="#1D9E75" stroke-width="1.5" marker-end="url(#arrow-green)"/>
 
   <!-- Branch 1 node -->
-  <rect x="148" y="198" width="164" height="44" rx="8" fill="#085041" stroke="#5DCAA5" stroke-width="0.5"/>
-  <text x="230" y="216" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#9FE1CB">hero-card</text>
-  <text x="230" y="233" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#5DCAA5">1–2 dages arbejde</text>
+  <rect x="148" y="198" width="164" height="44" rx="8" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
+  <text x="230" y="216" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#085041">hero-card</text>
+  <text x="230" y="233" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#0F6E56">1–2 dages arbejde</text>
   <circle cx="200" cy="220" r="5" fill="#1D9E75" opacity="0.7"/>
 
   <!-- Branch 2: logout-component -->
@@ -56,30 +53,30 @@ I projektet anvendes **Trunk-Based Development** som branch strategi. I Trunk-Ba
   <path d="M410 330 Q435 330 440 100" fill="none" stroke="#534AB7" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
 
   <!-- Branch 2 node -->
-  <rect x="300" y="308" width="180" height="44" rx="8" fill="#3C3489" stroke="#AFA9EC" stroke-width="0.5"/>
-  <text x="390" y="326" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#CECBF6">logout-component</text>
-  <text x="390" y="343" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#AFA9EC">1–2 dages arbejde</text>
+  <rect x="300" y="308" width="180" height="44" rx="8" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.5"/>
+  <text x="390" y="326" text-anchor="middle" font-family="system-ui, sans-serif" font-size="14" font-weight="500" fill="#26215C">logout-component</text>
+  <text x="390" y="343" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#534AB7">1–2 dages arbejde</text>
   <circle cx="370" cy="330" r="5" fill="#534AB7" opacity="0.7"/>
 
   <!-- Merge labels -->
-  <text x="260" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">Merge</text>
-  <text x="440" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">Merge</text>
+  <text x="260" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Merge</text>
+  <text x="440" y="68" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Merge</text>
 
   <!-- Legend box -->
-  <rect x="40" y="420" width="600" height="80" rx="8" fill="none" stroke="#3A3835" stroke-width="0.5"/>
-  <text x="60" y="444" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">Arbejdsgang:</text>
+  <rect x="40" y="420" width="600" height="80" rx="8" fill="none" stroke="#CCCCCC" stroke-width="0.5"/>
+  <text x="60" y="444" font-family="system-ui, sans-serif" font-size="12" fill="#666666">Arbejdsgang:</text>
 
-  <circle cx="70" cy="466" r="5" fill="#C2C0B6" opacity="0.5"/>
-  <text x="84" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">1. Opret branch fra main</text>
+  <circle cx="70" cy="466" r="5" fill="#888780" opacity="0.5"/>
+  <text x="84" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#444444">1. Opret branch fra main</text>
 
   <circle cx="230" cy="466" r="5" fill="#1D9E75" opacity="0.8"/>
-  <text x="244" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">2. Arbejd på feature</text>
+  <text x="244" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#444444">2. Arbejd på feature</text>
 
   <circle cx="380" cy="466" r="5" fill="#534AB7" opacity="0.8"/>
-  <text x="394" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">3. Merge til main dagligt</text>
+  <text x="394" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#444444">3. Merge til main dagligt</text>
 
-  <circle cx="545" cy="466" r="5" fill="none" stroke="#C2C0B6" stroke-width="1.5"/>
-  <text x="559" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#C2C0B6">4. Slet branch</text>
+  <circle cx="545" cy="466" r="5" fill="none" stroke="#888780" stroke-width="1.5"/>
+  <text x="559" y="471" font-family="system-ui, sans-serif" font-size="12" fill="#444444">4. Slet branch</text>
 </svg>
 
 **Et eksempel:**
