@@ -47,7 +47,84 @@
 </header>
 
 <article>
+    <h2>Udfordringer med JSDoc dokumentation af Pinia stores</h2>
+<p>Under arbejdet med teknisk dokumentation opstod der en udfordring med at generere JSDoc dokumentation fra projektets Pinia stores.</p>
+<h3>Problemet</h3>
+<p>Pinia stores er struktureret som funktioner der returnerer state, actions og getters inde i et <code>defineStore</code> callback:</p>
+<pre class="prettyprint source lang-js"><code>export const useBuyerStore = defineStore('buyer', () => {
+    const buyer = ref(null)
     
+    const fetchBuyer = async (buyerId) => { ... }
+    
+    return { buyer, fetchBuyer }
+})
+</code></pre>
+<p>JSDoc parseren behandler dette som en enkelt eksporteret konstant – <code>useBuyerStore</code> – og stopper ved linje 10 hvor <code>defineStore</code> callback'en begynder. Funktionerne inde i callback'en betragtes ikke som selvstændige dokumenterbare enheder, da de er defineret som <code>const</code> inde i en anonym funktion. Resultatet var at dokumentationen kun viste storen som én konstant med en beskrivelse, mens alle funktioner – <code>fetchBuyer</code>, <code>updateBuyer</code>, <code>fetchBuyerByProjectId</code> – ikke blev dokumenteret individuelt men i stedet fremstod som et screenshot af hele filen.</p>
+<h3>Forsøgt løsning</h3>
+<p>Vi forsøgte at løse problemet ved at tilføje <code>@memberof</code> tagget til hver funktion så JSDoc kunne knytte dem til den overordnede store:</p>
+<pre class="prettyprint source lang-js"><code>/**
+ * @memberof useBuyerStore
+ * @param {string} buyerId
+ */
+const fetchBuyer = async (buyerId) => { ... }
+</code></pre>
+<p>Dette hjalp delvist men gav ikke den ønskede strukturerede dokumentation.</p>
+<h3>Løsningen</h3>
+<p>Da Pinia stores med setup syntax ikke er naturligt understøttet af JSDoc parseren, valgte vi i stedet at fokusere dokumentationen på projektets utility funktioner i <code>src/utils</code> mappen. Disse funktioner er rene JavaScript funktioner eksporteret direkte uden framework afhængigheder, og JSDoc parser dem korrekt som selvstændige dokumenterbare enheder:</p>
+<pre class="prettyprint source lang-js"><code>// src/utils/initials.js
+/**
+ * Genererer initialer fra et for- og efternavn
+ * @param {string} firstName
+ * @param {string} lastName
+ * @returns {string}
+ */
+export const getInitials = (firstName, lastName) => { ... }
+</code></pre>
+<p>Dette gav en korrekt og læsbar dokumentation for alle utility funktioner i projektet.</p>
+<h2>Udfordringer med unit tests</h2>
+<h3>Problemet</h3>
+<p>Da vi skulle skrive unit tests opstod der en udfordring med at finde funktioner der var isolerede nok til at kunne testes. Projektets logik lå primært to steder:</p>
+<p><strong>I Pinia stores</strong> – her var logikken tæt koblet til Firebase via <code>getDoc</code>, <code>getDocs</code> og <code>addDoc</code>. Det betyder at en test af fx <code>fetchBuyer</code> ville kræve at vi mockede Firebase, hvilket gør testene komplekse og skrøbelige.</p>
+<p><strong>Som computed værdier i views</strong> – logik som fase status beregning og billedfiltrering lå hardcodet direkte i <code>&lt;script setup&gt;</code> blokken som computed værdier:</p>
+<pre class="prettyprint source lang-js"><code>// BuyerBuildPlanView.vue
+const phases = computed(() => {
+    const parentTasks = taskStore.tasks.filter(task => task.isParent)
+    const activeIndex = parentTasks.findIndex(task => (task.progress ?? 0) &lt; 100)
+    return parentTasks.map((task, index) => ({
+        status: task.progress === 100 ? 'completed' : index === activeIndex ? 'active' : 'upcoming',
+        ...
+    }))
+})
+</code></pre>
+<p>Denne logik var ikke testbar i isolation fordi den var afhængig af Vue's reaktivitetssystem og <code>taskStore</code>.</p>
+<h3>Løsningen</h3>
+<p>Løsningen var at refaktorere den logik der var ren JavaScript – uden Vue eller Firebase afhængigheder – og flytte den til separate filer i <code>src/utils</code> mappen. En ren JavaScript funktion tager et input og returnerer et output uden side effects, og er derfor nem at teste isoleret.</p>
+<p>Et eksempel er <code>getPhaseStatus</code> der blev udtrukket fra <code>BuyerBuildPlanView.vue</code> til <code>src/utils/phaseStatus.js</code>:</p>
+<pre class="prettyprint source lang-js"><code>export const getPhaseStatus = (tasks) => {
+    if (!tasks?.length) return []
+    const parentTasks = tasks.filter(task => task.isParent)
+    const activeIndex = parentTasks.findIndex(task => (task.progress ?? 0) &lt; 100)
+    return parentTasks.map((task, index) => ({
+        status: task.progress === 100 ? 'completed' : index === activeIndex ? 'active' : 'upcoming',
+        ...
+    }))
+}
+</code></pre>
+<p>Og i viewet blev computed reduceret til én linje:</p>
+<pre class="prettyprint source lang-js"><code>const phases = computed(() => getPhaseStatus(taskStore.tasks))
+</code></pre>
+<p>Dette gjorde det muligt at skrive isolerede unit tests der ikke kræver Firebase eller Vue:</p>
+<pre class="prettyprint source lang-js"><code>it('markerer kun første ufærdige fase som active', () => {
+    const tasks = [
+        { id: 1, name: 'Fundament', isParent: true, progress: 100 },
+        { id: 2, name: 'Råhus', isParent: true, progress: 50 },
+    ]
+    const result = getPhaseStatus(tasks)
+    expect(result[0].status).toBe('completed')
+    expect(result[1].status).toBe('active')
+})
+</code></pre>
+<p>Samme tilgang blev anvendt for <code>getInitials</code>, <code>getPhasesWithImages</code> og <code>buildConversation</code> der alle blev udtrukket til <code>src/utils</code> og forsynet med unit tests.</p>
 </article>
 
 </section>
@@ -59,7 +136,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue May 26 2026 07:01:44 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.5</a> on Tue May 26 2026 07:10:53 GMT+0000 (Coordinated Universal Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>
