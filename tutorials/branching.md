@@ -6,7 +6,7 @@ Branching er en funktion i versionskontrolsystemer som Git der gør det muligt a
 
 I projektet anvendes **Trunk-Based Development** som branch strategi. I Trunk-Based Development er `main` den primære branch. Der arbejdes i korte feature branches der holdes til mindre afgrænsede features eller views, og som merges tilbage i `main` når featuren er færdig, minimum én gang dagligt når der arbejdes aktivt på projektet.
 
-![Trunk-Based Development diagram](trunk_based_development_branching.svg)
+<img src="trunk_based_development_branching.svg" alt="Trunk-Based Development diagram" width="100%">
 
 **Et eksempel:**
 
