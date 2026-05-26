@@ -4,9 +4,9 @@
 
 Unit tests er automatiserede tests der tester en enkelt, isoleret funktion eller et stykke logik. Formålet er at sikre at funktionen opfører sig korrekt under forskellige betingelser både de forventede og de uventede. En god unit test er hurtig at køre, nem at forstå og uafhængig af eksterne systemer som databaser eller netværk.
 
-## Overvejelser
+## test strategi
 
-I dette projekt er unit tests skrevet til rene JavaScript funktioner der er udtrukket fra Vue komponenter og stores til en dedikeret `utils` mappe. Disse funktioner er valgt fordi de:
+I rojektet er unit tests skrevet til rene JavaScript funktioner der er udtrukket fra Vue komponenter og stores til en dedikeret `utils` mappe. Disse funktioner er valgt fordi de:
 
 - Er uafhængige af Firebase og Vue
 - Tager et input og returnerer et output
